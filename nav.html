@@ -20,6 +20,7 @@
             --primary-txt-color: black;
             --secondary-txt-color: white;
             --normal-txt-color: rgb(84, 84, 84);
+            --content-width: 1250px;
         }
 
         * {
@@ -42,12 +43,16 @@
 
         header {
             width: 100%;
+            background-color: var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         nav {
-            background-color: var(--primary-color);
+            width: var(--content-width);
             color: var(--secondary-txt-color);
-            padding: 20px 140px;
+            padding: 20px 0px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -57,7 +62,7 @@
         .search-bar {
             flex: 1;
             gap: 80px;
-            max-width: 30vw;
+            max-width: 500px;
             position: relative;
         }
 
@@ -124,18 +129,120 @@
             border-radius: 400px;
         }
 
-        .nav-cat-items {
+        .nav-cat-items-container {
             background-color: var(--secondary-color);
             width: 100%;
             display: flex;
+            justify-content: center;
+
+        }
+
+        .nav-cat-items {
+            width: var(--content-width);
+            background-color: var(--secondary-color);
+            display: flex;
             justify-content: space-between;
-            padding: 10px 140px;
+            padding: 10px 0px;
         }
 
         .nav-cat-items li a {
             color: var(--normal-txt-color);
 
         }
+
+
+        /* -------------------------------------------- */
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #promotionalImageContainer {
+            width: var(--content-width);
+        }
+
+        .main-img-banner img {
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+        }
+
+        .secondary-img-banner img {
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+
+        /* -------------------------------------------- */
+        #productShowcase {
+            margin-top: 20px;
+            width: var(--content-width);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+        }
+
+        .product-card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .product-card {
+            border: 1px solid red;
+            padding: 15px;
+            display: grid;
+            grid-template-rows: subgrid;
+            grid-row: span 5;
+            border-radius: 10px;
+            transition: transform .2s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.02);
+        }
+
+        .product-img-container {
+            text-align: center;
+        }
+
+        .product-img-container img {
+            object-fit: contain;
+            width: 80%;
+            aspect-ratio: 1/1;
+        }
+
+        .qty-btn {
+            display: inline;
+            margin-left: 20px;
+        }
+
+        .qty-btn button {
+            border-radius: 50px;
+            height: 21px;
+            width: 21px;
+            font-size: 1rem;
+            padding-bottom: ;
+        }
+
+        .add-to-cart-btn {
+            cursor: pointer;
+            background-color: var(--primary-color);
+            border: none;
+            font-size: medium;
+            color: var(--secondary-txt-color);
+            padding: 0.4em 0px;
+            border-radius: 5px;
+        }
+
+        /* -------------------------------------------- */
     </style>
 </head>
 
@@ -154,19 +261,214 @@
                 <li class="cart-btn"><i class='bx bx-cart'></i> <span id="cart-item-amt">00</span></li>
             </ul>
         </nav>
-        <ul class="nav-cat-items">
-            <li><a href="">Meat</a></li>
-            <li><a href="">Meat</a></li>
-            <li><a href="">Meat</a></li>
-            <li><a href="">Meat</a></li>
-            <li><a href="">Meat</a></li>
-            <li><a href="">Meat</a></li>
-            <li><a href="">Meat</a></li>
-            <li><a href="">Meat</a></li>
+        <div class="nav-cat-items-container">
+            <ul class="nav-cat-items">
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
 
-        </ul>
+            </ul>
+        </div>
 
     </header>
+    <main>
+        <section id="promotionalImageContainer">
+            <div class="main-img-banner">
+                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+            </div>
+            <div class="secondary-img-banner">
+                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+            </div>
+
+        </section>
+        <section id="productShowcase">
+            <section class="featured-products">
+                <h2>Featured Products</h2>
+                <div class="product-card-container">
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                        </figure>
+                        <h3>Product Name</h3>
+                        <span>Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <!-- ------------------------------------------------------------ -->
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                        </figure>
+                        <h3>Product Name</h3>
+                        <span>Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                        </figure>
+                        <h3>Product Name dfdf dfdfd dfdfdf</h3>
+                        <span>Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                        </figure>
+                        <h3>Product Name</h3>
+                        <span>Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                        </figure>
+                        <h3>Product Name</h3>
+                        <span>Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <!-- ------------------------------------------------------------ -->
+                </div>
+
+            </section>
+
+            <!-- ---------------------------------------------------------------------- -->
+            <section class="featured-products">
+                <h2>Featured Products</h2>
+                <div class="product-card-container">
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                        </figure>
+                        <h3>Product Name</h3>
+                        <span>Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <!-- ------------------------------------------------------------ -->
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                        </figure>
+                        <h3>Product Name</h3>
+                        <span>Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                        </figure>
+                        <h3>Product Name dfdf dfdfd dfdfdf</h3>
+                        <span>Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                        </figure>
+                        <h3>Product Name</h3>
+                        <span>Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                        </figure>
+                        <h3>Product Name</h3>
+                        <span>Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <!-- ------------------------------------------------------------ -->
+                </div>
+
+            </section>
+            <!-- ---------------------------------------------------------------------- -->
+        </section>
+
+    </main>
 
 </body>
 
