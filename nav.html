@@ -21,6 +21,7 @@
             --secondary-txt-color: white;
             --normal-txt-color: rgb(84, 84, 84);
             --prod-price-color: darkgreen;
+            --btn-hover-color: rgb(0, 96, 0);
             --content-width: 1250px;
         }
 
@@ -285,11 +286,50 @@
             align-items: center;
         }
 
+        .add-to-cart-btn:hover {
+            background-color: var(--btn-hover-color);
+        }
+
         .add-to-cart-btn i {
             margin-right: 5px;
+            font-size: 1.3rem;
         }
 
         /* -------------------------------------------- */
+        .categories-container-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 200px));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .category-card a {
+            background-color: #fff;
+            box-shadow: -1px 2px 8px -2px rgba(0, 0, 0, 0.225);
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 500;
+            color: black;
+            transition: .2s;
+        }
+
+        .category-card a:hover {
+            transform: scale(1.03);
+
+        }
+
+        .category-img-container {
+            text-align: center;
+        }
+
+        .category-img-container img {
+            width: 90%;
+            object-fit: contain;
+        }
     </style>
 </head>
 
@@ -537,6 +577,79 @@
                             </p>
                         </a>
                     </div>
+                    <!-- -------------------------------------------------------------------------- -->
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+
+                    <!-- -------------------------------------------------------------------------- -->
                 </div>
             </section>
 
