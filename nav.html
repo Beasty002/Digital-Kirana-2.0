@@ -20,6 +20,7 @@
             --primary-txt-color: black;
             --secondary-txt-color: white;
             --normal-txt-color: rgb(84, 84, 84);
+            --prod-price-color: darkgreen;
             --content-width: 1250px;
         }
 
@@ -193,16 +194,21 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
+            margin-top: 10px;
         }
 
         .product-card {
-            border: 1px solid red;
+            background-color: #fff;
+            box-shadow: -1px 2px 8px -2px rgba(0, 0, 0, 0.225);
+
             padding: 15px;
             display: grid;
+            gap: 10px;
             grid-template-rows: subgrid;
             grid-row: span 5;
             border-radius: 10px;
             transition: transform .2s;
+
         }
 
         .product-card:hover {
@@ -216,23 +222,57 @@
         .product-img-container img {
             object-fit: contain;
             width: 80%;
-            aspect-ratio: 1/1;
+        }
+
+        .product-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .product-price {
+            font-weight: 500;
+            font-size: 1.09rem;
+            color: var(--prod-price-color);
+        }
+
+        .product-qty-changer {
+            display: flex;
+            align-items: center;
+        }
+
+        .product-qty-changer span:nth-child(1) {
+            font-weight: 500;
         }
 
         .qty-btn {
-            display: inline;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-left: 20px;
         }
 
+        .qty-btn span {
+            text-align: center;
+            width: 22px;
+        }
+
         .qty-btn button {
+            cursor: pointer;
             border-radius: 50px;
-            height: 21px;
-            width: 21px;
+            height: 24px;
+            width: 24px;
             font-size: 1rem;
-            padding-bottom: ;
+            background-color: gray;
+            border: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 5px;
         }
 
         .add-to-cart-btn {
+            margin-top: 10px;
             cursor: pointer;
             background-color: var(--primary-color);
             border: none;
@@ -240,6 +280,13 @@
             color: var(--secondary-txt-color);
             padding: 0.4em 0px;
             border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .add-to-cart-btn i {
+            margin-right: 5px;
         }
 
         /* -------------------------------------------- */
@@ -292,15 +339,16 @@
                 <div class="product-card-container">
                     <div class="product-card">
                         <figure class="product-img-container">
-                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
                         </figure>
-                        <h3>Product Name</h3>
-                        <span>Rs 240</span>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
                         <div class="product-qty-changer">
-                            <span>Qty</span>
+                            <span style="">Qty</span>
                             <div class="qty-btn">
                                 <button class="decrease">-</button>
-                                <span>0</span>
+                                <span>00</span>
                                 <button class="increase">+</button>
                             </div>
                         </div>
@@ -309,10 +357,11 @@
                     <!-- ------------------------------------------------------------ -->
                     <div class="product-card">
                         <figure class="product-img-container">
-                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
                         </figure>
-                        <h3>Product Name</h3>
-                        <span>Rs 240</span>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
                         <div class="product-qty-changer">
                             <span>Qty</span>
                             <div class="qty-btn">
@@ -325,10 +374,11 @@
                     </div>
                     <div class="product-card">
                         <figure class="product-img-container">
-                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
                         </figure>
-                        <h3>Product Name dfdf dfdfd dfdfdf</h3>
-                        <span>Rs 240</span>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
                         <div class="product-qty-changer">
                             <span>Qty</span>
                             <div class="qty-btn">
@@ -341,10 +391,11 @@
                     </div>
                     <div class="product-card">
                         <figure class="product-img-container">
-                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
                         </figure>
-                        <h3>Product Name</h3>
-                        <span>Rs 240</span>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
                         <div class="product-qty-changer">
                             <span>Qty</span>
                             <div class="qty-btn">
@@ -357,10 +408,11 @@
                     </div>
                     <div class="product-card">
                         <figure class="product-img-container">
-                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
                         </figure>
-                        <h3>Product Name</h3>
-                        <span>Rs 240</span>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
                         <div class="product-qty-changer">
                             <span>Qty</span>
                             <div class="qty-btn">
@@ -371,21 +423,22 @@
                         </div>
                         <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
                     </div>
+
+
                     <!-- ------------------------------------------------------------ -->
                 </div>
 
             </section>
-
-            <!-- ---------------------------------------------------------------------- -->
             <section class="featured-products">
                 <h2>Featured Products</h2>
                 <div class="product-card-container">
                     <div class="product-card">
                         <figure class="product-img-container">
-                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
                         </figure>
-                        <h3>Product Name</h3>
-                        <span>Rs 240</span>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
                         <div class="product-qty-changer">
                             <span>Qty</span>
                             <div class="qty-btn">
@@ -399,10 +452,11 @@
                     <!-- ------------------------------------------------------------ -->
                     <div class="product-card">
                         <figure class="product-img-container">
-                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
                         </figure>
-                        <h3>Product Name</h3>
-                        <span>Rs 240</span>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
                         <div class="product-qty-changer">
                             <span>Qty</span>
                             <div class="qty-btn">
@@ -415,10 +469,11 @@
                     </div>
                     <div class="product-card">
                         <figure class="product-img-container">
-                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
                         </figure>
-                        <h3>Product Name dfdf dfdfd dfdfdf</h3>
-                        <span>Rs 240</span>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
                         <div class="product-qty-changer">
                             <span>Qty</span>
                             <div class="qty-btn">
@@ -431,10 +486,11 @@
                     </div>
                     <div class="product-card">
                         <figure class="product-img-container">
-                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
                         </figure>
-                        <h3>Product Name</h3>
-                        <span>Rs 240</span>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
                         <div class="product-qty-changer">
                             <span>Qty</span>
                             <div class="qty-btn">
@@ -447,24 +503,45 @@
                     </div>
                     <div class="product-card">
                         <figure class="product-img-container">
-                            <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
                         </figure>
-                        <h3>Product Name</h3>
-                        <span>Rs 240</span>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
                         <div class="product-qty-changer">
                             <span>Qty</span>
                             <div class="qty-btn">
                                 <button class="decrease">-</button>
-                                <span>0</span>
+                                <span>00</span>
                                 <button class="increase">+</button>
                             </div>
                         </div>
                         <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
                     </div>
+
+
                     <!-- ------------------------------------------------------------ -->
                 </div>
 
             </section>
+            <section class="categories-list">
+                <h2>Categories</h2>
+                <div class="categories-container-list">
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ---------------------------------------------------------------------- -->
+
             <!-- ---------------------------------------------------------------------- -->
         </section>
 
