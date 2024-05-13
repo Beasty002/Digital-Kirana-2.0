@@ -1,8 +1,8 @@
-const { users } = require('../../model')
+const { Costumer } = require('../../model/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-exports.registerUser = (req,res) => {
+exports.registerCostumer = (req,res) => {
     const {name,email,password} = req.body
     users.create({
         name,
@@ -14,7 +14,7 @@ exports.registerUser = (req,res) => {
     })
 }
 
-exports.loginUser = async (req,res) => {
+exports.loginCostumer = async (req,res) => {
     const {email,password} = req.body
     if(!email || !password){
         return res.status(400).json({
