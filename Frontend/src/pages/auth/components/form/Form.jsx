@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const Form = ({ type,onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -32,7 +32,7 @@ const Form = ({ type,onSubmit }) => {
           {
             type === 'Register' && (
               <div className="form-group">
-                <label for="name">Name:</label>
+                <label htmlFor="name">Name:</label>
                 <input type="text" id="name" name="name" onChange={handleChange} required />
               </div>
             )

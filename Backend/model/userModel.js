@@ -7,12 +7,6 @@ const costumerSchema = new Schema({
         required:true,
         unique:true,
     },
-    firstName:{
-        type:String,
-    },
-    lastName:{
-        type:String,
-    },
     email:{
         type:String,
         required:true,
@@ -23,7 +17,15 @@ const costumerSchema = new Schema({
         required:true,
     },
     phoneNumber:{
-        type:Number
+        type:Number,
+        unique:true,
+        required:true,
+    },
+    verificarionCode :{
+        type:Number,
+    },
+    verificationCodeExpiration:{
+        type:Date,
     },
     resetToken:{
         type:String,

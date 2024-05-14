@@ -1,14 +1,32 @@
-const { Costumer } = require('../../model/userModel')
+const Costumer  = require('../../model/userModel')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const {validationResult} = require("express-validator");
 
-exports.registerCostumer = (req,res) => {
-    const {name,email,password} = req.body
-    users.create({
-        name,
-        email,
-        password:bcrypt.hashSync(password,8)
-    })
+
+exports.registerCostumer = async(req,res,next) => {
+    const {username,email,password,phoneNumber} = req.body;
+
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(422).json({
+            errorMessage: errors.array()[0].msg,
+            oldInput: {
+                username:username,
+                email:email,
+                password:password,
+                phoneNumber:phoneNumber,
+            },
+        })
+    }
+    const hashedPassword = await bcrypt.hash(password,12);
+    const costumer = new Costumer({
+        userName:username,
+        email:email,
+        password:hashedPassword,
+        phoneNumber:phoneNumber,
+    });
+    await costumer.save();
     res.status(200).json({
         message: "User registered Successfully"
     })
