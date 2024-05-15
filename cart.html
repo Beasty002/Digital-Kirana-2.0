@@ -49,6 +49,26 @@
 
         }
 
+        @media (width <=500px) {
+            #cartSlider {
+                width: 92%;
+            }
+
+            .price-denoter {
+                display: none;
+            }
+
+            .cart-product-card {
+                gap: 0px !important;
+            }
+
+            .cart-product-specification {
+                margin-left: 5px;
+            }
+
+
+        }
+
         #cartCloseBtn {
             position: absolute;
             right: 15px;
@@ -206,7 +226,7 @@
                 </div>
                 <div class="cart-product-specification">
                     <h4 class="cart-product-name">Crunchy-Cheetos </h4>
-                    <p class="cart-product-price">Price : Rs <span>20</span></p>
+                    <p class="cart-product-price"><span class="">Price : Rs</span> <span>20</span></p>
                     <div class="cart-product-qty">
                         <button class="decrease-qty cart-qty-btn">-</button>
                         <span class="cart-product-qty-value">00</span>
@@ -215,7 +235,7 @@
                 </div>
                 <div class="cart-product-total">
                     <span class="cart-item-del-btn">x</span>
-                    <p>Total : <span> Rs 30</span></p>
+                    <p><span class="price-denoter"></span> <span> Rs 30</span></p>
                 </div>
             </div>
 

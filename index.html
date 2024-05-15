@@ -31,8 +31,143 @@
             box-sizing: border-box;
         }
 
+        @media (width <=1300px) {
+            :root {
+                --content-width: 1050px;
+            }
+        }
+
+        @media (width <=1200px) {
+            :root {
+                --content-width: 1050px;
+            }
+        }
+
+        @media (width <=1150px) {
+            :root {
+                --content-width: 900px;
+            }
+        }
+
+        @media (width <=1000px) {
+            :root {
+                --content-width: 800px;
+            }
+        }
+
+        @media (width <=900px) {
+            :root {
+                --content-width: 700px;
+            }
+        }
+
+        @media (width <=800px) {
+            :root {
+                --content-width: 650px;
+            }
+        }
+
+        @media (width <=720px) {
+            :root {
+                --content-width: 100%;
+            }
+
+            body {
+                padding-bottom: 40px;
+            }
+
+            .nav-cat-items-container {
+                display: none !important;
+            }
+
+            .nav-items {
+                display: none !important;
+            }
+
+            .logo-container {
+                display: none;
+            }
+
+            .search-bar {
+                width: 100% !important;
+                font-size: 15px;
+            }
+
+            header {
+                padding: 0px 10px;
+            }
+
+            .main-nav {
+                padding: 5px 0px !important;
+                gap: 40px;
+            }
+
+            .bottom-nav {
+                display: block !important;
+            }
+
+            .menu-slider {
+                display: block !important;
+            }
+
+            .categories-list {
+                display: none;
+            }
+
+        }
+
+        @media (width <=450px) {
+
+
+            .product-card-container {
+                grid-template-columns: repeat(5, 45%);
+                overflow-x: scroll !important;
+            }
+
+            .nav-cat-items-container {
+                display: none !important;
+            }
+
+            .nav-items {
+                display: none !important;
+            }
+
+            .logo-container {
+                display: none;
+            }
+
+            .search-bar {
+                width: 100% !important;
+                font-size: 15px;
+            }
+
+            header {
+                padding: 0px 10px;
+            }
+
+            .main-nav {
+                padding: 5px 0px !important;
+                gap: 40px;
+            }
+
+            .bottom-nav {
+                display: block !important;
+            }
+
+            .menu-slider {
+                display: block !important;
+            }
+
+            .categories-list {
+                display: none;
+            }
+
+
+        }
+
         body {
             background-color: rgb(240, 240, 240);
+            overflow-x: hidden;
         }
 
         a {
@@ -54,7 +189,14 @@
             z-index: 1;
         }
 
-        nav {
+        .menu-slider {
+            cursor: pointer;
+            display: none;
+            font-size: 2.6rem;
+            padding-top: 8px;
+        }
+
+        .main-nav {
             width: var(--content-width);
             color: var(--secondary-txt-color);
             padding: 20px 0px;
@@ -64,7 +206,9 @@
             font-size: 1.2rem;
         }
 
+
         .search-bar {
+            margin-left: 20px;
             flex: 1;
             gap: 80px;
             max-width: 500px;
@@ -155,6 +299,33 @@
 
         }
 
+        .bottom-nav {
+            display: none;
+            background-color: #fff;
+            width: 100vw;
+            position: fixed;
+            bottom: 0;
+            padding: 6px 0px;
+
+        }
+
+        .bottom-nav ul {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .bottom-nav ul li a {
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
+
+        }
+
+        .bottom-nav ul li a i {
+            font-size: 18px;
+        }
 
         /* -------------------------------------------- */
         main {
@@ -194,17 +365,19 @@
 
         }
 
+
         .product-card-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(5, minmax(200px, 1fr));
             gap: 15px;
             margin-top: 10px;
+            overflow-x: auto;
+            padding-bottom: 20px;
         }
 
         .product-card {
             background-color: #fff;
             box-shadow: -1px 2px 8px -2px rgba(0, 0, 0, 0.225);
-
             padding: 15px;
             display: grid;
             gap: 10px;
@@ -301,7 +474,7 @@
         /* -------------------------------------------- */
         .categories-container-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 200px));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 10px;
             margin-top: 10px;
         }
@@ -338,9 +511,11 @@
 
 <body>
     <header>
-        <nav>
+        <nav class="main-nav">
             <div class="logo-container">
                 <img src="" alt="Logo">
+            </div>
+            <div class="menu-slider"> <i class='bx bx-menu-alt-left'></i>
             </div>
             <div class="search-bar">
                 <input type="text" name="search" placeholder="Enter the product name....">
@@ -364,8 +539,15 @@
 
             </ul>
         </div>
-
     </header>
+    <nav class="bottom-nav">
+        <ul>
+            <li><a href=""><i class='bx bx-home-alt'></i>Home</a></li>
+            <li><a href=""><i class='bx bx-category'></i> Category</a></li>
+            <li><a href=""><i class='bx bx-cart'></i> Cart</a></li>
+            <li><a href=""><i class='bx bx-user'></i>Account</a></li>
+        </ul>
+    </nav>
     <main>
         <section id="promotionalImageContainer">
             <div class="main-img-banner">
