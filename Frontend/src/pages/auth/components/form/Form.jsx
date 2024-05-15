@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react'
 
 const Form = ({ type,onSubmit }) => {
@@ -12,13 +13,12 @@ const Form = ({ type,onSubmit }) => {
       ...formData,
       [name]: value
     })
-    console.log(formData)
   }
   const handleSubmit = e => {
     e.preventDefault()
     onSubmit(formData)
   }
-  // console.log(formData)
+  
   return (
     <>
       <div className="container">
@@ -32,18 +32,18 @@ const Form = ({ type,onSubmit }) => {
           {
             type === 'Register' && (
               <div className="form-group">
-                <label htmlFor="name">Name:</label>
-                <input type="text" id="name" name="name" onChange={handleChange} required />
+                <label htmlFor="name">Userame:</label>
+                <input type="text" id="name" name="username" onChange={handleChange} required />
               </div>
             )
           }
 
           <div className="form-group">
-            <label for="email">Email:</label>
+            <label htmlFor="email">Email:</label>
             <input type="email" id="email" name="email" onChange={handleChange} required />
           </div>
           <div className="form-group">
-            <label for="password">Password:</label>
+            <label htmlFor="password">Password:</label>
             <input type="password" id="password" name="password" onChange={handleChange} required />
           </div>
           {type === 'Register' ?
