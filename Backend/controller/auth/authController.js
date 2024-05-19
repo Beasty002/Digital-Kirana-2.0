@@ -1,6 +1,7 @@
 const Costumer  = require('../../model/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
+const emailSender = require('../email/emailSender');
 const {validationResult} = require("express-validator");
 
 
@@ -27,10 +28,22 @@ exports.registerCostumer = async(req,res) => {
         password:hashedPassword,
         phoneNumber:phoneNumber,
     });
-
-    await costumer.save();
-    res.status(200).json({
-        message: "User registered Successfully"
+    await costumer.save();//save in db if email ver-incomplete then erase it
+    //email verification:
+    //generating random 6 digit number
+    const otp=getRandomNumber();
+    //sending random number to user
+    const emailSubject='User Verification .................'
+    const emailBody='Your otp is '+ otp +' .................'
+    const emailStatus=await emailSender.sendMail(email,emailSubject,emailBody)
+    if(emailStatus==='success'){
+        return res.status(200).json({
+            otp:otp,//?can user track the response--if yes save to db..
+            message: "User registered Successfully"
+        })
+    }
+    return res.status(422).json({
+        message: "Error Occurred try after sometime"
     })
 }
 
@@ -71,7 +84,21 @@ exports.loginCostumer = async (req,res) => {
         })
     }
 }
-
+//req after otp verification
+exports.verifyOtp=async(req,res)=>{
+    const {email,verifiedStatus} = req.body;
+    try{
+        if(verifiedStatus===false){
+            //set Status unverified or delete user from DB-using emailId
+        }else{
+            //set Status unverified if necessary:-using emailId
+            //send welcome email-optional
+        }
+        // return succcess res
+    }catch(e){
+        //err res 
+    }
+}
 // exports.getVerify = async(req,res) => {
 
 // }
