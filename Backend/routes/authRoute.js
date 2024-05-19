@@ -55,6 +55,9 @@ router.route('/login')
             .isAlphanumeric()
             .trim(),
     ],
-    AuthControllers.loginCostumer)
+    AuthControllers.loginCostumer
+)
+
+router.route("/login/federated/google")
 
 module.exports = router;

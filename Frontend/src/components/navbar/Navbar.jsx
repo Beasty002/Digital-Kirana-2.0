@@ -46,10 +46,8 @@ const Navbar = () => {
                 <li><Link to="">Meat</Link></li>
                 <li><Link to="">Meat</Link></li>
                 <li><Link to="">Meat</Link></li>
-
             </ul>
         </div>
-
     </header>
     </>
   )

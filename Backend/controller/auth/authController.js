@@ -19,6 +19,7 @@ exports.registerCostumer = async(req,res) => {
             },
         })
     }
+
     const hashedPassword = await bcrypt.hash(password,12);
     const costumer = new Costumer({
         userName:username,
@@ -26,6 +27,7 @@ exports.registerCostumer = async(req,res) => {
         password:hashedPassword,
         phoneNumber:phoneNumber,
     });
+
     await costumer.save();
     res.status(200).json({
         message: "User registered Successfully"
@@ -52,9 +54,9 @@ exports.loginCostumer = async (req,res) => {
         const userToken = jwt.sign({id : user._id},process.env.USER_SECRET_KEY,{
             expiresIn : '30d'
         })
-        // res.cookie('userToken',userToken,{
-        //     secure:true
-        // })
+        res.cookie('userToken',userToken,{
+            secure:true
+        })
         res.status(200).json({
             message:'Logged in successfully',
             userToken:userToken,
@@ -69,3 +71,15 @@ exports.loginCostumer = async (req,res) => {
         })
     }
 }
+
+// exports.getVerify = async(req,res) => {
+
+// }
+exports.postVerify = async(req,res)=>{
+
+};
+
+exports.postReset = async(req,res) => {
+
+}
+

@@ -22,17 +22,22 @@ const costumerSchema = new Schema({
         unique:true,
         required:true,
     },
-    verificarionCode :{
+    verificationCode :{
         type:Number,
     },
     verificationCodeExpiration:{
         type:Date,
     },
-    resetToken:{
-        type:String,
+    verified:{
+        type:Boolean,
     },
-    resetTokenExpiration:{
-        type:Date,
-    }
+    reset:[{
+        Token:{
+            type:String,
+        },
+        TokenExpiration:{
+            type:Date,
+        }
+    }]
 })
 module.exports = mongoose.model("Costumer",costumerSchema)

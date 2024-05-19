@@ -9,6 +9,7 @@ require('dotenv').config()
 
 const authRoute = require('./routes/authRoute')
 const pageRoutes = require("./routes/pageRoutes");
+
 app.use(cors({
     origin : '*'
 }))
