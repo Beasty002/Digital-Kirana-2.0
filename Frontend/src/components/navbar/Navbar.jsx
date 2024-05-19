@@ -3,9 +3,10 @@ import gsap from 'gsap'
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-const Navbar = () => {
-   
 
+
+
+const Navbar = () => {
   return (
     <>
         <header>
@@ -43,14 +44,14 @@ const Navbar = () => {
         </nav>
         <div className="nav-cat-items-container">
             <ul className="nav-cat-items">
-                <li><Link to="">Meat</Link></li>
-                <li><Link to="">Meat</Link></li>
-                <li><Link to="">Meat</Link></li>
-                <li><Link to="">Meat</Link></li>
-                <li><Link to="">Meat</Link></li>
-                <li><Link to="">Meat</Link></li>
-                <li><Link to="">Meat</Link></li>
-                <li><Link to="">Meat</Link></li>
+                <li><Link to="/productCategory">Meat</Link></li>
+                <li><Link to="/productCategory">Meat</Link></li>
+                <li><Link to="/productCategory">Meat</Link></li>
+                <li><Link to="/productCategory">Meat</Link></li>
+                <li><Link to="/productCategory">Meat</Link></li>
+                <li><Link to="/productCategory">Meat</Link></li>
+                <li><Link to="/productCategory">Meat</Link></li>
+                <li><Link to="/productCategory">Meat</Link></li>
             </ul>
         </div>
     </header>

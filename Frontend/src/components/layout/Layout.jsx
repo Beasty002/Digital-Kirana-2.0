@@ -1,13 +1,12 @@
-/* eslint-disable react/prop-types */
-
+import React from 'react'
+import Cart from '../cart/Cart'
 import Navbar from '../navbar/Navbar'
 import Footer from '../footer/Footer'
-import Cart from '../cart/Cart'
 
 const Layout = ({children}) => {
   return (
     <>
-    {/* <Cart /> */}
+      {/* <Cart /> */}
       <Navbar />
       {children}
       <Footer />
