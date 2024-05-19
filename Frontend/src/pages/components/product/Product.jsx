@@ -1,18 +1,10 @@
-import axios from 'axios'
-import React from 'react'
+// import axios from 'axios'
+// import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Product = ({type}) => {
-
-
-
   return (
     <>
-
-    
-     
-
-
       <Link to='/singlePage' className="product-card">
         <figure className="product-img-container">
           <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"

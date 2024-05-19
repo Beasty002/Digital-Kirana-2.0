@@ -1,62 +1,62 @@
-import React from 'react'
+// import React from 'react'
 import '../components/css/productDetail.css'
 import Layout from '../components/layout/Layout'
-import Products from './components/products/Products'
+// import Products from './components/products/Products'
 
 const ProductSinglePage = () => {
   return (
     <>
       <Layout>
       <main id="productDetail">
-        <section class="full-product-page">
-            <ul class="category-page-bread-crumb">
+        <section className="full-product-page">
+            <ul className="category-page-bread-crumb">
                 <li><a href="">Home</a></li>
                 <li><a href="">Category Name</a></li>
                 <li>Product name</li>
             </ul>
-            <section class="product-content-container">
-                <figure class="detail-product-img-container">
-                    <div class="small-img-container">
-                        <div class="img1 mini-img focus">
+            <section className="product-content-container">
+                <figure className="detail-product-img-container">
+                    <div className="small-img-container">
+                        <div className="img1 mini-img focus">
                             <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="" />
                         </div>
-                        <div class="img2 mini-img">
+                        <div className="img2 mini-img">
                             <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="" />
                         </div>
-                        <div class="img3 mini-img">
+                        <div className="img3 mini-img">
                             <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="" />
                         </div>
-                        <div class="img3 mini-img">
+                        <div className="img3 mini-img">
                             <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="" />
                         </div>
                     </div>
-                    <div class="main-img-container">
+                    <div className="main-img-container">
                         <img src="https://img.freepik.com/free-photo/beautiful-anime-character-cartoon-scene_23-2151035157.jpg"
                             alt="" />
                     </div>
 
                 </figure>
-                <section class="product-content">
-                    <div class="product-main-detail">
+                <section className="product-content">
+                    <div className="product-main-detail">
                         <h1 id="productName">Product Name</h1>
-                        <p class="rating"></p>
-                        <p class="product-brand">Brand : <span>Anime</span></p>
-                        <p class="main-product-price">Rs 426</p>
-                        <p class="product-mrp">Rs 456</p>
-                        <div class="main-product-qty-btn-container">
+                        <p className="rating"></p>
+                        <p className="product-brand">Brand : <span>Anime</span></p>
+                        <p className="main-product-price">Rs 426</p>
+                        <p className="product-mrp">Rs 456</p>
+                        <div className="main-product-qty-btn-container">
                             <span>Quantity :</span>
-                            <div class="main-product-qty-btn">
-                                <i class='bx bxs-minus-circle qty-decrease'></i>
-                                <span class="qty-value">20</span>
-                                <i class='bx bxs-plus-circle qty-increase'></i>
+                            <div className="main-product-qty-btn">
+                                <i className='bx bxs-minus-circle qty-decrease'></i>
+                                <span className="qty-value">20</span>
+                                <i className='bx bxs-plus-circle qty-increase'></i>
                             </div>
                         </div>
-                        <button class="product-add-to-cart-btn"><i class='bx bx-cart'></i> Add to Cart</button>
+                        <button className="product-add-to-cart-btn"><i className='bx bx-cart'></i> Add to Cart</button>
                     </div>
-                    <hr class="divider-product-detail" />
-                    <div class="product-details" />
+                    <hr className="divider-product-detail" />
+                    <div className="product-details" />
                         <h4>Product Details</h4>
-                        <div class="product-detail-content">
+                        <div className="product-detail-content">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, sunt aut cumque
                             accusamus porro, fuga ipsa velit distinctio ut ipsam repudiandae! Saepe, sunt at! Obcaecati
                             tempore expedita itaque ipsum reprehenderit? Lorem ipsum dolor sit amet, consectetur
@@ -70,104 +70,98 @@ const ProductSinglePage = () => {
                             optio tempora quos numquam consectetur et? Odio odit iste necessitatibus fugiat a blanditiis
                             placeat reprehenderit voluptatem, laudantium vero voluptatibus delectus deserunt, tempora,
                             similique ratione? Cumque debitis laudantium nisi quas! Minima aliquam consequatur, ex error
-
-
-
                         </div>
-
                 </section>
-
-
             </section>
-            <section class="similar-products">
+            <section className="similar-products">
                 <h2>Similar Products</h2>
-                <div class="product-card-container">
-                    <div class="product-card">
-                        <figure class="product-img-container">
+                <div className="product-card-container">
+                    <div className="product-card">
+                        <figure className="product-img-container">
                             <a href=""><img
                                     src="https://img.freepik.com/free-photo/beautiful-anime-character-cartoon-scene_23-2151035157.jpg"
                                     alt="" /></a>
                         </figure>
-                        <h3 class="product-name">Product Name</h3>
-                        <span class="product-price">Rs 240</span>
-                        <div class="product-qty-changer">
+                        <h3 className="product-name">Product Name</h3>
+                        <span className="product-price">Rs 240</span>
+                        <div className="product-qty-changer">
                             <span>Qty</span>
-                            <div class="qty-btn">
-                                <button class="decrease">-</button>
+                            <div className="qty-btn">
+                                <button className="decrease">-</button>
                                 <span>0</span>
-                                <button class="increase">+</button>
+                                <button className="increase">+</button>
                             </div>
                         </div>
-                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                        <button className="add-to-cart-btn"><i className='bx bx-cart'></i>Add to Cart</button>
                     </div>
                     {/* <!-- ------------------------------------------------------------ --> */}
-                    <div class="product-card">
-                        <figure class="product-img-container">
+                    <div className="product-card">
+                        <figure className="product-img-container">
                             <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
                                     alt="" /></a>
                         </figure>
-                        <h3 class="product-name">Product Name</h3>
-                        <span class="product-price">Rs 240</span>
-                        <div class="product-qty-changer">
+                        <h3 className="product-name">Product Name</h3>
+                        <span className="product-price">Rs 240</span>
+                        <div className="product-qty-changer">
                             <span>Qty</span>
-                            <div class="qty-btn">
-                                <button class="decrease">-</button>
+                            <div className="qty-btn">
+                                <button className="decrease">-</button>
                                 <span>0</span>
-                                <button class="increase">+</button>
+                                <button className="increase">+</button>
                             </div>
                         </div>
-                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                        <button className="add-to-cart-btn"><i className='bx bx-cart'></i>Add to Cart</button>
                     </div>
-                    <div class="product-card">
-                        <figure class="product-img-container">
+                    <div className="product-card">
+                        <figure className="product-img-container">
                             <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
                                     alt="" /></a>
                         </figure>
-                        <h3 class="product-name">Product Name</h3>
-                        <span class="product-price">Rs 240</span>
-                        <div class="product-qty-changer">
+                        <h3 className="product-name">Product Name</h3>
+                        <span className="product-price">Rs 240</span>
+                        <div className="product-qty-changer">
                             <span>Qty</span>
-                            <div class="qty-btn">
-                                <button class="decrease">-</button>
+                            <div className="qty-btn">
+                                <button className="decrease">-</button>
                                 <span>0</span>
-                                <button class="increase">+</button>
+                                <button className="increase">+</button>
                             </div>
                         </div>
-                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                        <button className="add-to-cart-btn"><i className='bx bx-cart'></i>Add to Cart</button>
                     </div>
-                    <div class="product-card">
-                        <figure class="product-img-container">
+                    <div className="product-card">
+                        <figure className="product-img-container">
                             <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
                                     alt="" /></a>
                         </figure>
-                        <h3 class="product-name">Product Name</h3>
-                        <span class="product-price">Rs 240</span>
-                        <div class="product-qty-changer">
+                        <h3 className="product-name">Product Name</h3>
+                        <span className="product-price">Rs 240</span>
+                        <div className="product-qty-changer">
                             <span>Qty</span>
-                            <div class="qty-btn">
-                                <button class="decrease">-</button>
+                            <div className="qty-btn">
+                                <button className="decrease">-</button>
                                 <span>0</span>
-                                <button class="increase">+</button>
+                                <button className="increase">+</button>
                             </div>
                         </div>
-                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                        <button className="add-to-cart-btn"><i className='bx bx-cart'></i>Add to Cart</button>
                     </div>
-                    <div class="product-card">
-                        <figure class="product-img-container">
+                    <div className="product-card">
+                        <figure className="product-img-container">
                             <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
                                     alt="" /></a>
                         </figure>
-                        <h3 class="product-name">Product Name</h3>
-                        <span class="product-price">Rs 240</span>
-                        <div class="product-qty-changer">
+                        <h3 className="product-name">Product Name</h3>
+                        <span className="product-price">Rs 240</span>
+                        <div className="product-qty-changer">
                             <span>Qty</span>
-                            <div class="qty-btn">
-                                <button class="decrease">-</button>
+                            <div className="qty-btn">
+                                <button className="decrease">-</button>
                                 <span>00</span>
-                                <button class="increase">+</button>
+                                <button className="increase">+</button>
                             </div>
                         </div>
-                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                        <button className="add-to-cart-btn"><i className='bx bx-cart'></i>Add to Cart</button>
                     </div>
 
 
