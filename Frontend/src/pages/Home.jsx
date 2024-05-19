@@ -1,6 +1,9 @@
 
 import Layout from '../components/layout/Layout'
 import Products from './components/products/Products'
+import '../components/css/cart.css'
+// import '../components/css/navbar.css'
+import '../components/css/footer.css'
 
 const Home = () => {
   return (
