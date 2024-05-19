@@ -5,6 +5,7 @@ import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import './App.css'
 
+
 const App = () => {
   return (
     <>
