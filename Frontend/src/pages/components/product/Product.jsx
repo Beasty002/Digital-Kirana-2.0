@@ -2,9 +2,11 @@
 // import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Product = ({type}) => {
+// eslint-disable-next-line react/prop-types
+const Product = ({ type }) => {
   return (
     <>
+      {type}
       <Link to='/singlePage' className="product-card">
         <figure className="product-img-container">
           <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
