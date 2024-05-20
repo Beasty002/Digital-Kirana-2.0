@@ -160,7 +160,7 @@ exports.passwordReset = async(req,res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        if(user.reset.tokenExpiration < Date.now()){
+        if(user.reset.tokenExpiration > Date.now()){
             return res.status(404).json({ message: 'Reset link already sent to email' });
         }
         const resetToken = jwt.sign({ userId: user._id }, process.env.RESET_PASSWORD_KEY, { expiresIn: '1h' });
@@ -245,7 +245,7 @@ exports.passwordReset = async(req,res) => {
 
 //sending reset link
 exports.passwordChange = async(req,res) => {
-    const {email,password} = req.body;
+    const {email,password,token} = req.body;
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(422).json({
@@ -258,6 +258,13 @@ exports.passwordChange = async(req,res) => {
     }
     try{
         const user = await Costumer.findOne({email});
+        //check token expired or not:
+        if(user.reset.tokenExpiration < Date.now()){
+            return res.status(404).json({ message: 'Token expired' });
+        }
+        if(user.reset.token!==token){
+            return res.status(404).json({ message: 'Token not matched' });
+        }
         const hashedPassword = await bcrypt.hash(password,12);
         if(user){
             user.password=hashedPassword
