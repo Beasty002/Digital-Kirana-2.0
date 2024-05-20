@@ -150,28 +150,152 @@ exports.loginCostumer = async (req,res) => {
         })
     }
 }
-//otp verification
-exports.verifyOtp=async(req,res)=>{
-    const {email,otp} = req.body;
+
+//sending reset link
+exports.passwordReset = async(req,res) => {
+    const { email } = req.body;
     try{
-        if(verifiedStatus===false){
-            //set Status unverified or delete user from DB-using emailId
-        }else{
-            //set Status unverified if necessary:-using emailId
-            //send welcome email-optional
+        const user = await Costumer.findOne({ email });
+  
+        if (!user) {
+        return res.status(404).json({ message: 'User not found' });
         }
-        // return succcess res
+    
+        const resetToken = jwt.sign({ userId: user._id }, process.env.RESET_PASSWORD_KEY, { expiresIn: '1h' });
+    
+        const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
+
+        const tokenExpiration = new Date(Date.now() + 60 * 60 * 1000); 
+
+        // Updating db
+        user.reset.token = resetToken;
+        user.reset.tokenExpiration = tokenExpiration;
+        await user.save();
+    
+        const emailSubject = 'Digital Kirana : Password Reset Request';
+        const emailBody = `
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f0f5f5;
+                    color: #333;
+                    padding: 20px;
+                }
+                .container {
+                    max-width: 600px;
+                    margin: 0 auto;
+                    background-color: #fff;
+                    padding: 30px;
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                }
+                .header {
+                    background-color: #4CAF50;
+                    color: #fff;
+                    padding: 10px;
+                    text-align: center;
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
+                }
+                .content {
+                    padding: 20px;
+                }
+                .link {
+                    display: block;
+                    margin-top: 20px;
+                    text-align: center;
+                }
+                .footer {
+                    margin-top: 20px;
+                    text-align: center;
+                    color: #888;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h2>Password Reset Request</h2>
+                </div>
+                <div class="content">
+                    <p>Click the link below to reset your password:</p>
+                    <div class="link">
+                        <a href="${resetLink}" target="_blank">${resetLink}</a>
+                    </div>
+                </div>
+                <div class="footer">
+                    <p>Do not reply to this email. Visit our website <a href="http://localhost:3000">Digital Kirana</a> for more information.</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        `;
+    
+        await sendMail(email, emailSubject, emailBody);
+        res.status(200).json({ message: 'Password reset link sent to your email' });
     }catch(e){
-        //err res 
+
+        return res.status(404).json({ message: 'Error Occurred' });
     }
-}
+  };
+
+//sending reset link
+exports.passwordChange = async(req,res) => {
+    const {email,password} = req.body;
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(422).json({
+            errorMessage: errors.array()[0].msg,
+            oldInput: {
+                email,
+                password
+            },
+        })
+    }
+    try{
+        const user = await Costumer.findOne({email});
+        const hashedPassword = await bcrypt.hash(password,12);
+        if(user){
+            user.password=hashedPassword
+            await user.save()
+            return res.status(200).json({ message: 'Password changed Successfully' });
+        }
+        return res.status(404).json({ message: 'Error Occurred' });
+    }catch(e){
+         res.status(404).json({ message: 'Error Occurred' });
+    }
+  };
+
+
+
+
+  //otp verification
+  exports.verifyOtp = async (req, res) => {
+    const { email, otp } = req.body;
+    try {
+        const user = await Costumer.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (user.verificationCode === parseInt(otp) && user.verificationCodeExpiration > Date.now()) {
+            user.verified = true;
+            user.verificationCode = null;
+            user.verificationCodeExpiration = null;
+            await user.save();
+
+            return res.status(200).json({ message: 'User verified successfully' });
+        }
+        res.status(400).json({ message: 'Invalid or expired OTP' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error occurred: ' + error.message });
+    }
+};
 // exports.getVerify = async(req,res) => {
 
 // }
 exports.postVerify = async(req,res)=>{
 
 };
-
-exports.postReset = async(req,res) => {
-
-}
