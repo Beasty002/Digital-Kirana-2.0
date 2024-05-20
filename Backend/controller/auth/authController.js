@@ -158,9 +158,11 @@ exports.passwordReset = async(req,res) => {
         const user = await Costumer.findOne({ email });
   
         if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'User not found' });
         }
-    
+        if(user.reset.tokenExpiration < Date.now()){
+            return res.status(404).json({ message: 'Reset link already sent to email' });
+        }
         const resetToken = jwt.sign({ userId: user._id }, process.env.RESET_PASSWORD_KEY, { expiresIn: '1h' });
     
         const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
