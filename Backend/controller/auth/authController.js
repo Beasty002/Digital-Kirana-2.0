@@ -245,7 +245,7 @@ exports.passwordReset = async(req,res) => {
 
 //sending reset link
 exports.passwordChange = async(req,res) => {
-    const {email,password,token} = req.body;
+    const {email,password,token} = req.body;//?=email is available in request or not
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(422).json({
@@ -268,6 +268,8 @@ exports.passwordChange = async(req,res) => {
         const hashedPassword = await bcrypt.hash(password,12);
         if(user){
             user.password=hashedPassword
+            user.reset.token=null
+            user.reset.tokenExpiration=null
             await user.save()
             return res.status(200).json({ message: 'Password changed Successfully' });
         }
