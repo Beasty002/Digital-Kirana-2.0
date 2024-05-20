@@ -28,16 +28,19 @@ const costumerSchema = new Schema({
     verificationCodeExpiration:{
         type:Date,
     },
-    verified:{
-        type:Boolean,
+    verified: {
+        type: Boolean,
+        default: false,
     },
-    reset:[{
-        Token:{
-            type:String,
+    reset: {
+        token: {
+            type: String,
+            default: null,
         },
-        TokenExpiration:{
-            type:Date,
+        tokenExpiration: {
+            type: Date,
+            default: null,
         }
-    }]
+    }
 })
 module.exports = mongoose.model("Costumer",costumerSchema)

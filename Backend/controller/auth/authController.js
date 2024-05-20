@@ -1,7 +1,7 @@
 const Costumer  = require('../../model/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
-const emailSender = require('../email/emailSender');
+const sendMail = require('../email/emailSender');
 const {validationResult} = require("express-validator");
 
 
@@ -21,30 +21,96 @@ exports.registerCostumer = async(req,res) => {
         })
     }
 
-    const hashedPassword = await bcrypt.hash(password,12);
-    const costumer = new Costumer({
-        userName:username,
-        email:email,
-        password:hashedPassword,
-        phoneNumber:phoneNumber,
-    });
-    await costumer.save();//save in db if email ver-incomplete then erase it
-    //email verification:
-    //generating random 6 digit number
-    const otp=getRandomNumber();
-    //sending random number to user
-    const emailSubject='User Verification .................'
-    const emailBody='Your otp is '+ otp +' .................'
-    const emailStatus=await emailSender.sendMail(email,emailSubject,emailBody)
-    if(emailStatus==='success'){
-        return res.status(200).json({
-            otp:otp,//?can user track the response--if yes save to db..
-            message: "User registered Successfully"
+    try{
+        const hashedPassword = await bcrypt.hash(password,12);
+
+        //verification code and its expiration for db insertion:
+        const verificationCode = Math.floor(100000 + Math.random() * 900000);//6 digit otp
+        const verificationCodeExpiration = new Date(Date.now() + 10 * 60 * 1000);//10 minutes
+    
+            const costumer = new Costumer({
+                userName:username,
+                email:email,
+                password:hashedPassword,
+                phoneNumber:phoneNumber,
+                verificationCode: verificationCode,
+                verificationCodeExpiration: verificationCodeExpiration,
+            });
+            await costumer.save();
+        
+        //sending otp to user
+        const emailSubject='Digital Kirana : User Verification'
+        const emailBody = `
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f0f5f5;
+                    color: #333;
+                    padding: 20px;
+                }
+                .container {
+                    max-width: 600px;
+                    margin: 0 auto;
+                    background-color: #fff;
+                    padding: 30px;
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                }
+                .header {
+                    background-color: #4CAF50;
+                    color: #fff;
+                    padding: 10px;
+                    text-align: center;
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
+                }
+                .content {
+                    padding: 20px;
+                }
+                .otp {
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #4CAF50;
+                }
+                .footer {
+                    margin-top: 20px;
+                    text-align: center;
+                    color: #888;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h2>User Verification</h2>
+                </div>
+                <div class="content">
+                    <p>Your OTP is <span class="otp">${verificationCode}</span>. Use this code to verify your account.</p>
+                </div>
+                <div class="footer">
+                    <p>Do not reply to this email. Visit our website <a href="http://localhost:3000">Digital Kirana</a> for more information.</p>
+                </div>
+            </div>
+        </body>
+        </html>
+    `;
+        const emailStatus=await sendMail(email,emailSubject,emailBody)
+        if(emailStatus==='success'){
+            return res.status(200).json({
+                message: "User registered Successfully"
+            })
+        }
+            res.status(422).json({
+            message: "Error Occurred "
+        })
+    }catch(e){
+        const errMsg="Error Occurred "+e
+        res.status(422).json({
+        message: errMsg
         })
     }
-    return res.status(422).json({
-        message: "Error Occurred try after sometime"
-    })
 }
 
 exports.loginCostumer = async (req,res) => {
@@ -84,9 +150,9 @@ exports.loginCostumer = async (req,res) => {
         })
     }
 }
-//req after otp verification
+//otp verification
 exports.verifyOtp=async(req,res)=>{
-    const {email,verifiedStatus} = req.body;
+    const {email,otp} = req.body;
     try{
         if(verifiedStatus===false){
             //set Status unverified or delete user from DB-using emailId
@@ -109,4 +175,3 @@ exports.postVerify = async(req,res)=>{
 exports.postReset = async(req,res) => {
 
 }
-

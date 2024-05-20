@@ -29,5 +29,4 @@ const sendMail = async (to,subject,html) => {
         return 'error'
     }
 };
-
-export default sendMail;
+module.exports = sendMail;
