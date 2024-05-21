@@ -77,18 +77,6 @@ router.route('/reset')
 )
 router.route('/changePassword')
     .post([
-        check("email")
-            .isEmail()
-            .withMessage("Please provide a valid email address")
-            .custom(async(value, {req}) => {
-                const emailExist = await Costumer.findOne({email: value});
-                if(!emailExist){
-                    return Promise.reject(
-                        "User doesnot exist"
-                    )
-                }
-            })
-            .normalizeEmail(),
         body("password","Please enter a password with only numbers and text and at least 10 characters")
             .isLength({min:10})
             .isAlphanumeric()

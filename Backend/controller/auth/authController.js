@@ -161,9 +161,9 @@ exports.passwordReset = async(req,res) => {
             return res.status(404).json({ message: 'User not found' });
         }
         if(user.reset.tokenExpiration > Date.now()){
-            return res.status(404).json({ message: 'Reset link already sent to email' });
+            return res.status(429).json({ message: 'Reset link already sent to email' });
         }
-        const resetToken = jwt.sign({ userId: user._id }, process.env.RESET_PASSWORD_KEY, { expiresIn: '1h' });
+        const resetToken = jwt.sign({ userId: user._id }, process.env.USER_SECRET_KEY, { expiresIn: '1h' });
     
         const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
 
@@ -239,31 +239,30 @@ exports.passwordReset = async(req,res) => {
         res.status(200).json({ message: 'Password reset link sent to your email' });
     }catch(e){
 
-        return res.status(404).json({ message: 'Error Occurred' });
+        return res.status(500).json({ message: 'Error Occurred' });
     }
   };
 
 //sending reset link
 exports.passwordChange = async(req,res) => {
-    const {email,password,token} = req.body;//?=email is available in request or not
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(422).json({
-            errorMessage: errors.array()[0].msg,
-            oldInput: {
-                email,
-                password
-            },
-        })
-    }
+    const {token,password} = req.body;
     try{
-        const user = await Costumer.findOne({email});
+        const decoded = jwt.verify(token,process.env.USER_SECRET_KEY);
+        const customerId = decoded.userId;
+        console.log(customerId)
+        const user = await Costumer.findById(customerId);
         //check token expired or not:
+        if(!user){
+            return res.status(404).json({ message: 'Error occurred' });
+        }
         if(user.reset.tokenExpiration < Date.now()){
-            return res.status(404).json({ message: 'Token expired' });
+            return res.status(410).json({ message: 'Token expired' });
         }
         if(user.reset.token!==token){
-            return res.status(404).json({ message: 'Token not matched' });
+            return res.status(400).json({ message: 'Invalid token' });
+        }
+        if(await bcrypt.compare(password,user.password)){
+            return res.status(422).json({ message: 'Password must be different from previous one' });
         }
         const hashedPassword = await bcrypt.hash(password,12);
         if(user){
@@ -273,9 +272,9 @@ exports.passwordChange = async(req,res) => {
             await user.save()
             return res.status(200).json({ message: 'Password changed Successfully' });
         }
-        return res.status(404).json({ message: 'Error Occurred' });
+        return res.status(500).json({ message: 'Error Occurred' });
     }catch(e){
-         res.status(404).json({ message: 'Error Occurred' });
+         res.status(500).json({ message: e });
     }
   };
 
