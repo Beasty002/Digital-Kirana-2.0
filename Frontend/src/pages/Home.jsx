@@ -4,8 +4,11 @@ import Products from './components/products/Products'
 import '../components/css/cart.css'
 // import '../components/css/navbar.css'
 import '../components/css/footer.css'
+import { useState } from 'react'
+import axios from 'axios'
 
 const Home = () => {
+  
   return (
     <>
     <Layout>
