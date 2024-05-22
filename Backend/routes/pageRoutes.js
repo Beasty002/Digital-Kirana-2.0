@@ -6,7 +6,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 // @desc get HomePage
 // @route GET /
-router.route("/")
+router.route("/product")
     .get(authMiddleware,pageControllers.getIndex);
 
 // @desc get SinglePage
