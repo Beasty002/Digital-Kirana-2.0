@@ -2,18 +2,17 @@
 // import React from 'react'
 import { Link } from 'react-router-dom'
 
-// eslint-disable-next-line react/prop-types
-const Product = ({ type }) => {
+const Product = ({data}) => {
+  // console.log(data)
   return (
     <>
-      {type}
-      <Link to='/singlePage' className="product-card">
+      <Link to={`/singlePage/${data._id}`} className="product-card">
         <figure className="product-img-container">
-          <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+          <a href=""><img src={data.backView}
             alt="" /></a>
         </figure>
-        <h3 className="product-name">Product name</h3>
-        <span className="product-price">Rs 240</span>
+        <h3 className="product-name">{data.productName} </h3>
+        <span className="product-price">{data.salesPrice}</span>
         <div className="product-qty-changer">
           <span >Qty</span>
           <div className="qty-btn">
