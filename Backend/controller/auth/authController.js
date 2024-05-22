@@ -72,9 +72,29 @@ exports.loginCostumer = async (req,res) => {
     }
 }
 
-// exports.getVerify = async(req,res) => {
+exports.getFailedLogin = async(req,res) => {
+    res.status(401).json({
+        success:false,
+        message:'Failed to login'
+    })
+}
 
-// }
+exports.getSuccessLogin = async(req,res) => {
+    try {
+        if(req.user){
+            //genarate JWT Token
+            res.status(200).json({
+                success:true,
+                message:'login Successfull',
+                userToken:"jhfashfjasf"
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+    
+}
+
 exports.postVerify = async(req,res)=>{
 
 };
