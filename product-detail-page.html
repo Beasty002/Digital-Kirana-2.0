@@ -25,6 +25,8 @@
             --content-width: 1200px;
         }
 
+
+
         * {
             margin: 0;
             font-family: "Poppins", sans-serif;
@@ -41,35 +43,118 @@
             :root {
                 --content-width: 1050px;
             }
+
+
         }
 
         @media (width <=1150px) {
+            :root {
+                --content-width: 1000px;
+            }
+
+            .main-img-container {
+                height: 500px !important;
+                width: 510px !important;
+            }
+
+            .small-img-container {
+                height: 500px !important;
+            }
+
+
+        }
+
+        @media (width <=1100px) {
+            :root {
+                --content-width: 950px;
+            }
+
+            .product-content-container .detail-product-img-container {
+                position: relative !important;
+                top: 0px !important;
+                flex-direction: column !important;
+            }
+
+            .main-img-container {
+                order: 1 !important;
+                width: 530px !important;
+            }
+
+            .small-img-container {
+                flex-direction: row !important;
+                width: fit-content !important;
+                height: fit-content !important;
+                order: 2;
+            }
+
+            .mini-img {
+                width: 125px !important;
+                height: 130px !important;
+            }
+        }
+
+        @media (width <=1020px) {
             :root {
                 --content-width: 900px;
             }
         }
 
-        @media (width <=1000px) {
+        @media (width <=950px) {
             :root {
-                --content-width: 800px;
+                --content-width: 840px;
             }
         }
 
-        @media (width <=900px) {
+
+
+        @media (width <=860px) {
             :root {
-                --content-width: 700px;
+                --content-width: 600px;
             }
+
+            .product-content-container {
+                flex-direction: column;
+            }
+
+            .product-content-container>* {
+                flex: 1;
+            }
+
+            .main-img-container {
+                width: 100% !important;
+                height: 600px !important;
+            }
+
+            .small-img-container {
+                display: none !important;
+                width: 100% !important;
+            }
+
+            .mini-img {
+                width: 180px !important;
+                height: 180px !important;
+            }
+
+
+
+
+
+
+
+
         }
 
-        @media (width <=800px) {
-            :root {
-                --content-width: 650px;
+        @media (width <=650px) {
+            body {
+                padding: 10px;
             }
-        }
 
-        @media (width <=720px) {
             :root {
                 --content-width: 100%;
+            }
+
+            .main-img-container {
+                height: 400px !important;
             }
 
             body {
@@ -182,6 +267,7 @@
         #productDetail {
             display: flex;
             justify-content: center;
+
         }
 
         .full-product-page {
@@ -212,7 +298,6 @@
         .product-content-container .detail-product-img-container {
             position: sticky;
             top: 50px;
-            width: 700px;
             display: flex;
             gap: 10px;
             height: fit-content;
@@ -220,11 +305,13 @@
 
         .product-content-container .detail-product-img-container div img {
             width: 100%;
+            height: 100%;
+            padding: 5px;
             object-fit: contain;
         }
 
         .main-img-container {
-            flex: 1;
+            width: 600px;
             border-radius: 10px;
             background-color: #fff;
             overflow: hidden;
@@ -264,6 +351,7 @@
             border-radius: 10px;
             padding: 10px 15px;
             background-color: #fff;
+            min-width: 250px;
         }
 
         #productName {
@@ -295,13 +383,13 @@
             margin-top: 10px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 10px;
         }
 
         .main-product-qty-btn {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 5px;
         }
 
         .main-product-qty-btn i {
@@ -504,15 +592,18 @@
                         <p class="product-brand">Brand : <span>Anime</span></p>
                         <p class="main-product-price">Rs 426</p>
                         <p class="product-mrp">Rs 456</p>
-                        <div class="main-product-qty-btn-container">
-                            <span>Quantity :</span>
-                            <div class="main-product-qty-btn">
-                                <i class='bx bxs-minus-circle qty-decrease'></i>
-                                <span class="qty-value">20</span>
-                                <i class='bx bxs-plus-circle qty-increase'></i>
+                        <section class="qty-add-cart">
+                            <div class="main-product-qty-btn-container">
+                                <span>Quantity :</span>
+                                <div class="main-product-qty-btn">
+                                    <i class='bx bxs-minus-circle qty-decrease'></i>
+                                    <span class="qty-value">20</span>
+                                    <i class='bx bxs-plus-circle qty-increase'></i>
+                                </div>
                             </div>
-                        </div>
-                        <button class="product-add-to-cart-btn"><i class='bx bx-cart'></i> Add to Cart</button>
+                            <button class="product-add-to-cart-btn"><i class='bx bx-cart'></i> Add to Cart</button>
+                        </section>
+
                     </div>
                     <hr class="divider-product-detail">
                     <div class="product-details">
