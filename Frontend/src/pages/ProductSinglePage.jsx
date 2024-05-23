@@ -4,68 +4,27 @@ import '../components/css/productDetail.css'
 import Layout from '../components/layout/Layout'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import Product from './components/product/Product'
 // import Products from './components/products/Products'
 
 const ProductSinglePage = () => {
     const { id } = useParams()
 
     const [product, setProduct] = useState({})
+    const [similarProducts, setSimilarProducts] = useState([])
 
-    // const [similarProducts, setSimilarProducts] = useState([])
-
-    const [data, setData] = useState([]);
-    const [filteredData, setFilteredData] = useState([]);
-    const [propertyToFilterBy, setPrpoertyToFilterBy] = useState('Meat');
-
-    useEffect(()=>{
+    useEffect(() => {
         const handleAPI = async () => {
-            const singleProduct = await axios.get(`http://localhost:3000/singlePage/${id}`)
-             setProduct(singleProduct.data.productData)
-            //  console.log(product)
-            console.log(propertyToFilterBy)  
+            const singleProduct = await axios.get(`http://localhost:3000/api/singlePage/${id}`)
+            console.log(singleProduct.data)
+            setProduct(singleProduct.data.productData)
+            setSimilarProducts(singleProduct.data.similarProducts)
+            // console.log(similarProduct)
         }
         handleAPI()
-    },[])
+    }, [])
 
-    // useEffect(()=>{
 
-    // })
-    // const sendAPI = async () => {
-    //     try{
-    //         const response = await axios.get(`http://localhost:3000/product`)
-    //         setData(response.data.products)
-
-    //     }catch{
-    //         console.error('Error fetching data:', error);
-    //     }
-        // allData.filter(function(elem){
-        //     if(elem.category === product.category){
-        //         setFilteredData(elem)
-        //     }
-        // })
-        // console.log(filteredData)
-    // }
-    // const handleMulti = async () => {
-    //    
-    //   const same = response.data.products
-    // // console.log(same)
-    // if(!same){
-    //     return
-    // }else{
-    //           let similar = same.filter(function(data){
-    //                return data.category === product.category
-    //         }
-    //     )
-    //     console.log(similar)
-    // }
-
-    //     console.log(similarProducts)
-    // }
-
-    // useEffect(() => {
-    //     handleAPI()
-    //     sendAPI()
-    // }, [])
 
     return (
         <>
@@ -127,93 +86,13 @@ const ProductSinglePage = () => {
                         <section className="similar-products">
                             <h2>Similar Products</h2>
                             <div className="product-card-container">
-                                <div className="product-card">
-                                    <figure className="product-img-container">
-                                        <a href=""><img
-                                            src="https://img.freepik.com/free-photo/beautiful-anime-character-cartoon-scene_23-2151035157.jpg"
-                                            alt="" /></a>
-                                    </figure>
-                                    <h3 className="product-name">Product Name</h3>
-                                    <span className="product-price">Rs 240</span>
-                                    <div className="product-qty-changer">
-                                        <span>Qty</span>
-                                        <div className="qty-btn">
-                                            <button className="decrease">-</button>
-                                            <span>0</span>
-                                            <button className="increase">+</button>
-                                        </div>
-                                    </div>
-                                    <button className="add-to-cart-btn"><i className='bx bx-cart'></i>Add to Cart</button>
-                                </div>
-                                {/* <!-- ------------------------------------------------------------ --> */}
-                                <div className="product-card">
-                                    <figure className="product-img-container">
-                                        <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
-                                            alt="" /></a>
-                                    </figure>
-                                    <h3 className="product-name">Product Name</h3>
-                                    <span className="product-price">Rs 240</span>
-                                    <div className="product-qty-changer">
-                                        <span>Qty</span>
-                                        <div className="qty-btn">
-                                            <button className="decrease">-</button>
-                                            <span>0</span>
-                                            <button className="increase">+</button>
-                                        </div>
-                                    </div>
-                                    <button className="add-to-cart-btn"><i className='bx bx-cart'></i>Add to Cart</button>
-                                </div>
-                                <div className="product-card">
-                                    <figure className="product-img-container">
-                                        <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
-                                            alt="" /></a>
-                                    </figure>
-                                    <h3 className="product-name">Product Name</h3>
-                                    <span className="product-price">Rs 240</span>
-                                    <div className="product-qty-changer">
-                                        <span>Qty</span>
-                                        <div className="qty-btn">
-                                            <button className="decrease">-</button>
-                                            <span>0</span>
-                                            <button className="increase">+</button>
-                                        </div>
-                                    </div>
-                                    <button className="add-to-cart-btn"><i className='bx bx-cart'></i>Add to Cart</button>
-                                </div>
-                                <div className="product-card">
-                                    <figure className="product-img-container">
-                                        <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
-                                            alt="" /></a>
-                                    </figure>
-                                    <h3 className="product-name">Product Name</h3>
-                                    <span className="product-price">Rs 240</span>
-                                    <div className="product-qty-changer">
-                                        <span>Qty</span>
-                                        <div className="qty-btn">
-                                            <button className="decrease">-</button>
-                                            <span>0</span>
-                                            <button className="increase">+</button>
-                                        </div>
-                                    </div>
-                                    <button className="add-to-cart-btn"><i className='bx bx-cart'></i>Add to Cart</button>
-                                </div>
-                                <div className="product-card">
-                                    <figure className="product-img-container">
-                                        <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
-                                            alt="" /></a>
-                                    </figure>
-                                    <h3 className="product-name">Product Name</h3>
-                                    <span className="product-price">Rs 240</span>
-                                    <div className="product-qty-changer">
-                                        <span>Qty</span>
-                                        <div className="qty-btn">
-                                            <button className="decrease">-</button>
-                                            <span>00</span>
-                                            <button className="increase">+</button>
-                                        </div>
-                                    </div>
-                                    <button className="add-to-cart-btn"><i className='bx bx-cart'></i>Add to Cart</button>
-                                </div>
+                                {
+                                    similarProducts.map(product => {
+                                        return (
+                                            <Product data={product} />
+                                        )
+                                    })
+                                }
 
 
                                 {/* <!-- ------------------------------------------------------------ --> */}

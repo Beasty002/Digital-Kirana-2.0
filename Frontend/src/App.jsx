@@ -6,6 +6,7 @@ import Register from './pages/auth/Register'
 import './App.css'
 import ProductSinglePage from './pages/ProductSinglePage'
 import ProductCategory from './pages/ProductCategory'
+import 'boxicons'
 
 
 const App = () => {

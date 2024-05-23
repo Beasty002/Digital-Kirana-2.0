@@ -6,14 +6,13 @@ import axios from 'axios'
 const Products = () => {
   const [products,setProducts] = useState([])
   const handleAPI = async () =>{
-    const response = await axios.get('http://localhost:3000/product')
+    const response = await axios.get('http://localhost:3000/api/product')
     // console.log(response.data.products)
     setProducts(response.data.products)
   }
   useEffect(()=>{
     handleAPI()
   },[])
-  // console.log(products)
  
   return (
     <>
@@ -28,11 +27,7 @@ const Products = () => {
                 )
               })
             }
-            {/* <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product /> */}
+            
           </div>
         </section>
       </section>

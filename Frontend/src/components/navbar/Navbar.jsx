@@ -1,12 +1,22 @@
-// import { useGSAP } from '@gsap/react'
-// import gsap from 'gsap'
-// import React from 'react'
+
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 
 
 
 
 const Navbar = () => {
+    const [categories,setCategory] = useState([])
+    useEffect(()=>{
+        const handleAPI = async () =>{
+            const response = await axios.get('http://localhost:3000/api/product')
+            // console.log(response.data)
+            setCategory(response.data.category)
+        }
+        handleAPI()
+
+    },[])
   return (
     <>
         <header>
@@ -36,7 +46,7 @@ const Navbar = () => {
                             <Link to='/register'><i className='bx bx-user'></i> Register</Link>
                         </li>
                         <li className="cart-btn">
-                            <i className='bx bx-cart'></i> <span id="cart-item-amt">00</span>
+                        <box-icon name='cart' ></box-icon> <span id="cart-item-amt">00</span>
                         </li>
                     </>
                 }
@@ -44,14 +54,12 @@ const Navbar = () => {
         </nav>
         <div className="nav-cat-items-container">
             <ul className="nav-cat-items">
-                <li><Link to="/productCategory">Meat</Link></li>
-                <li><Link to="/productCategory">Meat</Link></li>
-                <li><Link to="/productCategory">Meat</Link></li>
-                <li><Link to="/productCategory">Meat</Link></li>
-                <li><Link to="/productCategory">Meat</Link></li>
-                <li><Link to="/productCategory">Meat</Link></li>
-                <li><Link to="/productCategory">Meat</Link></li>
-                <li><Link to="/productCategory">Meat</Link></li>
+                {
+                    categories.map(category=>{
+                        <li><Link to="/productCategory" >{category.name}</Link></li>
+                    })
+                }
+                
             </ul>
         </div>
     </header>
