@@ -1,8 +1,10 @@
 const {check,body} = require("express-validator");
 const router = require('express').Router()
+const passport = require("passport");
 
 const AuthControllers = require('../controller/auth/authController')
-const Costumer = require('../model/userModel')
+const Costumer = require('../model/userModel');
+// const passport = require("passport");
 
 // @ desc Register Costumer
 // @ route POST /auth/register
@@ -58,6 +60,22 @@ router.route('/login')
     AuthControllers.loginCostumer
 )
 
-router.route("/login/federated/google")
+// // @desc if login using google failes
+// // @route GET /auth/login/failed
+// router.route('/login/failed').get(AuthControllers.getFailedLogin);
+
+// // @desc Login with google
+// // @route GET /auth/google
+// router.route("/google").get(passport.authenticate("google", {
+//     scope:["profile"]
+// }));
+
+// // @desc CallbackURL from google result error or success
+// // @route GET /auth/google/callback
+// router.route("/google/callback").get(passport.authenticate("google"),{
+//     successRedirect:CLIENT_URL,
+//     failureRedirect:"/login/failed"
+// })
+
 
 module.exports = router;

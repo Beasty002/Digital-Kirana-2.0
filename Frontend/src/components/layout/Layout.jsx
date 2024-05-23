@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import Cart from '../cart/Cart'
 import Navbar from '../navbar/Navbar'
 import Footer from '../footer/Footer'
