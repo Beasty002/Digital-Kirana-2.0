@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
+        integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <style>
+        :root {
+            --primary-color: green;
+            --secondary-color: white;
+            --primary-txt-color: black;
+            --secondary-txt-color: white;
+            --normal-txt-color: rgb(84, 84, 84);
+        }
+
+        * {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0px;
+            background-color: var(--primary-color);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 140px;
+        }
+
+        .footer-social-links {
+            font-size: 2.2rem;
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-vr-border {
+            display: inline;
+            margin: 0px 10px;
+            border-left: 1px solid rgb(87, 87, 87);
+        }
+
+        .footer-contact-info {
+            display: flex;
+            gap: 20px;
+        }
+
+        #copyright {
+            font-size: .8rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <footer>
+
+        <div class="footer-social-links">
+            <a href=""><i class='bx bxl-facebook-circle'></i></a>
+            <a href=""><i class='bx bxl-instagram-alt'></i></a>
+            <a href=""><i class='bx bxl-discord-alt'></i></a>
+        </div>
+        <div class="home-links">
+            <a href="">Home</a>
+            <div class="footer-vr-border"></div>
+            <a href="" class="">About us</a>
+            <div class="footer-vr-border"></div>
+            <a href="" class="">Contact us</a>
+        </div>
+        <ul class="footer-contact-info">
+            <li>+977 9898989</li>
+            <li>Newroad Pokhara</li>
+            <li> digitalkirana1@gmail.com</li>
+        </ul>
+        <span id="copyright">Copyright © 2023 beasty corp</span>
+    </footer>
+
+</body>
+
+</html>
