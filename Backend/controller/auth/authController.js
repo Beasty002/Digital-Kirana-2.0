@@ -165,7 +165,7 @@ exports.passwordReset = async(req,res) => {
         }
         const resetToken = jwt.sign({ userId: user._id }, process.env.USER_SECRET_KEY, { expiresIn: '1h' });
     
-        const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
+        const resetLink = `http://localhost:5173/reset?token=${resetToken}`;
 
         const tokenExpiration = new Date(Date.now() + 60 * 60 * 1000); 
 
