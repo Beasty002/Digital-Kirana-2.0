@@ -73,21 +73,30 @@ exports.loginCostumer = async (req,res) => {
 }
 
 exports.getFailedLogin = async(req,res) => {
+    console.log("Inside Failed Login")
     res.status(401).json({
         success:false,
         message:'Failed to login'
     })
+    
 }
 
 exports.getSuccessLogin = async(req,res) => {
     try {
-        if(req.user){
-            //genarate JWT Token
+        // console.log(req.isAuthenticated())
+        // console.log(req.user)
+        if (req.user) {
             res.status(200).json({
-                success:true,
-                message:'login Successfull',
-                userToken:"jhfashfjasf"
-            })
+                success: true,
+                message: "Successfully logged in",
+                user: req.user.userName, // This should contain user information
+                cookies: req.cookies,
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: "User not authenticated",
+            });
         }
     } catch (error) {
         console.log(error)
@@ -95,6 +104,14 @@ exports.getSuccessLogin = async(req,res) => {
     
 }
 
+exports.getLogoutGoogle = async(req,res) => {
+    try {
+        req.logout();
+        res.redirect("http://localhost:5173/")
+    } catch (error) {
+       console.log(error) 
+    }
+}
 exports.postVerify = async(req,res)=>{
 
 };

@@ -4,7 +4,8 @@ const passport = require("passport");
 
 const AuthControllers = require('../controller/auth/authController')
 const Costumer = require('../model/userModel');
-// const passport = require("passport");
+
+const CLIENT_URL = "http://localhost:5173/"
 
 // @ desc Register Costumer
 // @ route POST /auth/register
@@ -60,22 +61,29 @@ router.route('/login')
     AuthControllers.loginCostumer
 )
 
-// // @desc if login using google failes
-// // @route GET /auth/login/failed
-// router.route('/login/failed').get(AuthControllers.getFailedLogin);
+//  @desc if login using google failes
+//  @route GET /auth/login/failed
+router.route('/login/failed').get(AuthControllers.getFailedLogin);
 
-// // @desc Login with google
-// // @route GET /auth/google
-// router.route("/google").get(passport.authenticate("google", {
-//     scope:["profile"]
-// }));
+// @dec Success Login
+// @route GEt /auth/login/sucess
+router.route('/login/success').get(AuthControllers.getSuccessLogin);
 
-// // @desc CallbackURL from google result error or success
-// // @route GET /auth/google/callback
-// router.route("/google/callback").get(passport.authenticate("google"),{
-//     successRedirect:CLIENT_URL,
-//     failureRedirect:"/login/failed"
-// })
+// @desc Login with google
+// @route GET /auth/login/google
+router.route("/login/google").get(passport.authenticate("google", {
+    scope:["profile","email"]
+}));
 
+// @desc CallbackURL from google result error or success
+// @route GET /auth/google/callback
+router.route("/google/callback").get(passport.authenticate("google",{
+    successRedirect:CLIENT_URL,
+    failureRedirect:"/auth/login/failed",
+}))
+
+// @desc For Logging Out For Google Login
+// @route GET /auth/google/logout
+router.route("/logout").get(AuthControllers.getLogoutGoogle)
 
 module.exports = router;

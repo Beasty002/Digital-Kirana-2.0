@@ -18,7 +18,9 @@ const Form = ({ type,onSubmit }) => {
     e.preventDefault()
     onSubmit(formData)
   }
-  
+  const google = () =>{
+    window.open("http://localhost:3000/auth/login/google","_self")
+  }
   return (
     <>
       <div className="container">
@@ -34,6 +36,7 @@ const Form = ({ type,onSubmit }) => {
               <div className="form-group">
                 <label htmlFor="name">Userame:</label>
                 <input type="text" id="name" name="username" onChange={handleChange} required />
+                <button onClick={google}>Google</button>
               </div>
             )
           }
