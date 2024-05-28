@@ -61,6 +61,39 @@ router.route('/login')
     AuthControllers.loginCostumer
 )
 
+router.route('/reset')
+    .post([
+        check("email")
+            .isEmail()
+            .withMessage("Please provide a valid email address")
+            .custom(async(value, {req}) => {
+                const emailExist = await Costumer.findOne({email: value});
+                if(!emailExist){
+                    return Promise.reject(
+                        "User doesnot exist"
+                    )
+                }
+            })
+            .normalizeEmail(),
+    ],
+    AuthControllers.passwordReset
+)
+router.route('/changePassword')
+    .post([
+        body("password","Please enter a password with only numbers and text and at least 10 characters")
+            .isLength({min:10})
+            .isAlphanumeric()
+            .trim(),
+    ],
+    AuthControllers.passwordChange
+)
+router.route('/otpVerification')
+    .post([
+    ],
+    AuthControllers.verifyOtp
+)
+
+
 //  @desc if login using google failes
 //  @route GET /auth/login/failed
 router.route('/login/failed').get(AuthControllers.getFailedLogin);
