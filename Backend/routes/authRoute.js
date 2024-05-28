@@ -34,7 +34,7 @@ router.route('/register')
             .trim()
             
     ],
-    AuthControllers.registerCostumer
+    AuthControllers.registerCustomer
 )
 
 // @ desc Login Costumer
@@ -58,7 +58,7 @@ router.route('/login')
             .isAlphanumeric()
             .trim(),
     ],
-    AuthControllers.loginCostumer
+    AuthControllers.loginCustomer
 )
 
 router.route('/reset')

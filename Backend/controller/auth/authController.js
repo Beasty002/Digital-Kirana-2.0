@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const sendMail = require('../helper/emailSender');
 const {validationResult} = require("express-validator");
+// const passport = require('passport');
 
-
-exports.registerCostumer = async(req,res) => {
+exports.registerCustomer = async(req,res) => {
     const {username,email,password,phoneNumber} = req.body;
 
     const errors = validationResult(req);
@@ -38,6 +38,30 @@ exports.registerCostumer = async(req,res) => {
             });
             await costumer.save();
         
+             // can automatically log in the user after registration--using passport-local
+            req.login(user, async (err) => {
+                if (err) {
+                return next(err);
+                }
+        
+                // Generate JWT token
+                const userToken = jwt.sign({ id: user._id }, process.env.USER_SECRET_KEY, {
+                expiresIn: '30d',
+                });
+        
+                // Set userToken as a cookie
+                res.cookie('userToken', userToken, {
+                secure: true,
+                });
+        
+                // Return success response
+                return res.status(201).json({
+                message: 'User registered and logged in successfully',
+                userToken: userToken,
+                });
+            });
+
+
         //sending otp to user
         const emailSubject='Digital Kirana : User Verification'
         const emailBody = `
@@ -113,43 +137,44 @@ exports.registerCostumer = async(req,res) => {
     }
 }
 
-exports.loginCostumer = async (req,res) => {
-    const {email,password} = req.body;
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(422).json({
-            errorMessage: errors.array()[0].msg,
-            oldInput: {
-                email,
-                password
-            },
-        })
-    }
-    const user = await Costumer.findOne({email});
-
-    const userPassword = user.password;
-    const isMatched = await bcrypt.compare(password,userPassword)
-    if(isMatched){
-        const userToken = jwt.sign({id : user._id},process.env.USER_SECRET_KEY,{
-            expiresIn : '30d'
-        })
-        res.cookie('userToken',userToken,{
-            secure:true
-        })
-        res.status(200).json({
-            message:'Logged in successfully',
-            userToken:userToken,
-        })
-    }else{
-        res.status(403).json({
-            message:'Invalid Password',
-            oldInput: {
-                email,
-                password
-            },
-        })
-    }
-}
+// Login customer
+exports.loginCustomer = async (req, res, next) => {
+    passport.authenticate('local', async (err, user, info) => {
+      try {
+        if (err) {
+          return next(err);
+        }
+        if (!user) {
+          return res.status(403).json({
+            message: info.message,
+            oldInput: req.body,
+          });
+        }
+  
+        req.login(user, async (err) => {
+          if (err) {
+            return next(err);
+          }
+  
+          const userToken = jwt.sign({ id: user._id }, process.env.USER_SECRET_KEY, {
+            expiresIn: '30d',
+          });
+  
+          res.cookie('userToken', userToken, {
+            secure: true,
+          });
+  
+          return res.status(200).json({
+            message: 'Logged in successfully',
+            userToken: userToken,
+          });
+        });
+      } catch (error) {
+        return next(error);
+      }
+    })(req, res, next);
+  };
+  
 
 //sending reset link
 exports.passwordReset = async(req,res) => {

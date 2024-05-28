@@ -1,9 +1,13 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const LocalStrategy=require('passport-local').Strategy
 const Customer = require("../../model/userModel")
 const mongoose = require("mongoose")
+const bcrypt = require('bcrypt')
+
 
 //completed
 module.exports = (passport) => {
+  // Google OAuth2.0 Strategy
   passport.use(new GoogleStrategy({
     clientID:process.env.GOOGLE_CLIENT_ID,
     clientSecret:process.env.GOOGLE_CLIENT_SECRET,
@@ -32,13 +36,46 @@ module.exports = (passport) => {
   }
   ));
 
+
+
+  // Local Strategy
+  passport.use(
+    new LocalStrategy(
+      async(username, password, done)=> {
+        try{
+            const user =await Customer.findOne({ userName: username })
+
+            if (!user) { 
+              console.log("Invalid credentials")
+              return done(null, false)
+            }
+
+            const isMatch = await bcrypt.compare(password, user.password)
+            if (!isMatch) {
+              console.log("Invalid credentials")
+              return done(null, false)
+            }
+            console.log("Success")
+            return done(null, user)
+            
+          }catch(error){
+            console.log("Error")
+            return done(error, false);
+        }
+    }
+    )
+  );
+
+
+
+  // Serialize and Deserialize User
   passport.serializeUser((user, cb)=> {
     cb(null,user.id)
   });
     
-  passport.deserializeUser((id, cb)=> {
+  passport.deserializeUser(async(id, cb)=> {
     try{
-      const user = Customer.findById(id);
+      const user = await Customer.findById(id);
       cb(null, user)
     } catch(err){
       console.log(err)
