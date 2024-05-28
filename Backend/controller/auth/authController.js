@@ -23,17 +23,12 @@ exports.registerCustomer = async(req,res) => {
     try{
         const hashedPassword = await bcrypt.hash(password,12);
         
-        //verification code and its expiration for db insertion:
-        const verificationCode = Math.floor(100000 + Math.random() * 900000);//6 digit otp
-        const verificationCodeExpiration = new Date(Date.now() + 10 * 60 * 1000);//10 minutes
         
         const costumer = new Costumer({
             userName:username,
             email:email,
             password:hashedPassword,
             phoneNumber:phoneNumber,
-            verificationCode: verificationCode,
-            verificationCodeExpiration: verificationCodeExpiration,
         });
         await costumer.save();
         // can automatically log in the user after registration--using passport-local
@@ -62,6 +57,8 @@ exports.registerCustomer = async(req,res) => {
             
         const userId = costumer._id;
         const verificationToken = jwt.sign({ userId }, process.env.USER_SECRET_KEY, { expiresIn: '1h' });
+        costumer.verificationToken=verificationToken;
+        await costumer.save();
         const verificationLink = `http://localhost:5173/verify-user?token=${verificationToken}`;
         
         const emailSubject = 'Digital Kirana : User Verification';
@@ -312,21 +309,29 @@ exports.verifyUser = async (req, res) => {
         if (!token) {
             return res.status(400).send('Verification token is required');
         }
-
+        console.log(token)
         const decoded = jwt.verify(token, process.env.USER_SECRET_KEY);
         const userId = decoded.userId;
-
-        const user = await Customer.findById(userId);
+        console.log(userId)
+        
+        const user = await Costumer.findById(userId);
+        console.log(user)
         if (!user) {
             return res.status(400).send('Invalid token');
         }
-
-        user.isVerified = true;
+        if(user.verified===true){
+            return res.status(400).send('User already verified');
+        }
+        if(token!==user.verificationToken){
+            return res.status(400).send('Invalid token');
+        }
+        user.verified = true;
+        user.verificationToken=null;
         await user.save();
 
         res.status(201).send('User verified successfully');
     } catch (error) {
-        res.status(400).send('Invalid or expired token');
+        res.status(400).send('Invalid or expired token'+error);
     }
 };
 

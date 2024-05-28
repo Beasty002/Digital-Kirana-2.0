@@ -11,6 +11,7 @@ const costumerSchema = new Schema({
     googleId:{
         type:String,
         unique:true,
+        sparse: true,
     },
     email:{
         type:String,
@@ -24,11 +25,15 @@ const costumerSchema = new Schema({
         type:Number,
         default:null,
     },
-    verificationCode :{
-        type:Number,
-    },
-    verificationCodeExpiration:{
-        type:Date,
+    // verificationCode :{
+    //     type:Number,
+    // },
+    // verificationCodeExpiration:{
+    //     type:Date,
+    // },
+    verificationToken:{
+        type: String,
+        default: null,
     },
     verified: {
         type: Boolean,
