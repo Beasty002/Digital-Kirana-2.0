@@ -61,7 +61,7 @@ router.route('/login')
     AuthControllers.loginCustomer
 )
 
-router.route('/reset')
+router.route('/reset-password')
     .post([
         check("email")
             .isEmail()
@@ -87,10 +87,10 @@ router.route('/changePassword')
     ],
     AuthControllers.passwordChange
 )
-router.route('/otpVerification')
+router.route('/verify-user')
     .post([
     ],
-    AuthControllers.verifyOtp
+    AuthControllers.verifyUser
 )
 
 
