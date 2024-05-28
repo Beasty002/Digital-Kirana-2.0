@@ -1,24 +1,24 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Form = ({ type,onSubmit }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  })
-  const handleChange = e => {
-    const { name, value } = e.target
-    setFormData({
-      ...formData,
-      [name]: value
+  const [data,setData] = useState({
+    email : '',
+    username : '',
+    password : ''
+})
+const handleChange = (e)=>{
+    const {name,value} = e.target 
+    setData({
+        ...data,
+        [name] : value
     })
-  }
-  const handleSubmit = e => {
+}
+const handleSubmit = (e)=>{
     e.preventDefault()
-    onSubmit(formData)
-  }
-  
+    onSubmit(data)
+}
   return (
     <>
       <div className="container">
@@ -32,7 +32,7 @@ const Form = ({ type,onSubmit }) => {
           {
             type === 'Register' && (
               <div className="form-group">
-                <label htmlFor="name">Userame:</label>
+                <label htmlFor="name">Username:</label>
                 <input type="text" id="name" name="username" onChange={handleChange} required />
               </div>
             )
@@ -46,10 +46,17 @@ const Form = ({ type,onSubmit }) => {
             <label htmlFor="password">Password:</label>
             <input type="password" id="password" name="password" onChange={handleChange} required />
           </div>
-          {type === 'Register' ?
-          <button type="submit">Register</button> :
-          <button type="submit">Login</button>
-        }
+          <div className="relative">
+                            <button className="bg-blue-500 text-white rounded-md px-2 py-1">Submit</button>
+                        </div>
+          {
+                    type === 'Register' ? (
+                        <Link to='/login' style={{color:'blue'}} >Go to login</Link>
+                    ) : (
+                        <Link to='/register'style={{color:'blue'}} >Go to register</Link>
+
+                    )
+                }
         </form>
       </div>
     </>
