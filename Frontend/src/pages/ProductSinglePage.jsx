@@ -1,28 +1,37 @@
 // import React from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import '../components/css/productDetail.css'
 import Layout from '../components/layout/Layout'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Product from './components/product/Product'
-// import Products from './components/products/Products'
+// import {importProductImages} from '../utils/importProductImages'
+
 
 const ProductSinglePage = () => {
     const { id } = useParams()
 
     const [product, setProduct] = useState({})
     const [similarProducts, setSimilarProducts] = useState([])
-
+    const [data,setData] = useState({})
+    // console.log(importProductImages)
     useEffect(() => {
         const handleAPI = async () => {
             const singleProduct = await axios.get(`http://localhost:3000/api/singlePage/${id}`)
-            console.log(singleProduct.data)
+            // console.log(singleProduct.data)
             setProduct(singleProduct.data.productData)
             setSimilarProducts(singleProduct.data.similarProducts)
-            // console.log(similarProduct)
+            console.log(product)
         }
         handleAPI()
     }, [])
+
+    const handleEvent = (data) =>{
+        // e.preventDefault()
+        // console.log(data)
+        setProduct(data)
+    }   
+    
 
 
 
@@ -32,7 +41,7 @@ const ProductSinglePage = () => {
                 <main id="productDetail">
                     <section className="full-product-page">
                         <ul className="category-page-bread-crumb">
-                            <li><a href="">Home</a></li>
+                            <li><Link to='/'>Home</Link></li>
                             <li><a href="">{product.category} </a></li>
                             <li>{product.productName}</li>
                         </ul>
@@ -40,16 +49,16 @@ const ProductSinglePage = () => {
                             <figure className="detail-product-img-container">
                                 <div className="small-img-container">
                                     <div className="img1 mini-img focus">
-                                        <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="" />
+                                        <img src={`../../Assets/Images/Products/${product.frontView}`} alt="" />
                                     </div>
                                     <div className="img2 mini-img">
-                                        <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="" />
+                                        <img src={`../../Assets/Images/Products/${product.backView}`} alt="" />
                                     </div>
                                     <div className="img3 mini-img">
-                                        <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="" />
+                                        <img src={`../../Assets/Images/Products/${product.sideView}`} alt="" />
                                     </div>
                                     <div className="img3 mini-img">
-                                        <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="" />
+                                        <img src={`../../Assets/Images/Products/${product.topView}`} alt="" />
                                     </div>
                                 </div>
                                 <div className="main-img-container">
@@ -63,13 +72,13 @@ const ProductSinglePage = () => {
                                     <h1 id="productName">{product.productName}</h1>
                                     <p className="rating"></p>
                                     <p className="product-brand">Brand : <span>Anime</span></p>
-                                    <p className="main-product-price">{product.salesPrice}</p>
+                                    <p className="main-product-price">{data.salesPrice}</p>
                                     <p className="product-mrp">Rs 456</p>
                                     <div className="main-product-qty-btn-container">
                                         <span>Quantity :</span>
                                         <div className="main-product-qty-btn">
                                             <i className='bx bxs-minus-circle qty-decrease'></i>
-                                            <span className="qty-value">{product.stocks}</span>
+                                            <span className="qty-value">{data.stocks}</span>
                                             <i className='bx bxs-plus-circle qty-increase'></i>
                                         </div>
                                     </div>
@@ -87,20 +96,14 @@ const ProductSinglePage = () => {
                             <h2>Similar Products</h2>
                             <div className="product-card-container">
                                 {
-                                    similarProducts.map(product => {
+                                    similarProducts.map((product,index) => {
                                         return (
-                                            <Product data={product} />
+                                            <Product data={product} change={handleEvent} key={index} />
                                         )
                                     })
                                 }
-
-
-                                {/* <!-- ------------------------------------------------------------ --> */}
                             </div>
-
                         </section>
-
-
                     </section>
 
                 </main>

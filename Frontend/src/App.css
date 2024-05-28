@@ -11,6 +11,7 @@
 
 * {
     margin: 0;
+    /* padding: 0; */
     font-family: "Poppins", sans-serif;
     box-sizing: border-box;
 }
@@ -181,7 +182,7 @@ header {
     padding-top: 8px;
 }
 
-nav {
+.main-nav {
     width: var(--content-width);
     color: var(--secondary-txt-color);
     padding: 20px 0px;
@@ -377,13 +378,17 @@ main {
     transform: scale(1.02);
 }
 
+
 .product-img-container {
     text-align: center;
+    height: 120px;
 }
 
 .product-img-container img {
     object-fit: contain;
     width: 80%;
+    height: 95%;
+
 }
 
 .product-name {
@@ -491,11 +496,3 @@ main {
     width: 90%;
     object-fit: contain;
 }
-
-
-
-
-
-
-
-

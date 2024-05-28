@@ -3,12 +3,15 @@
 import { Link } from 'react-router-dom'
 // import Products from '../../../assets'
 
-const Product = ({data}) => {
+const Product = ({data,change}) => {
+  const handleData = () => {
+    change(data)
+  }
   return (
     <>
-      <Link to={`/singlePage/${data._id}`} className="product-card">
+      <Link to={`/singlePage/${data._id}`} className="product-card" onClick={handleData} >
         <figure className="product-img-container">
-          <img src= ''
+          <img src= {`../../Assets/Images/Products/${data.frontView}`}
             alt="" />
         </figure>
         <h3 className="product-name">{data.productName} </h3>

@@ -7,6 +7,8 @@ import './App.css'
 import ProductSinglePage from './pages/ProductSinglePage'
 import ProductCategory from './pages/ProductCategory'
 import 'boxicons'
+import { Provider } from 'react-redux'
+import store from './store/store'
 // import { useEffect,useState } from 'react'
 // import axios from 'axios'
 
@@ -31,6 +33,7 @@ const App = () => {
   // console.log(user)
   return (
     <>
+   <Provider store={store} >
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -44,9 +47,12 @@ const App = () => {
             
           } */}
           <Route path="/singlePage/:id" element={<ProductSinglePage />} />
-          <Route path="/productCategory" element={<ProductCategory />} />
+          <Route path="/productCategory/:id" element={<ProductCategory />} />
         </Routes>
       </BrowserRouter>
+
+   </Provider>
+
     </>
   )
 }

@@ -5,7 +5,7 @@ const Cart = () => {
     
   return (
     <>
- <section id="cartSlider">
+  <section id="cartSlider">
         <span id="cartCloseBtn">x</span>
         <section className="heading-div">
             <h2>My cart</h2>
@@ -18,7 +18,7 @@ const Cart = () => {
                 </div>
                 <div className="cart-product-specification">
                     <h4 className="cart-product-name">Crunchy-Cheetos </h4>
-                    <p className="cart-product-price">Price : Rs <span>20</span></p>
+                    <p className="cart-product-price"><span className="">Price : Rs</span> <span>20</span></p>
                     <div className="cart-product-qty">
                         <button className="decrease-qty cart-qty-btn">-</button>
                         <span className="cart-product-qty-value">00</span>
@@ -27,7 +27,7 @@ const Cart = () => {
                 </div>
                 <div className="cart-product-total">
                     <span className="cart-item-del-btn">x</span>
-                    <p>Total : <span> Rs 30</span></p>
+                    <p><span className="price-denoter"></span> <span> Rs 30</span></p>
                 </div>
             </div>
 

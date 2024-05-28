@@ -23,7 +23,7 @@ const Products = () => {
             {
               products.map(product=>{
                 return(
-                  <Product data={product} />
+                  <Product data={product}  />
                 )
               })
             }
