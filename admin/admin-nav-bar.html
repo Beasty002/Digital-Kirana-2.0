@@ -22,22 +22,8 @@
         }
 
         body {
-            background-color: red;
             margin: 0;
             padding: 0;
-        }
-
-        #adminSidebar {
-            height: 100dvh;
-            display: grid;
-            grid-template-rows: auto 1fr;
-            background-color: #FFF;
-            width: 280px;
-            padding: 15px 30px;
-        }
-
-        .sidebar-min-btn {
-            cursor: pointer;
         }
 
         ul,
@@ -45,46 +31,91 @@
             list-style: none;
         }
 
-        .img-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            font-size: 2rem;
-
-        }
-
-        #adminLogo {
-            height: 60px;
-            object-fit: contain;
-        }
-
         a {
             color: black;
             text-decoration: none;
         }
 
-
-        .side-items-list {
-            flex: 1;
+        #adminNavBar {
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            font-weight: 600;
-            font-size: 1.1rem;
-            padding: 60px 0px;
-            padding-bottom: 150px;
+            justify-content: flex-end;
+            padding: 10px 30px;
         }
 
-        .side-item a {
+        .nav-contents {
+            display: flex;
+            align-items: baseline;
+            gap: 25px;
+        }
+
+        .admin-notification {
+            font-size: 1.8rem;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-count {
+            position: absolute;
+            font-size: 0.8rem;
+            color: white;
+            background-color: red;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 400px;
+            height: 20px;
+            width: 20px;
+            top: -10px;
+            right: -8px;
+            padding-top: 4px;
+        }
+
+        .admin-profile {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 5px;
+        }
+
+        .admin-profile i {
+            font-size: 3rem;
+        }
+
+        .admin-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .admin-role {
+            color: gray;
         }
     </style>
 </head>
 
 <body>
+    <nav id="adminNavBar">
+        <ul class="nav-contents">
+            <li><i class='bx bx-bell admin-notification'><span class="notification-count">12</span></i></li>
+            <li class="admin-profile">
+                <i class='bx bxs-user-circle'></i>
+                <p class="admin-info">
+                    <span class="admin-name">
+                        John Doe
+                    </span>
+                    <span class="admin-role">
+                        Admin
+                    </span>
+                </p>
+            </li>
+
+
+        </ul>
+    </nav>
 
 
 
