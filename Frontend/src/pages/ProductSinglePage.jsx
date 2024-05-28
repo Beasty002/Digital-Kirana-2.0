@@ -13,7 +13,7 @@ const ProductSinglePage = () => {
 
     const [product, setProduct] = useState({})
     const [similarProducts, setSimilarProducts] = useState([])
-    const [data,setData] = useState({})
+    // const [data,setData] = useState({})
     // console.log(importProductImages)
     useEffect(() => {
         const handleAPI = async () => {
@@ -62,7 +62,7 @@ const ProductSinglePage = () => {
                                     </div>
                                 </div>
                                 <div className="main-img-container">
-                                    <img src="https://img.freepik.com/free-photo/beautiful-anime-character-cartoon-scene_23-2151035157.jpg"
+                                    <img src={`../../Assets/Images/Products/${product.frontView}`}
                                         alt="" />
                                 </div>
 
@@ -72,13 +72,13 @@ const ProductSinglePage = () => {
                                     <h1 id="productName">{product.productName}</h1>
                                     <p className="rating"></p>
                                     <p className="product-brand">Brand : <span>Anime</span></p>
-                                    <p className="main-product-price">{data.salesPrice}</p>
+                                    <p className="main-product-price">{product.salesPrice}</p>
                                     <p className="product-mrp">Rs 456</p>
                                     <div className="main-product-qty-btn-container">
                                         <span>Quantity :</span>
                                         <div className="main-product-qty-btn">
                                             <i className='bx bxs-minus-circle qty-decrease'></i>
-                                            <span className="qty-value">{data.stocks}</span>
+                                            <span className="qty-value">{product.stocks}</span>
                                             <i className='bx bxs-plus-circle qty-increase'></i>
                                         </div>
                                     </div>

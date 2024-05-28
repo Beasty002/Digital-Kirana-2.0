@@ -8,7 +8,7 @@ import axios from 'axios'
 
 const Home = () => {
   const handleAPI = async () =>{
-    const response = await axios.get('http://localhost:3000/api/product')
+    const response = await axios.get('http://localhost:3000/api/homePage')
     console.log(response.data)
 }
 useEffect(()=>{

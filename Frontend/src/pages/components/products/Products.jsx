@@ -6,7 +6,7 @@ import axios from 'axios'
 const Products = () => {
   const [products,setProducts] = useState([])
   const handleAPI = async () =>{
-    const response = await axios.get('http://localhost:3000/api/product')
+    const response = await axios.get('http://localhost:3000/api/homePage')
     // console.log(response.data.products)
     setProducts(response.data.products)
   }

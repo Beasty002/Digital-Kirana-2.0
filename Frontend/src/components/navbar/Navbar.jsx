@@ -4,13 +4,11 @@ import { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 
 
-
-
 const Navbar = () => {
     const [categories,setCategory] = useState([])
     useEffect(()=>{
         const handleAPI = async () =>{
-            const response = await axios.get('http://localhost:3000/api/product')
+            const response = await axios.get('http://localhost:3000/api/homePage')
             // console.log(response.data.category)
             setCategory(response.data.category)
         }
@@ -41,7 +39,7 @@ const Navbar = () => {
                 {
                     categories.map((category,index) => {
                         // console.log(category.name,index)
-                        return <li key={index} ><Link to={`/category/${category.name}`} >{category.name}</Link></li>
+                        return <li key={index} ><Link to={`/productCategory/${category._id}`} >{category.name}</Link></li>
 
                     })
                 }

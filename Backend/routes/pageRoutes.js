@@ -4,14 +4,20 @@ const router = express.Router();
 const pageControllers = require("../controller/Page/pageController");
 const authMiddleware = require("../middleware/authMiddleware");
 
-// @desc get HomePage
-// @route GET /api/product
-router.route("/product")
+// @desc getReactHomeOrIndexPage
+// @route GET /api/homePage
+router.route("/homePage")
     .get(authMiddleware,pageControllers.getIndex);
 
-// @desc get SinglePage
+// @desc getSingelProductPagewithSimilarProducts
 // @route GET /api/singlePage/:id
 router.route("/singlePage/:id")
     .get(authMiddleware,pageControllers.getSingleProduct);
+
+// @desc getReactCategoryProductsPage
+// @route GET /api/category/:id
+router.route("/productCategory/:id")
+    .get(authMiddleware,pageControllers.getCategoryProducts);   
+
 
 module.exports = router;

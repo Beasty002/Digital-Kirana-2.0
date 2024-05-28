@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // import axios from 'axios'
 // import React from 'react'
 import { Link } from 'react-router-dom'
@@ -15,7 +16,7 @@ const Product = ({data,change}) => {
             alt="" />
         </figure>
         <h3 className="product-name">{data.productName} </h3>
-        <span className="product-price">{data.salesPrice}</span>
+        <span className="product-price">Rs:{data.salesPrice}</span>
         <div className="product-qty-changer">
           <span >Qty</span>
           <div className="qty-btn">
