@@ -8,6 +8,10 @@ const costumerSchema = new Schema({
         required:true,
         unique:true,
     },
+    googleId:{
+        type:String,
+        unique:true,
+    },
     email:{
         type:String,
         required:true,
@@ -15,12 +19,10 @@ const costumerSchema = new Schema({
     },
     password:{
         type:String,
-        required:true,
     },
     phoneNumber:{
         type:Number,
-        unique:true,
-        required:true,
+        default:null,
     },
     verificationCode :{
         type:Number,

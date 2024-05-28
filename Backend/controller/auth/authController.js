@@ -1,7 +1,7 @@
 const Costumer  = require('../../model/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
-const sendMail = require('../email/emailSender');
+const sendMail = require('../helper/emailSender');
 const {validationResult} = require("express-validator");
 
 
@@ -165,7 +165,7 @@ exports.passwordReset = async(req,res) => {
         }
         const resetToken = jwt.sign({ userId: user._id }, process.env.USER_SECRET_KEY, { expiresIn: '1h' });
     
-        const resetLink = `http://localhost:5173/reset?token=${resetToken}`;
+        const resetLink = `http://localhost:5173/reset-password?token=${resetToken}`;
 
         const tokenExpiration = new Date(Date.now() + 60 * 60 * 1000); 
 
@@ -274,15 +274,13 @@ exports.passwordChange = async(req,res) => {
         }
         return res.status(500).json({ message: 'Error Occurred' });
     }catch(e){
-         res.status(500).json({ message: e });
+        res.status(500).json({ message: e });
     }
-  };
+};
 
 
-
-
-  //otp verification
-  exports.verifyOtp = async (req, res) => {
+//otp verification
+exports.verifyOtp = async (req, res) => {
     const { email, otp } = req.body;
     try {
         const user = await Costumer.findOne({ email });
@@ -303,9 +301,41 @@ exports.passwordChange = async(req,res) => {
         res.status(500).json({ message: 'Error occurred: ' + error.message });
     }
 };
-// exports.getVerify = async(req,res) => {
 
-// }
-exports.postVerify = async(req,res)=>{
 
-};
+exports.getFailedLogin = async(req,res) => {
+    console.log("Inside Failed Login")
+    res.status(401).json({
+        success:false,
+        message:'Failed to login'
+    })
+    
+}
+exports.getSuccessLogin = async(req,res) => {
+    try {
+        if (req.user) {
+            res.status(200).json({
+                success: true,
+                message: "Successfully logged in",
+                cookies: req.cookies,
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: "User not authenticated",
+            });
+        }
+    } catch (error) {
+        console.log(error)
+    }
+    
+}
+
+exports.getLogoutGoogle = async(req,res) => {
+    try {
+        req.logout();
+        res.redirect("http://localhost:5173/")
+    } catch (error) {
+       console.log(error) 
+    }
+}
