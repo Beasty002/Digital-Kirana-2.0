@@ -12,6 +12,9 @@ import store from './store/store'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
+import AdminHome from './admin/pages/AdminHome'
+import AdminProduct from './admin/pages/AdminProduct'
+
 
 const App = () => {
   
@@ -25,14 +28,11 @@ const App = () => {
           <Route path="/logout" /> 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* {
-            user === "true" ? 
-            <>
-            </>
-            
-          } */}
           <Route path="/singlePage/:id" element={<ProductSinglePage />} />
           <Route path="/productCategory/:id" element={<ProductCategory />} />
+
+          <Route path='/admin' element={<AdminHome />} />
+          <Route path='/adminProduct' element={<AdminProduct />} />
         </Routes>
       </BrowserRouter>
 
