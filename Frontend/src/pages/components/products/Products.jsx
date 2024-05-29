@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import Product from '../product/Product'
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
 const Products = () => {
   const [products,setProducts] = useState([])
@@ -13,6 +14,8 @@ const Products = () => {
   useEffect(()=>{
     handleAPI()
   },[])
+
+  
  
   return (
     <>

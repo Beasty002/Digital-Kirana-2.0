@@ -6,11 +6,13 @@ import {Link} from 'react-router-dom'
 
 const Navbar = () => {
     const [categories,setCategory] = useState([])
+    const [data,setData] = useState([])
     useEffect(()=>{
         const handleAPI = async () =>{
-            const response = await axios.get('http://localhost:3000/api/homePage')
+            
+            // const response = await axios.get('http://localhost:3000/api/homePage')
             // console.log(response.data.category)
-            setCategory(response.data.category)
+            // setCategory(response.data.category)
         }
         handleAPI()
     },[])
