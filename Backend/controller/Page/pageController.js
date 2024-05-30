@@ -55,7 +55,7 @@ exports.getSingleProduct = async (req, res) => {
 exports.getCategoryProducts = async (req, res) => {
     try {
         const categoryID = req.params.id;
-        const category = await Category.findById(categoryID);
+        const category = await Category.find({_id: categoryID});
         const products = await Product.find({ category: category.name });
         if (!req.costumerToken) {
             res.status(200).json({

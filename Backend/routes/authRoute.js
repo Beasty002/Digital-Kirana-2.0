@@ -34,7 +34,7 @@ router.route('/register')
             .trim()
             
     ],
-    AuthControllers.registerCostumer
+    AuthControllers.registerCustomer
 )
 
 // @ desc Login Costumer
@@ -58,10 +58,10 @@ router.route('/login')
             .isAlphanumeric()
             .trim(),
     ],
-    AuthControllers.loginCostumer
+    AuthControllers.loginCustomer
 )
 
-router.route('/reset')
+router.route('/reset-password')
     .post([
         check("email")
             .isEmail()
@@ -87,10 +87,10 @@ router.route('/changePassword')
     ],
     AuthControllers.passwordChange
 )
-router.route('/otpVerification')
+router.route('/verify-user')
     .post([
     ],
-    AuthControllers.verifyOtp
+    AuthControllers.verifyUser
 )
 
 

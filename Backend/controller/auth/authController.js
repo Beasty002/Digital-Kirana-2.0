@@ -3,11 +3,10 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const sendMail = require('../helper/emailSender');
 const {validationResult} = require("express-validator");
+const passport = require('passport');
 
-
-exports.registerCostumer = async(req,res) => {
+exports.registerCustomer = async(req,res) => {
     const {username,email,password,phoneNumber} = req.body;
-
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(422).json({
@@ -20,136 +19,161 @@ exports.registerCostumer = async(req,res) => {
             },
         })
     }
-
+    
     try{
         const hashedPassword = await bcrypt.hash(password,12);
-
-        //verification code and its expiration for db insertion:
-        const verificationCode = Math.floor(100000 + Math.random() * 900000);//6 digit otp
-        const verificationCodeExpiration = new Date(Date.now() + 10 * 60 * 1000);//10 minutes
-    
-            const costumer = new Costumer({
-                userName:username,
-                email:email,
-                password:hashedPassword,
-                phoneNumber:phoneNumber,
-                verificationCode: verificationCode,
-                verificationCodeExpiration: verificationCodeExpiration,
-            });
-            await costumer.save();
         
-        //sending otp to user
-        const emailSubject='Digital Kirana : User Verification'
+        
+        const costumer = new Costumer({
+            userName:username,
+            email:email,
+            password:hashedPassword,
+            phoneNumber:phoneNumber,
+        });
+        await costumer.save();
+        // can automatically log in the user after registration--using passport-local
+        req.login(costumer, async (err) => {
+            if (err) {
+                return next(err);
+            }
+            
+            // Generate JWT token
+            const userToken = jwt.sign({ id: costumer._id }, process.env.USER_SECRET_KEY, {
+                expiresIn: '30d',
+            });
+            
+            // Set userToken as a cookie
+            res.cookie('userToken', userToken, {
+                secure: true,
+                });
+        
+                // Return success response
+                // return res.status(201).json({
+                //     message: 'User registered and logged in successfully',
+                //     userToken: userToken,
+                // });--commented to prevent multiple response 
+            });
+            
+            
+        const userId = costumer._id;
+        const verificationToken = jwt.sign({ userId }, process.env.USER_SECRET_KEY, { expiresIn: '1h' });
+        costumer.verificationToken=verificationToken;
+        await costumer.save();
+        const verificationLink = `http://localhost:5173/verify-user?token=${verificationToken}`;
+        
+        const emailSubject = 'Digital Kirana : User Verification';
         const emailBody = `
         <html>
         <head>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f0f5f5;
-                    color: #333;
-                    padding: 20px;
-                }
-                .container {
-                    max-width: 600px;
-                    margin: 0 auto;
-                    background-color: #fff;
-                    padding: 30px;
-                    border-radius: 10px;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                }
-                .header {
-                    background-color: #4CAF50;
-                    color: #fff;
-                    padding: 10px;
-                    text-align: center;
-                    border-top-left-radius: 10px;
-                    border-top-right-radius: 10px;
-                }
-                .content {
-                    padding: 20px;
-                }
-                .otp {
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: #4CAF50;
-                }
-                .footer {
-                    margin-top: 20px;
-                    text-align: center;
-                    color: #888;
-                }
-            </style>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f5f5;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .link {
+            font-size: 16px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #888;
+        }
+        </style>
         </head>
         <body>
-            <div class="container">
-                <div class="header">
-                    <h2>User Verification</h2>
-                </div>
-                <div class="content">
-                    <p>Your OTP is <span class="otp">${verificationCode}</span>. Use this code to verify your account.</p>
-                </div>
-                <div class="footer">
-                    <p>Do not reply to this email. Visit our website <a href="http://localhost:3000">Digital Kirana</a> for more information.</p>
-                </div>
+        <div class="container">
+            <div class="header">
+                <h2>User Verification</h2>
             </div>
+            <div class="content">
+                <p>Click the link below to verify your account:</p>
+                <p><a href="${verificationLink}" class="link">Verify Your Account</a></p>
+            </div>
+            <div class="footer">
+                <p>Do not reply to this email. Visit our website <a href="http://localhost:5173">Digital Kirana</a> for more information.</p>
+            </div>
+        </div>
         </body>
         </html>
-    `;
-        const emailStatus=await sendMail(email,emailSubject,emailBody)
-        if(emailStatus==='success'){
-            return res.status(200).json({
-                message: "User registered Successfully"
-            })
-        }
-            res.status(422).json({
-            message: "Error Occurred "
-        })
-    }catch(e){
-        const errMsg="Error Occurred "+e
+        `;        
+                const emailStatus=await sendMail(email,emailSubject,emailBody)
+                if(emailStatus==='success'){
+                    return res.status(200).json({
+                        message: "User registered and logged in successfully"
+                    })
+                }
+                res.status(422).json({
+                    message: "Error Occurred "
+                })
+            }catch(e){
+                const errMsg="Error Occurred "+e
         res.status(422).json({
         message: errMsg
         })
     }
 }
 
-exports.loginCostumer = async (req,res) => {
-    const {email,password} = req.body;
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(422).json({
-            errorMessage: errors.array()[0].msg,
-            oldInput: {
-                email,
-                password
-            },
-        })
-    }
-    const user = await Costumer.findOne({email});
-
-    const userPassword = user.password;
-    const isMatched = await bcrypt.compare(password,userPassword)
-    if(isMatched){
-        const userToken = jwt.sign({id : user._id},process.env.USER_SECRET_KEY,{
-            expiresIn : '30d'
-        })
-        res.cookie('userToken',userToken,{
-            secure:true
-        })
-        res.status(200).json({
-            message:'Logged in successfully',
-            userToken:userToken,
-        })
-    }else{
-        res.status(403).json({
-            message:'Invalid Password',
-            oldInput: {
-                email,
-                password
-            },
-        })
-    }
-}
+// Login customer
+exports.loginCustomer = async (req, res, next) => {
+    passport.authenticate('local', async (err, user, info) => {
+      try {
+        if (err) {
+          return next(err);
+        }
+        if (!user) {
+          return res.status(403).json({
+            message: info.message,
+            oldInput: req.body,
+          });
+        }
+  
+        req.login(user, async (err) => {
+          if (err) {
+            return next(err);
+          }
+  
+          const userToken = jwt.sign({ id: user._id }, process.env.USER_SECRET_KEY, {
+            expiresIn: '30d',
+          });
+  
+          res.cookie('userToken', userToken, {
+            secure: true,
+          });
+  
+          return res.status(200).json({
+            message: 'Logged in successfully',
+            userToken: userToken,
+          });
+        });
+      } catch (error) {
+        return next(error);
+      }
+    })(req, res, next);
+  };
+  
 
 //sending reset link
 exports.passwordReset = async(req,res) => {
@@ -275,30 +299,40 @@ exports.passwordChange = async(req,res) => {
         return res.status(500).json({ message: 'Error Occurred' });
     }catch(e){
         res.status(500).json({ message: e });
+        res.status(500).json({ message: e });
     }
 };
 
-
-//otp verification
-exports.verifyOtp = async (req, res) => {
-    const { email, otp } = req.body;
+//user verification
+exports.verifyUser = async (req, res) => {
     try {
-        const user = await Costumer.findOne({ email });
+        const token = req.query.token;
+        if (!token) {
+            return res.status(400).send('Verification token is required');
+        }
+        console.log(token)
+        const decoded = jwt.verify(token, process.env.USER_SECRET_KEY);
+        const userId = decoded.userId;
+        console.log(userId)
+        
+        const user = await Costumer.findById(userId);
+        console.log(user)
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(400).send('Invalid token');
         }
-
-        if (user.verificationCode === parseInt(otp) && user.verificationCodeExpiration > Date.now()) {
-            user.verified = true;
-            user.verificationCode = null;
-            user.verificationCodeExpiration = null;
-            await user.save();
-
-            return res.status(200).json({ message: 'User verified successfully' });
+        if(user.verified===true){
+            return res.status(400).send('User already verified');
         }
-        res.status(400).json({ message: 'Invalid or expired OTP' });
+        if(token!==user.verificationToken){
+            return res.status(400).send('Invalid token');
+        }
+        user.verified = true;
+        user.verificationToken=null;
+        await user.save();
+
+        res.status(201).send('User verified successfully');
     } catch (error) {
-        res.status(500).json({ message: 'Error occurred: ' + error.message });
+        res.status(400).send('Invalid or expired token'+error);
     }
 };
 
