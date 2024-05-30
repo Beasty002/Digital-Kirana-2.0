@@ -5,11 +5,10 @@ import { Link } from 'react-router-dom'
 
 
 const Navbar = () => {
-    const [categories, setCategory] = useState([])
-    useEffect(() => {
-        const handleAPI = async () => {
+    const [categories,setCategory] = useState([])
+    useEffect(()=>{
+        const handleAPI = async () =>{
             const response = await axios.get('http://localhost:3000/api/homePage')
-            // console.log(response.data.category)
             setCategory(response.data.category)
         }
         handleAPI()
@@ -27,7 +26,6 @@ const Navbar = () => {
                     </div>
                     <div className="search-bar">
                         <input type="text" name="search" placeholder="Enter the product name...." />
-                        {/* <box-icon name='search-alt-2' ></box-icon> */}
                     </div>
                     <ul className="nav-items">
                         <li><Link to='/login' ><box-icon name='user' ></box-icon> Login</Link></li>

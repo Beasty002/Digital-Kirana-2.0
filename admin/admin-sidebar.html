@@ -14,18 +14,29 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'poppins';
+        }
+
         body {
-            background-color: red;
             margin: 0;
             padding: 0;
         }
 
-        aside {
+        #adminSidebar {
             height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            background-color: #fff;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            background-color: #FFF;
             width: 280px;
+            padding: 15px 30px;
+        }
+
+        .sidebar-min-btn {
+            cursor: pointer;
         }
 
         ul,
@@ -35,8 +46,16 @@
 
         .img-container {
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            width: 100%;
             font-size: 2rem;
+
+        }
+
+        #adminLogo {
+            height: 60px;
+            object-fit: contain;
         }
 
         a {
@@ -44,38 +63,41 @@
             text-decoration: none;
         }
 
-        .side-items {
+
+        .side-items-list {
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
-            padding: 200px 0px;
-            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 60px 0px;
+            padding-bottom: 150px;
         }
 
-        .side-items-list {
+        .side-item a {
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
         }
     </style>
 </head>
 
 <body>
-    <aside>
+    <aside id="adminSidebar">
         <div class="img-container">
-            <figure><img src="" alt="logo"></figure>
-            <i class='bx bx-menu-alt-left'></i>
+            <figure><img
+                    src="https://static.vecteezy.com/system/resources/thumbnails/033/662/051/small_2x/cartoon-lofi-young-manga-style-girl-while-listening-to-music-in-the-rain-ai-generative-photo.jpg"
+                    alt="logo" id="adminLogo"></figure>
+            <i class='bx bx-menu-alt-left sidebar-min-btn'></i>
         </div>
-        <div class="side-items">
-            <ul class="side-items-list">
-                <li class="side-item"><a href=""><i class='bx bxs-dashboard'></i><span>Dashboard</span></a></li>
-                <li class="side-item"><a href=""><i class='bx bxl-product-hunt'></i><span>Product</span></a></li>
-                <li class="side-item"><i class='bx bx-border-all'></i><span>Order</span></a></li>
-                <li class="side-item"><a href=""><i class='bx bxs-dashboard'></i><span>Dashboard</span></a></li>
-                <li class="side-item"><a href=""><i class='bx bxs-dashboard'></i><span>Dashboard</span></a></li>
-            </ul>
-        </div>
+        <ul class="side-items-list">
+            <li class="side-item"><a href=""><i class='bx bxs-dashboard'></i><span>Dashboard</span></a></li>
+            <li class="side-item"><a href=""><i class='bx bxl-product-hunt'></i><span>Product</span></a></li>
+            <li class="side-item"><a href=""><i class='bx bx-border-all'></i><span>Categories</span></a></li>
+            <li class="side-item"><a href=""><i class='bx bxs-dashboard'></i><span>Order</span></a></li>
+            <li class="side-item"><a href=""><i class='bx bxs-dashboard'></i><span>Promotion</span></a></li>
+        </ul>
     </aside>
 
 

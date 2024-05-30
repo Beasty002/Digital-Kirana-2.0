@@ -9,45 +9,30 @@ import ProductCategory from './pages/ProductCategory'
 import 'boxicons'
 import { Provider } from 'react-redux'
 import store from './store/store'
-// import { useEffect,useState } from 'react'
-// import axios from 'axios'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+import AdminHome from './admin/pages/AdminHome'
+import AdminProduct from './admin/pages/AdminProduct'
 
 
 const App = () => {
-  // const [user,setuser] = useState('');
-  // useEffect(() => {
-  //   const getUser = () => {
-  //     axios.get("http://localhost:3000/auth/login/success",{withCredentials:true})
-  //     .then((response) => {
-  //       if(response.status === 200) return response.data;
-  //       throw new Error("authentication has been failed")
-  //     }).then(responseObj => {
-  //       setuser(responseObj.success)
-  //     }).catch(err =>{
-  //       console.log(err)
-  //       setuser(false)
-  //     })
-  //   }
-  //   getUser()
-  // },[])
-  // console.log(user)
+  
   return (
     <>
    <Provider store={store} >
       <BrowserRouter>
+      <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/logout" /> 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* {
-            user === "true" ? 
-            <>
-            </>
-            
-          } */}
           <Route path="/singlePage/:id" element={<ProductSinglePage />} />
           <Route path="/productCategory/:id" element={<ProductCategory />} />
+
+          <Route path='/admin' element={<AdminHome />} />
+          <Route path='/adminProduct' element={<AdminProduct />} />
         </Routes>
       </BrowserRouter>
 
