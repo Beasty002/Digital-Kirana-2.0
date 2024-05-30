@@ -5,48 +5,45 @@ import Products from './components/products/Products'
 // import '../components/css/ca'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Categories from './components/categories/Categories'
+// import Categories from './components/categories/Categories'
 
 const Home = () => {
- 
-    const [categories,setCategories] = useState([])
-    const handleData = async () =>{
-      try{
-        const response = await axios.get('http://localhost:3000/api/homePage')
-        // console.log(response.data.category)
-        setCategories(response.data.category)
-      }catch(error){
-        console.log(error)
-      }
+
+  const [products, setProducts] = useState([])
+  const handleData = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/homePage')
+      console.log("Inisde Home")
+      setProducts(response.data.products);
+    } catch (error) {
+      console.log(error)
     }
-    useEffect(() => {
-      handleData()
-    },[])
+  }
+  useEffect(() => {
+    handleData()
+  }, [])
   return (
     <>
-    <Layout>
-    <main>
-        <section id="promotionalImageContainer">
+      <Layout>
+        <main>
+          <section id="promotionalImageContainer">
             <div className="main-img-banner">
-                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="" />
+              <img src={`../../Assets/Images/promotion/deliver banner.png`} alt="" />
             </div>
             <div className="secondary-img-banner">
-                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="" />
+              <img src={`../../Assets/Images/promotion/advertisement-banner.png`} alt="" />
             </div>
-        </section>
-       <Products  />
+          </section>
+          <Products data={products}/>
 
-       <section class="categories-list">
-                <h2>Categories</h2>
-                <div class="categories-container-list">
-
-                    <Categories  data={categories} />
-                   
-
-                </div>
-            </section>
-    </main>
-    </Layout>
+          {/* <section className="categories-list">
+            <h2>Categories</h2>
+            <div className="categories-container-list">
+              <Categories data={categories} />
+            </div>
+          </section> */}
+        </main>
+      </Layout>
     </>
   )
 }

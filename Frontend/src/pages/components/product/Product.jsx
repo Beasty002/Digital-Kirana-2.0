@@ -25,12 +25,12 @@ const Product = ({data,change}) => {
         <h3 className="product-name">{data.productName} </h3>
         <span className="product-price">Rs:{data.salesPrice}</span>
         <div className="product-qty-changer">
-          <span >Qty</span>
-          <div className="qty-btn">
+          {/* <span >Qty</span> */}
+          {/* <div className="qty-btn">
             <button className="decrease">-</button>
             <span>00</span>
             <button className="increase">+</button>
-          </div>
+          </div> */}
         </div>
       </Link>
         <button className="add-to-cart-btn" onClick={()=> handleAddToCart(data)}><box-icon name='cart' ></box-icon>Add to Cart</button>

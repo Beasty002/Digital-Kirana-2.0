@@ -1,19 +1,20 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
+
 import { Link } from 'react-router-dom'
 
 const Categories = ({data}) => {
-    // console.log(data)
+
     return (
         <>
         {
             data.map((category,index) =>{
             return (
             <Link to={`/productCategory/${category._id}`} key={index} >
-                <div class="category-card">
-                    <figure class="category-img-container">
-                        <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="" />
+                <div className="category-card">
+                    <figure className="category-img-container">
+                        <img src={`../../../../Assets/Images/categories/${category.imageUrl}`} alt="" />
                     </figure>
-                    <p class="category-name">
+                    <p className="category-name">
                         {category.name}
                     </p>
 

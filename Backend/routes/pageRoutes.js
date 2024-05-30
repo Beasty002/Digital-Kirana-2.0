@@ -15,7 +15,7 @@ router.route("/singlePage/:id")
     .get(authMiddleware,pageControllers.getSingleProduct);
 
 // @desc getReactCategoryProductsPage
-// @route GET /api/category/:id
+// @route GET /api/productCategory/:id
 router.route("/productCategory/:id")
     .get(authMiddleware,pageControllers.getCategoryProducts);   
 
