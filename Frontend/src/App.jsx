@@ -14,10 +14,11 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import AdminHome from './admin/pages/AdminHome'
 import AdminProduct from './admin/pages/AdminProduct'
+import { getTotals } from './store/cartSlice'
 
 
 const App = () => {
-  
+  store.dispatch(getTotals())
   return (
     <>
    <Provider store={store} >

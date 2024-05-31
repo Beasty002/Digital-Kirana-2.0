@@ -13,14 +13,14 @@ const ProductCategory = () => {
     const handleAPI = async () => {
       const response = await axios.get(`http://localhost:3000/api/productCategory/${id}`)
       setProducts(response.data.categoryProducts);
-      console.log("Inside Product Category")
+      // console.log("Inside Product Category")
     }
     handleAPI()
-  }, [])
+  }, [id])
   return (
     <>
       <Layout>
-        <Products data={products}/>
+        <Products data={products} type='category'/>
       </Layout>
     </>
   )

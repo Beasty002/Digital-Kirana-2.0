@@ -2,10 +2,13 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+// import Cart from '../cart/Cart'
+import { useSelector } from 'react-redux'
 
 
 const Navbar = () => {
     const [categories,setCategory] = useState([])
+    const {cartTotalQuantity} = useSelector(state=> state.cart) 
     useEffect(()=>{
         const handleAPI = async () =>{
             const response = await axios.get('http://localhost:3000/api/homePage')
@@ -13,6 +16,7 @@ const Navbar = () => {
         }
         handleAPI()
     }, [])
+    
     return (
         <>
             <header>
@@ -29,7 +33,7 @@ const Navbar = () => {
                     </div>
                     <ul className="nav-items">
                         <li><Link to='/login' ><box-icon name='user' ></box-icon> Login</Link></li>
-                        <li className="cart-btn"><box-icon name='cart' ></box-icon><span id="cart-item-amt">00</span></li>
+                        <li className="cart-btn"><box-icon name='cart' ></box-icon><span id="cart-item-amt">{cartTotalQuantity}</span></li>
                     </ul>
                 </nav>
                 <div className="nav-cat-items-container">
@@ -42,6 +46,8 @@ const Navbar = () => {
                     </ul>
                 </div>
             </header>
+                        {/* <Cart /> */}
+
             <nav className="bottom-nav">
                 <ul>
                     <li><a href="/"><box-icon name='home' ></box-icon>Home</a></li>

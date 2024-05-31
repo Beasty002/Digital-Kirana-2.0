@@ -1,6 +1,7 @@
 
 import { useDispatch, useSelector } from 'react-redux'
-import { decreaseCart, removeFromCart } from '../../store/cartSlice'
+import { clearCart, decreaseCart, getTotals, increaseCart, removeFromCart } from '../../store/cartSlice'
+import { useEffect } from 'react'
 
 const Cart = () => {
     const cart = useSelector(state => state.cart)
@@ -8,16 +9,25 @@ const Cart = () => {
     const handleRemoveFromCart = cartItem => {
         dispatch(removeFromCart(cartItem))
     }
-    // const handleDecreaseCart = cartItem =>{
-    //     dispatch(decreaseCart(cartItem))
-    // }
+    const handleDecreaseCart = cartItem => {
+        dispatch(decreaseCart(cartItem))
+    }
+    const handleIncreaseCart = cartItem => {
+        dispatch(increaseCart(cartItem))
+    }
+    const handleClearCart = () => {
+        dispatch(clearCart())
+    }
+    useEffect(() => {
+        dispatch(getTotals())
+    },[cart,dispatch])
     return (
         <>
             <section id="cartSlider">
                 <span id="cartCloseBtn">x</span>
                 <section className="heading-div">
                     <h2>My cart</h2>
-                    <span id="cartClearBtn" >Clear cart</span>
+                    <span id="cartClearBtn" onClick={() => handleClearCart()}>Clear cart</span>
                 </section>
                 <section className="cart-item-container">
                     {
@@ -36,14 +46,14 @@ const Cart = () => {
                                                 <h4 className="cart-product-name">{cartItem.productName} </h4>
                                                 <p className="cart-product-price"><span className="">Price : Rs</span> <span>{cartItem.salesPrice}</span></p>
                                                 <div className="cart-product-qty">
-                                                    <button className="decrease-qty cart-qty-btn" >-</button>
+                                                    <button className="decrease-qty cart-qty-btn" onClick={() => handleDecreaseCart(cartItem)} >-</button>
                                                     <span className="cart-product-qty-value">{cartItem.cartQuantity}</span>
-                                                    <button className="increase-qty cart-qty-btn">+</button>
+                                                    <button className="increase-qty cart-qty-btn" onClick={() => handleIncreaseCart(cartItem)}>+</button>
                                                 </div>
                                             </div>
                                             <div className="cart-product-total">
                                                 <span className="cart-item-del-btn" onClick={() => handleRemoveFromCart(cartItem)}>x</span>
-                                                <p><span className="price-denoter"></span> <span> Rs 30</span></p>
+                                                <p><span className="price-denoter"></span> <span>{`Rs ${cart.cartTotalAmount}`}</span></p>
                                             </div>
                                         </div>
                                     ))
@@ -56,7 +66,7 @@ const Cart = () => {
                 </section>
                 <section className="checkout-section">
                     <hr className="cart-divider-line" />
-                    <div className="subtotal-container"><span>Subtotal : </span> <span className="cart-subtotal-price">Rs 500</span>
+                    <div className="subtotal-container"><span>Subtotal : </span> <span className="cart-subtotal-price">{`Rs ${cart.cartTotalAmount}`}</span>
                     </div>
                     <button id="checkoutBtn">Checkout</button>
                 </section>

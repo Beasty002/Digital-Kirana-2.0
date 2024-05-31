@@ -6,7 +6,8 @@ import Product from '../product/Product'
 // import axios from 'axios'
 // import { useParams } from 'react-router-dom'
 
-const Products = ({data}) => {
+const Products = ({data,type}) => {
+  console.log(data)
   // const [products,setProducts] = useState([])
   // const handleAPI = async () =>{
   //   const response = await axios.get('http://localhost:3000/api/homePage')
@@ -20,7 +21,16 @@ const Products = ({data}) => {
     <>
       <section id="productShowcase">
         <section className="featured-products">
-          <h2>Featured Products</h2>
+          {
+            type === 'category' ?(
+              <>
+              <h2>Non Featured Products</h2>
+              {/* <h2>{data[0].category} Products</h2> */}
+              </>
+            ):(
+              <h2>Featured Products</h2>
+            )
+          }
           <div className="product-card-container">
             {
               data.map((product) => {
