@@ -19,5 +19,14 @@ router.route("/singlePage/:id")
 router.route("/productCategory/:id")
     .get(authMiddleware,pageControllers.getCategoryProducts);   
 
+// @desc getPaymentSuccessPage
+// @route GET /api/esewa-success/:data
+router.route("/esewa-success")
+.get(authMiddleware,pageControllers.handleEsewaSuccess,pageControllers.updateOrderAfterPayment); 
 
+
+// @desc Create Payment Order
+// @route GET /api/create/:id
+router.route("/create")
+    .post(authMiddleware,pageControllers.createOrder); 
 module.exports = router;

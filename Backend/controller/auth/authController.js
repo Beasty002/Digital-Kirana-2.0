@@ -176,7 +176,7 @@ exports.loginCustomer = async (req, res, next) => {
   
 
 //sending reset link
-exports.passwordReset = async(req,res) => {
+exports.resetPassword = async(req,res) => {
     const { email } = req.body;
     try{
         const user = await Costumer.findOne({ email });
@@ -268,7 +268,7 @@ exports.passwordReset = async(req,res) => {
   };
 
 //sending reset link
-exports.passwordChange = async(req,res) => {
+exports.changePassword = async(req,res) => {
     const {token,password} = req.body;
     try{
         const decoded = jwt.verify(token,process.env.USER_SECRET_KEY);
