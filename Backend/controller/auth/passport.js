@@ -38,31 +38,31 @@ module.exports = (passport) => {
 
 
 
-  // Local Strategy
+  // Local Strategy for Customer/User
   passport.use(
     new LocalStrategy(
       async(username, password, done)=> {
         try{
-            const user =await Customer.findOne({ userName: username })
+          const user =await Customer.findOne({ userName: username })
 
-            if (!user) { 
-              console.log("Invalid credentials")
-              return done(null, false)
-            }
+          if (!user) { 
+            console.log("Invalid credentials")
+            return done(null, false)
+          }
 
-            const isMatch = await bcrypt.compare(password, user.password)
-            if (!isMatch) {
-              console.log("Invalid credentials")
-              return done(null, false)
-            }
-            console.log("Success")
-            return done(null, user)
+          const isMatch = await bcrypt.compare(password, user.password)
+          if (!isMatch) {
+            console.log("Invalid credentials")
+            return done(null, false)
+          }
+          console.log("Success")
+          return done(null, user)
             
-          }catch(error){
-            console.log("Error")
-            return done(error, false);
+        }catch(error){
+          console.log("Error")
+          return done(error, false);
         }
-    }
+      }
     )
   );
 
