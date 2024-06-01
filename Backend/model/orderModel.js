@@ -16,9 +16,9 @@ const orderSchema = new Schema({
       products: [
         {
           product: {
-            type: String,
+            type: Schema.Types.ObjectId,
+            ref: "Products",
             required: true,
-            default: "Test",
           },
           quantity: {
             type: Number,
@@ -34,15 +34,9 @@ const orderSchema = new Schema({
         default: "failed",
       },
     costumer: {
-        email: {
-            type: String,
-            required: true,
-        },
-        costumerId: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            ref: "Costumer",
-        }
+        type: Schema.Types.ObjectId,
+        ref: "Costumer",
+        required: true,
     },
 },
 { timestamps: true }

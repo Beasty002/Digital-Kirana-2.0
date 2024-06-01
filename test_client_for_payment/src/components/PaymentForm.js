@@ -6,12 +6,12 @@ function App() {
     const url = "http://localhost:3000/api/create";
     const data = {
       amount: 100,
-      products: [{ product: "test", amount: 100, quantity: 1 }],
+      products: [{product: "665aa7b215cb64cd6b8e2dfa", amount: 100, quantity: 1 }],
       payment_method,
-      costumer: {
-        email: "customer@example.com",
-        costumerId: "60d5f9aeb0c1c524d8b1d0c4",
-      },
+      // costumer: {
+      //   _id: "665606745e163fe47b91f066",
+      // },
+      costumer:"665606745e163fe47b91f066",
     };
 
     try {
