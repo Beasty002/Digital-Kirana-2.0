@@ -9,7 +9,7 @@ import '../../components/css/footer.css'
 const Layout = ({children}) => {
   return (
     <>
-      <Cart />
+      {/* <Cart /> */}
       <Navbar />
       {children}
       <Footer />

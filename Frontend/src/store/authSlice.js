@@ -29,7 +29,7 @@ export const login = data => {
     return async function loginChunk(dispatch){
         dispatch(setStatus(STATUS.LOADING))
         try{
-            const response = await axios.post('http://localhost:3000/auth/login')
+            const response = await axios.post('http://localhost:3000/auth/login',data)
             if(response.status === 200 && response.data.token){
                 dispatch(setStatus(STATUS.SUCCESS))
                 dispatch(setToken(response.data.token))
@@ -46,7 +46,7 @@ export const register = data =>{
     return async function registerChunk(dispatch){
         dispatch(setStatus(STATUS.LOADING))
         try{
-            const response = await axios.post('http://localhost:3000/auth/register')
+            const response = await axios.post('http://localhost:3000/auth/register',data)
             console.log(response.data)
             if(response.status === 200){
                 dispatch(setStatus(STATUS.SUCCESS))

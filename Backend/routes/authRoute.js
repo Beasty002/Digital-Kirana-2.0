@@ -61,6 +61,8 @@ router.route('/login')
     AuthControllers.loginCustomer
 )
 
+// @ desc Reset Costumer Password
+// @ route POST /auth/reset-password
 router.route('/reset-password')
     .post([
         check("email")
@@ -76,8 +78,11 @@ router.route('/reset-password')
             })
             .normalizeEmail(),
     ],
-    AuthControllers.passwordReset
+    AuthControllers.resetPassword
 )
+
+// @ desc Change Costumer Password
+// @ route POST /auth/changePassword
 router.route('/changePassword')
     .post([
         body("password","Please enter a password with only numbers and text and at least 10 characters")
@@ -85,8 +90,11 @@ router.route('/changePassword')
             .isAlphanumeric()
             .trim(),
     ],
-    AuthControllers.passwordChange
+    AuthControllers.changePassword
 )
+
+// @ desc Verify Costumer After Registration
+// @ route POST /auth/verify-user
 router.route('/verify-user')
     .post([
     ],

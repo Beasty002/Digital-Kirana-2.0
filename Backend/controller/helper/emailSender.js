@@ -22,11 +22,11 @@ const sendMail = async (to,subject,html) => {
 
         // Send email
         let info = await transporter.sendMail(mailOptions);
-        // console.log('Message sent: %s', info.messageId);
+        console.log('Message sent: %s', info.messageId);
         return 'success'
     } catch (error) {
-        // console.error('Error sending email:', error);
-        return 'error'
+        console.error('Error sending email:', error);
+        return error;
     }
 };
 module.exports = sendMail;

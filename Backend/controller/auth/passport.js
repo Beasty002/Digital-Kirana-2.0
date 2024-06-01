@@ -66,8 +66,6 @@ module.exports = (passport) => {
     )
   );
 
-
-
   // Serialize and Deserialize User
   passport.serializeUser((user, cb)=> {
     cb(null,user.id)
@@ -81,4 +79,5 @@ module.exports = (passport) => {
       console.log(err)
     }    
   });
+  
 }

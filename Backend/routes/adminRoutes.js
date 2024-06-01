@@ -8,8 +8,8 @@ const Admin = require("../model/adminModel");;
 
 // @desc postAdminLogin
 // @route /admin/login
-router.route("/login")
-  .post(adminMiddleware, AdminControllers.postAdminLogin)
+// router.route("/login")
+  // .post(adminMiddleware, AdminControllers.postAdminLogin)
 
 // @desc getAdminDashBoard
 // @route GET /admin/dashbaord
@@ -18,17 +18,17 @@ router.route("/dashboard")
 
 // @desc postAddProduct
 // @route POST /admin/add-product
-router.route("/add-product")
-  .post(adminMiddleware, AdminControllers.postAddProduct)
+// router.route("/add-product")
+//   .post(adminMiddleware, AdminControllers.postAddProduct)
 
 // @desc postEditProduct
 // @route POST /admin/edit-product/:id
-router.route("/edit-product/:id")
-  .post(adminMiddleware, AdminControllers.postEditProduct);
+// router.route("/edit-product/:id")
+//   .post(adminMiddleware, AdminControllers.postEditProduct);
 
 // @desc getAllProducts
 // @route GET /admin/allProducts
 router.route("/allProducts")
-  get(adminMiddleware, AdminControllers.getAllProducts);
+  .get(adminMiddleware, AdminControllers.getAllProducts);
 
 module.exports = router;
