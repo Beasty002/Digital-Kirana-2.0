@@ -56,7 +56,7 @@ exports.getCategoryProducts = async (req, res) => {
     try {
         const categoryID = req.params.id;
         // console.log("Inside Product Category")
-        const category = await Category.find({_id: categoryID});
+        const category = await Category.find({ _id: categoryID });
         // console.log(category)
         const products = await Product.find({ category: category[0].name });
         if (!req.costumerToken) {
