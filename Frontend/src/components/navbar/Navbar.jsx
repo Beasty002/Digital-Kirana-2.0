@@ -3,12 +3,19 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 // import Cart from '../cart/Cart'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleCart } from '../../store/cartSlice'
 
 
 const Navbar = () => {
+    const dispatch = useDispatch()
     const [categories,setCategory] = useState([])
+    const [cartQuantity,setCartQuantity] = useState()
     const {cartTotalQuantity} = useSelector(state=> state.cart) 
+    // setCartQuantity(cartTotalQuantity)
+    // useEffect(()=>{
+    //     setCartQuantity(cartQuantity)
+    // },[cartTotalQuantity])
     useEffect(()=>{
         const handleAPI = async () =>{
             const response = await axios.get('http://localhost:3000/api/homePage')
@@ -33,7 +40,9 @@ const Navbar = () => {
                     </div>
                     <ul className="nav-items">
                         <li><Link to='/login' ><box-icon name='user' ></box-icon> Login</Link></li>
-                        <li className="cart-btn"><box-icon name='cart' ></box-icon><span id="cart-item-amt">{cartTotalQuantity}</span></li>
+                        <li className="cart-btn"><box-icon name='cart' onClick={()=>{
+                            dispatch(toggleCart())
+                        }} ></box-icon><span id="cart-item-amt">{cartTotalQuantity}</span></li>
                     </ul>
                 </nav>
                 <div className="nav-cat-items-container">

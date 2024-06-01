@@ -1,11 +1,12 @@
 import React from 'react'
 import Layout from '../layout/Layout'
+import '../components/css/productpage.css'
 
 const AdminProduct = () => {
   return (
     
     <Layout >
-    <main id="productListingPage">
+   <main id="productListingPage">
         <h1 class="page-heading">Products</h1>
         <section class="admin-product-search">
             <div class="admin-product-search-container">
