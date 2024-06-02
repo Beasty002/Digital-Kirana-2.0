@@ -3,7 +3,7 @@ import axios from "axios";
 function App() {
 
   const handlePayment = async (payment_method) => {
-    const url = "http://localhost:3000/api/create";
+    const url = "http://localhost:3000/api/create/1";
     const data = {
       amount: 100,
       products: [{product: "665aa7b215cb64cd6b8e2dfa", amount: 100, quantity: 1 }],

@@ -38,7 +38,7 @@ module.exports = (passport) => {
 
 
 
-  // Local Strategy
+  // Local Strategy for Customer/User
   passport.use(
     new LocalStrategy(
       { usernameField: 'email' },
@@ -67,8 +67,6 @@ module.exports = (passport) => {
     )
   );
 
-
-
   // Serialize and Deserialize User
   passport.serializeUser((user, cb)=> {
     cb(null,user.id)
@@ -82,4 +80,5 @@ module.exports = (passport) => {
       console.log(err)
     }    
   });
+  
 }

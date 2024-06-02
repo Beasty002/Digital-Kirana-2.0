@@ -6,77 +6,80 @@ const orderService = require("../../services/orderServices");
 
 
 exports.getIndex = async (req, res) => {
-    try {
-        const products = await Product.find({});
-        const categories = await Category.find({});
+  try {
+    const products = await Product.find({});
+    const categories = await Category.find({});
 
-        if (!req.costumerToken) {
-            return res.status(200).json({
-                products: products,
-                category: categories,
-            })
-        }
-        return res.status(200).json({
-            costumerToken: req.costumerToken,
-            products: products,
-            category: categories,
-        })
-    } catch (error) {
-        console.log(error)
+    if (!req.costumerToken) {
+      return res.status(200).json({
+        products: products,
+        category: categories,
+      })
     }
+    return res.status(200).json({
+      costumerToken: req.costumerToken,
+      products: products,
+      category: categories,
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 
 exports.getSingleProduct = async (req, res) => {
-    try {
-        const product = await Product.findById(req.params.id);
-        const category = product.category;
-        const similarProducts = await Product.find({
-            category,
-            _id: { $ne: product._id }  // Exclude the current product
-        });
-        if (!req.costumerToken) {
-            return res.status(200).json({
-                productData: product,
-                similarProducts
-            })
-        }
-        return res.status(200).json({
-            costumerToken: req.costumerToken,
-            productData: product,
-            similarProducts
-        })
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            message: "DB 500 Error"
-        })
+  try {
+    const product = await Product.findById(req.params.id);
+    const category = product.category;
+    const similarProducts = await Product.find({
+      category,
+      _id: { $ne: product._id }  // Exclude the current product
+    });
+    if (!req.costumerToken) {
+      return res.status(200).json({
+        productData: product,
+        similarProducts
+      })
     }
+    return res.status(200).json({
+      costumerToken: req.costumerToken,
+      productData: product,
+      similarProducts
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "DB 500 Error"
+    })
+  }
 }
 
 
 exports.getCategoryProducts = async (req, res) => {
-    try {
-        const categoryID = req.params.id;
-        const category = await Category.findById(categoryID);
-        const products = await Product.find({ category: category.name });
-        if (!req.costumerToken) {
-            res.status(200).json({
-                categoryProducts: products
-            })
-        }
-        res.status(200).json({
-            costumerToken: req.costumerToken,
-            categoryProducts: products
-        })
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            message: "DB 500 Error"
-        })
+  try {
+    const categoryID = req.params.id;
+    // console.log("Inside Product Category")
+    const category = await Category.find({ _id: categoryID });
+    // console.log(category)
+    const products = await Product.find({ category: category[0].name });
+    if (!req.costumerToken) {
+      return res.status(200).json({
+        categoryProducts: products
+      })
     }
+    res.status(200).json({
+      costumerToken: req.costumerToken,
+      categoryProducts: products
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "DB 500 Error"
+    })
+  }
 }
 const createSignature = (message) => {
+  // secret in env file
   const secret = "8gBm/:&EnhH.1/q"; //different in production
   // Create an HMAC-SHA256 hash
   const hmac = crypto.createHmac("sha256", secret);
@@ -89,81 +92,80 @@ const createSignature = (message) => {
 
 exports.handleEsewaSuccess = async (req, res, next) => {
   console.log("handling esewa success")
-    try {
-      const { data } = req.query;
-      const decodedData = JSON.parse(
-        Buffer.from(data, "base64").toString("utf-8")
-      );
-      console.log(decodedData);
-  
-      if (decodedData.status !== "COMPLETE") {
-        return res.status(400).json({ messgae: "errror" });
-      }
-      const message = decodedData.signed_field_names
-        .split(",")
-        .map((field) => `${field}=${decodedData[field] || ""}`)
-        .join(",");
-      console.log(message);
-      const signature = createSignature(message);
-  
-      if (signature !== decodedData.signature) {
-        res.json({ message: "integrity error" });
-      }
-      
-      req.transaction_uuid = decodedData.transaction_uuid;
-      req.transaction_code = decodedData.transaction_code;
-      next();
-    } catch (err) {
-      console.log(err);
-      return res.status(400).json({ error: err?.message || "No Orders found" });
+  try {
+    const { data } = req.query;
+    const decodedData = JSON.parse(
+      Buffer.from(data, "base64").toString("utf-8")
+    );
+    console.log(decodedData);
+
+    if (decodedData.status !== "COMPLETE") {
+      return res.status(400).json({ messgae: "errror" });
     }
+    const message = decodedData.signed_field_names
+      .split(",")
+      .map((field) => `${field}=${decodedData[field] || ""}`)
+      .join(",");
+    console.log(message);
+    const signature = createSignature(message);
+
+    if (signature !== decodedData.signature) {
+      res.json({ message: "integrity error" });
+    }
+
+    req.transaction_uuid = decodedData.transaction_uuid;
+    req.transaction_code = decodedData.transaction_code;
+    next();
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({ error: err?.message || "No Orders found" });
   }
-  exports.createOrder = async (req, res) => {
-    try {
-      // console.log(req.body);
-      const order = await orderService.save(req.body);
-      // console.log(order)
-      const signature = createSignature(
-        `total_amount=${order.amount},transaction_uuid=${order._id},product_code=EPAYTEST`
-      );
-      console.log(signature)
-      if (order.payment_method === "esewa") {
-        const formData = {
-          amount: order.amount,
-          failure_url: "http://localhost:5173",
-          product_delivery_charge: "0",
-          product_service_charge: "0",
-          product_code: "EPAYTEST",
-          signature: signature,
-          signed_field_names: "total_amount,transaction_uuid,product_code",
-          success_url: "http://localhost:3000/api/esewa-success",
-          tax_amount: "0",
-          total_amount: order.amount,
-          transaction_uuid: order._id,
-        };
-        res.json({
-          message: "Order Created Sucessfully",
-          order,
-          payment_method: "esewa",
-          formData,
-        });
-      }
-    } catch (err) {
-      return res.status(400).json({ error: err?.message || "No Orders found" });
+}
+exports.createOrder = async (req, res) => {
+  try {
+    // console.log(req.body);
+    const order = await orderService.save(req.body);
+    // console.log(order)
+    const signature = createSignature(
+      `total_amount=${order.amount},transaction_uuid=${order._id},product_code=EPAYTEST`
+    );
+    console.log(signature)
+    if (order.payment_method === "esewa") {
+      const formData = {
+        amount: order.amount,
+        failure_url: "http://localhost:5173",
+        product_delivery_charge: "0",
+        product_service_charge: "0",
+        product_code: "EPAYTEST",
+        signature: signature,
+        signed_field_names: "total_amount,transaction_uuid,product_code",
+        success_url: "http://localhost:3000/api/esewa-success",
+        tax_amount: "0",
+        total_amount: order.amount,
+        transaction_uuid: order._id,
+      };
+      res.json({
+        message: "Order Created Sucessfully",
+        order,
+        payment_method: "esewa",
+        formData,
+      });
     }
-  };
-  
-  exports.updateOrderAfterPayment = async (req, res, next) => {
-    console.log("updating esewa payInfo")
-    try {
-      const order = await orderService.findById(req.transaction_uuid);
-      order.status = "paid";
-      order.transaction_code = req.transaction_code;
-  
-      await orderService.save(order);
-      res.redirect("http://localhost:5173");
-    } catch (err) {
-      return res.status(400).json({ error: err?.message || "No Orders found" });
-    }
-  };
-  
+  } catch (err) {
+    return res.status(400).json({ error: err?.message || "No Orders found" });
+  }
+};
+
+exports.updateOrderAfterPayment = async (req, res, next) => {
+  console.log("updating esewa payInfo")
+  try {
+    const order = await orderService.findById(req.transaction_uuid);
+    order.status = "paid";
+    order.transaction_code = req.transaction_code;
+
+    await orderService.save(order);
+    res.redirect("http://localhost:5173");
+  } catch (err) {
+    return res.status(400).json({ error: err?.message || "No Orders found" });
+  }
+};

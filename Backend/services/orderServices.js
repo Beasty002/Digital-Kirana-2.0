@@ -23,7 +23,6 @@ exports.findById = async (id = {}) => {
 
 exports.getCount = async (id = {}) => {
   try {
-
     return await Order.countDocuments();
   } catch (error) {
     console.error('Error counting order:', error.message);
@@ -34,7 +33,6 @@ exports.getCount = async (id = {}) => {
 
 exports.updateOne = async (filter = {}, update) => {
   try {
-
     return await Order.findOneAndUpdate(filter, update);
   } catch (error) {
     console.error('Error updating order:', error.message);

@@ -1,66 +1,60 @@
-const Costumer  = require('../../model/userModel')
+const Costumer = require('../../model/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const sendMail = require('../helper/emailSender');
-const {validationResult} = require("express-validator");
+const { validationResult } = require("express-validator");
 const passport = require('passport');
 
-exports.registerCustomer = async(req,res) => {
-    const {username,email,password,phoneNumber} = req.body;
+exports.registerCustomer = async (req, res) => {
+    const { username, email, password } = req.body;
+
     const errors = validationResult(req);
-    if(!errors.isEmpty()){
+    if (!errors.isEmpty()) {
         return res.status(422).json({
             errorMessage: errors.array()[0].msg,
             oldInput: {
                 username,
                 email,
                 password,
-                phoneNumber,
             },
         })
     }
-    
-    try{
-        const hashedPassword = await bcrypt.hash(password,12);
-        
-        
+    let userToken;
+    try {
+        const hashedPassword = await bcrypt.hash(password, 12);
+
         const costumer = new Costumer({
-            userName:username,
-            email:email,
-            password:hashedPassword,
-            phoneNumber:phoneNumber,
+            userName: username,
+            email: email,
+            password: hashedPassword,
         });
+
         await costumer.save();
-        // can automatically log in the user after registration--using passport-local
+         // can automatically log in the user after registration--using passport-local
         req.login(costumer, async (err) => {
             if (err) {
                 return next(err);
             }
-            
+            console.log("Inside Passport")
             // Generate JWT token
-            const userToken = jwt.sign({ id: costumer._id }, process.env.USER_SECRET_KEY, {
+            userToken = jwt.sign({ id: costumer._id }, process.env.USER_SECRET_KEY, {
                 expiresIn: '30d',
             });
-            
+
             // Set userToken as a cookie
             res.cookie('userToken', userToken, {
                 secure: true,
-                });
-        
-                // Return success response
-                // return res.status(201).json({
-                //     message: 'User registered and logged in successfully',
-                //     userToken: userToken,
-                // });--commented to prevent multiple response 
             });
-            
-            
+        });
+        console.log(req.cookies);
         const userId = costumer._id;
+       
         const verificationToken = jwt.sign({ userId }, process.env.USER_SECRET_KEY, { expiresIn: '1h' });
-        costumer.verificationToken=verificationToken;
+        costumer.verificationToken = verificationToken;
         await costumer.save();
+
         const verificationLink = `http://localhost:5173/verify-user?token=${verificationToken}`;
-        
+
         const emailSubject = 'Digital Kirana : User Verification';
         const emailBody = `
         <html>
@@ -118,20 +112,22 @@ exports.registerCustomer = async(req,res) => {
         </div>
         </body>
         </html>
-        `;        
-                const emailStatus=await sendMail(email,emailSubject,emailBody)
-                if(emailStatus==='success'){
-                    return res.status(200).json({
-                        message: "User registered and logged in successfully"
-                    })
-                }
-                res.status(422).json({
-                    message: "Error Occurred "
-                })
-            }catch(e){
-                const errMsg="Error Occurred "+e
+        `;
+        const emailStatus = await sendMail(email, emailSubject, emailBody)
+        if (emailStatus === 'success') {
+            return res.status(200).json({
+                message: "User registered and logged in successfully",
+                userToken:userToken,
+            })
+        }
+        await Costumer.findByIdAndDelete(costumer._id);
         res.status(422).json({
-        message: errMsg
+            message: "Please enter a valid email for verification"
+        })  
+    } catch (e) {
+        const errMsg = "Error Occurred " + e
+        res.status(422).json({
+            message: errMsg
         })
     }
 }
@@ -139,65 +135,66 @@ exports.registerCustomer = async(req,res) => {
 // Login customer
 exports.loginCustomer = async (req, res, next) => {
     passport.authenticate('local', async (err, user, info) => {
-      try {
-        if (err) {
-          return next(err);
+        try {
+            if (err) {
+                return next(err);
+            }
+            console.log(user, info)
+            if (!user) {
+                return res.status(403).json({
+                    message: info.message,
+                    oldInput: req.body,
+                });
+            }
+
+            req.login(user, async (err) => {
+                if (err) {
+                    return next(err);
+                }
+
+                const userToken = jwt.sign({ id: user._id }, process.env.USER_SECRET_KEY, {
+                    expiresIn: '30d',
+                });
+
+                res.cookie('userToken', userToken, {
+                    secure: true,
+                });
+
+                return res.status(200).json({
+                    message: 'Logged in successfully',
+                    userToken: userToken,
+                });
+            });
+        } catch (error) {
+            return next(error);
         }
-        if (!user) {
-          return res.status(403).json({
-            message: info.message,
-            oldInput: req.body,
-          });
-        }
-  
-        req.login(user, async (err) => {
-          if (err) {
-            return next(err);
-          }
-  
-          const userToken = jwt.sign({ id: user._id }, process.env.USER_SECRET_KEY, {
-            expiresIn: '30d',
-          });
-  
-          res.cookie('userToken', userToken, {
-            secure: true,
-          });
-  
-          return res.status(200).json({
-            message: 'Logged in successfully',
-            userToken: userToken,
-          });
-        });
-      } catch (error) {
-        return next(error);
-      }
     })(req, res, next);
-  };
-  
+};
+
 
 //sending reset link
-exports.resetPassword = async(req,res) => {
+exports.resetPassword = async (req, res) => {
     const { email } = req.body;
-    try{
+    try {
         const user = await Costumer.findOne({ email });
-  
+
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        if(user.reset.tokenExpiration > Date.now()){
+        if (user.reset.tokenExpiration > Date.now()) {
             return res.status(429).json({ message: 'Reset link already sent to email' });
         }
         const resetToken = jwt.sign({ userId: user._id }, process.env.USER_SECRET_KEY, { expiresIn: '1h' });
-    
+
         const resetLink = `http://localhost:5173/reset-password?token=${resetToken}`;
 
-        const tokenExpiration = new Date(Date.now() + 60 * 60 * 1000); 
+        const tokenExpiration = new Date(Date.now() + 60 * 60 * 1000);
 
         // Updating db
         user.reset.token = resetToken;
         user.reset.tokenExpiration = tokenExpiration;
         await user.save();
-    
+
         const emailSubject = 'Digital Kirana : Password Reset Request';
         const emailBody = `
         <html>
@@ -258,46 +255,47 @@ exports.resetPassword = async(req,res) => {
         </body>
         </html>
         `;
-    
+
         await sendMail(email, emailSubject, emailBody);
         res.status(200).json({ message: 'Password reset link sent to your email' });
-    }catch(e){
+    } catch (e) {
 
         return res.status(500).json({ message: 'Error Occurred' });
     }
-  };
+};
 
 //sending reset link
-exports.changePassword = async(req,res) => {
-    const {token,password} = req.body;
-    try{
-        const decoded = jwt.verify(token,process.env.USER_SECRET_KEY);
+exports.changePassword = async (req, res) => {
+    const { token, password } = req.body;
+    try {
+        const decoded = jwt.verify(token, process.env.USER_SECRET_KEY);
         const customerId = decoded.userId;
         console.log(customerId)
         const user = await Costumer.findById(customerId);
         //check token expired or not:
-        if(!user){
+        if (!user) {
             return res.status(404).json({ message: 'Error occurred' });
         }
-        if(user.reset.tokenExpiration < Date.now()){
+        if (user.reset.tokenExpiration < Date.now()) {
             return res.status(410).json({ message: 'Token expired' });
         }
-        if(user.reset.token!==token){
+        if (user.reset.token !== token) {
             return res.status(400).json({ message: 'Invalid token' });
         }
-        if(await bcrypt.compare(password,user.password)){
+        if (await bcrypt.compare(password, user.password)) {
             return res.status(422).json({ message: 'Password must be different from previous one' });
         }
-        const hashedPassword = await bcrypt.hash(password,12);
-        if(user){
-            user.password=hashedPassword
-            user.reset.token=null
-            user.reset.tokenExpiration=null
+        const hashedPassword = await bcrypt.hash(password, 12);
+        if (user) {
+            user.password = hashedPassword
+            user.reset.token = null
+            user.reset.tokenExpiration = null
             await user.save()
             return res.status(200).json({ message: 'Password changed Successfully' });
         }
         return res.status(500).json({ message: 'Error Occurred' });
-    }catch(e){
+    } catch (e) {
+        res.status(500).json({ message: e });
         res.status(500).json({ message: e });
     }
 };
@@ -313,38 +311,38 @@ exports.verifyUser = async (req, res) => {
         const decoded = jwt.verify(token, process.env.USER_SECRET_KEY);
         const userId = decoded.userId;
         console.log(userId)
-        
+
         const user = await Costumer.findById(userId);
         console.log(user)
         if (!user) {
             return res.status(400).send('Invalid token');
         }
-        if(user.verified===true){
+        if (user.verified === true) {
             return res.status(400).send('User already verified');
         }
-        if(token!==user.verificationToken){
+        if (token !== user.verificationToken) {
             return res.status(400).send('Invalid token');
         }
         user.verified = true;
-        user.verificationToken=null;
+        user.verificationToken = null;
         await user.save();
 
         res.status(201).send('User verified successfully');
     } catch (error) {
-        res.status(400).send('Invalid or expired token'+error);
+        res.status(400).send('Invalid or expired token' + error);
     }
 };
 
 
-exports.getFailedLogin = async(req,res) => {
+exports.getFailedLogin = async (req, res) => {
     console.log("Inside Failed Login")
     res.status(401).json({
-        success:false,
-        message:'Failed to login'
+        success: false,
+        message: 'Failed to login'
     })
-    
+
 }
-exports.getSuccessLogin = async(req,res) => {
+exports.getSuccessLogin = async (req, res) => {
     try {
         if (req.user) {
             res.status(200).json({
@@ -361,14 +359,14 @@ exports.getSuccessLogin = async(req,res) => {
     } catch (error) {
         console.log(error)
     }
-    
+
 }
 
-exports.getLogoutGoogle = async(req,res) => {
+exports.getLogoutGoogle = async (req, res) => {
     try {
         req.logout();
         res.redirect("http://localhost:5173/")
     } catch (error) {
-       console.log(error) 
+        console.log(error)
     }
 }

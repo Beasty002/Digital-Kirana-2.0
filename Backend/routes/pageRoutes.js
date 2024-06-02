@@ -15,18 +15,18 @@ router.route("/singlePage/:id")
     .get(authMiddleware,pageControllers.getSingleProduct);
 
 // @desc getReactCategoryProductsPage
-// @route GET /api/category/:id
+// @route GET /api/productCategory/:id
 router.route("/productCategory/:id")
     .get(authMiddleware,pageControllers.getCategoryProducts);   
 
 // @desc getPaymentSuccessPage
 // @route GET /api/esewa-success/:data
-router.route("/esewa-success")
-.get(authMiddleware,pageControllers.handleEsewaSuccess,pageControllers.updateOrderAfterPayment); 
+router.route("/esewa-success/:data")
+    .get(authMiddleware,pageControllers.handleEsewaSuccess,pageControllers.updateOrderAfterPayment); 
 
 
 // @desc Create Payment Order
 // @route GET /api/create/:id
-router.route("/create")
+router.route("/create/:id")
     .post(authMiddleware,pageControllers.createOrder); 
 module.exports = router;

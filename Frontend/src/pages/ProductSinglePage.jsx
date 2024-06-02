@@ -5,7 +5,6 @@ import Layout from '../components/layout/Layout'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Product from './components/product/Product'
-// import {importProductImages} from '../utils/importProductImages'
 
 
 const ProductSinglePage = () => {
@@ -14,25 +13,19 @@ const ProductSinglePage = () => {
     const [product, setProduct] = useState({})
     const [similarProducts, setSimilarProducts] = useState([])
     // const [data,setData] = useState({})
-    // console.log(importProductImages)
     useEffect(() => {
         const handleAPI = async () => {
             const singleProduct = await axios.get(`http://localhost:3000/api/singlePage/${id}`)
             // console.log(singleProduct.data)
             setProduct(singleProduct.data.productData)
-            setSimilarProducts(singleProduct.data.similarProducts)
-            console.log(product)
+            setSimilarProducts(singleProduct.data.similarProducts)  
         }
         handleAPI()
     }, [])
 
     const handleEvent = (data) =>{
-        // e.preventDefault()
-        // console.log(data)
         setProduct(data)
-    }   
-    
-
+    }  
 
 
     return (

@@ -5,25 +5,25 @@ const passport = require('passport');
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const session = require("express-session");
-const MongoStore = require("connect-mongo")
+const MongoStore = require("connect-mongo");
+
 // For Environment File
 require('dotenv').config()
 // For passport Setup
 require("./controller/auth/passport")(passport)
 
-
 const app = express();
 
-// app.use(cors({
-//     origin : "http://localhost:5173",
-//     methods:"GET,POST,PUT,DELETE",
-//     credentials:true,
-// }))
 app.use(cors({
-    origin: "http://localhost:3001", 
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-  }));
+    origin : "http://localhost:5173",
+    methods:"GET,POST,PUT,DELETE",
+    credentials:true,
+}))
+// app.use(cors({
+//     origin: "http://localhost:3001", 
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     credentials: true
+//   }));
 
 // Configure express-session
 app.use(session({
@@ -45,13 +45,13 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended:false}))
 
-const authRoute = require('./routes/authRoute')
+const authRoutes = require('./routes/authRoute');
+const adminRoutes = require("./routes/adminRoutes")
 const pageRoutes = require("./routes/pageRoutes");
 
-
-app.use("/auth",authRoute);
+app.use("/auth",authRoutes);
 app.use("/api",pageRoutes);
-
+app.use("/admin",adminRoutes)
 
 mongoose.connect(process.env.MONGO_URI).then((result) => {
     console.log("Connected To DataBase")
