@@ -2,9 +2,15 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCart, decreaseCart, getTotals, increaseCart, removeFromCart } from '../../store/cartSlice'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Cart = () => {
     const cart = useSelector(state => state.cart)
+    let isOpen = cart.isOpen
+    const changeCart = () =>{
+        isOpen = !isOpen
+    }
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const handleRemoveFromCart = cartItem => {
         dispatch(removeFromCart(cartItem))
@@ -21,10 +27,17 @@ const Cart = () => {
     useEffect(() => {
         dispatch(getTotals())
     },[cart,dispatch])
+
+
+
+
+    const handleCheckout=()=>{
+        navigate('/checkout')
+    }
     return (
         <>
-            <section id="cartSlider">
-                <span id="cartCloseBtn">x</span>
+            <section id={`${isOpen ? 'open' : 'cartSlider'}`} >
+                <span id="cartCloseBtn" onClick={changeCart}>x</span>
                 <section className="heading-div">
                     <h2>My cart</h2>
                     <span id="cartClearBtn" onClick={() => handleClearCart()}>Clear cart</span>
@@ -52,8 +65,8 @@ const Cart = () => {
                                                 </div>
                                             </div>
                                             <div className="cart-product-total">
-                                                <span className="cart-item-del-btn" onClick={() => handleRemoveFromCart(cartItem)}>x</span>
-                                                <p><span className="price-denoter"></span> <span>{`Rs ${cart.cartTotalAmount}`}</span></p>
+                                                <span className="cart-item-del-btn" onClick={() => handleRemoveFromCart(cartItem)} >x</span>
+                                                <p><span className="price-denoter"></span> <span>{`Rs ${cartItem.salesPrice * cartItem.cartQuantity}`}</span></p>
                                             </div>
                                         </div>
                                     ))
@@ -68,7 +81,7 @@ const Cart = () => {
                     <hr className="cart-divider-line" />
                     <div className="subtotal-container"><span>Subtotal : </span> <span className="cart-subtotal-price">{`Rs ${cart.cartTotalAmount}`}</span>
                     </div>
-                    <button id="checkoutBtn">Checkout</button>
+                    <button id="checkoutBtn" onClick={handleCheckout}>Checkout</button>
                 </section>
             </section>
         </>

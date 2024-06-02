@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import AdminHome from './admin/pages/AdminHome'
 import AdminProduct from './admin/pages/AdminProduct'
 import { getTotals } from './store/cartSlice'
+import Checkout from './pages/Checkout'
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/singlePage/:id" element={<ProductSinglePage />} />
           <Route path="/productCategory/:id" element={<ProductCategory />} />
+          <Route path="/checkout" element={<Checkout />} />
 
           <Route path='/admin' element={<AdminHome />} />
           <Route path='/adminProduct' element={<AdminProduct />} />

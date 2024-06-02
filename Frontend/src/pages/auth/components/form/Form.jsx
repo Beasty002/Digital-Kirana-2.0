@@ -6,7 +6,8 @@ const Form = ({ type, onSubmit }) => {
   const [data, setData] = useState({
     email: '',
     username: '',
-    password: ''
+    password: '',
+    phoneNumber: ''
   })
   const handleChange = (e) => {
     const { name, value } = e.target
