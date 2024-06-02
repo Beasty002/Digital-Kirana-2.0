@@ -144,7 +144,7 @@
         }
 
         #loginContainer {
-            height: 100dvh;
+            margin: 20px 0px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -254,6 +254,12 @@
             display: flex;
             gap: 20px;
         }
+
+        .forgot-password {
+            color: blue;
+            text-align: right;
+            font-size: .9rem;
+        }
     </style>
 </head>
 
@@ -271,9 +277,10 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                <p class="already-acc">Don't Have an Account? <span>Create now</span></p>
+                <p class="forgot-password">Forgot Passoword?</p>
 
                 <input type="submit" value="Login">
+                <p class="already-acc">Don't Have an Account? <span>Create now</span></p>
             </form>
             <div class="extra-option">
                 <span class="or-container">
