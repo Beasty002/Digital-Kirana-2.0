@@ -55,7 +55,6 @@ const Navbar = () => {
                     </ul>
                 </div>
             </header>
-                        {/* <Cart /> */}
 
             <nav className="bottom-nav">
                 <ul>

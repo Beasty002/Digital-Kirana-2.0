@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 
 const Checkout = () => {
     const cart = useSelector(state => state.cart)
+    const auth = useSelector(state => state.auth)
   return (
     <>
     <Layout>

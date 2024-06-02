@@ -17,7 +17,7 @@ const authSlice = createSlice({
             state.token = action.payload
         },
         setUser(state,action){
-            console.log('works')
+            // console.log('works')
             state.user = action.payload
         }
     }
@@ -31,9 +31,10 @@ export const login = data => {
         dispatch(setStatus(STATUS.LOADING))
         try{
             const response = await axios.post('http://localhost:3000/auth/login',data)
+            // console.log(response.data.token)
             if(response.status === 200 && response.data.token){
                 dispatch(setStatus(STATUS.SUCCESS))
-                dispatch(setToken(response.data.token))
+                dispatch(setToken(response.data.userToken))
             }else{
                 dispatch(setStatus(STATUS.ERROR))
             }
@@ -49,17 +50,14 @@ export const register = data =>{
         dispatch(setStatus(STATUS.LOADING))
         try{
             const response = await axios.post('http://localhost:3000/auth/register',data)
-            dispatch(setUser(data))
-            console.log(response.data)
-            // dispatch(setUser(data))
-            // console.log(state.user)
             // console.log(response.data)
-            // console.log(data)
-            // if(response.status === 200){
-            //     dispatch(setStatus(STATUS.SUCCESS))
-            // }else{
-            //     dispatch(setStatus(STATUS.ERROR))
-            // }
+            if(response.status === 200 && response.data.userToken){
+                dispatch(setStatus(STATUS.SUCCESS))
+                dispatch(setUser(data))
+                dispatch(setToken(response.data.userToken))
+            }else{
+                dispatch(setStatus(STATUS.ERROR))
+            }
         }catch(error){
             dispatch(setStatus(STATUS.ERROR))
         }

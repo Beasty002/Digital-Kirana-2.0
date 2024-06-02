@@ -3,29 +3,43 @@ const Schema = mongoose.Schema;
 
 // Create Orders Schema
 const orderSchema = new Schema({
-    orderTime:{
-        type:Date,
-        required:true,
-    },
-    orderStatus:{
-        type:String,
-        required:true,
-    },
-    orderAmount:{
-        type:Number,
-        required:true,
-    },
-    costumer: {
-        email: {
-            type: String,
-            required: true,
-        },
-        costumerId: {
+    payment_method: {
+        type: String,
+        required: true,
+        default: "esewa",
+      },
+      transaction_code: String,
+      amount: {
+        type: Number,
+        required: true,
+      },
+      products: [
+        {
+          product: {
             type: Schema.Types.ObjectId,
+            ref: "Products",
             required: true,
-            ref: "Costumer",
-        }
-    }
-})
+          },
+          quantity: {
+            type: Number,
+            required: true,
+            default: 1,
+          },
+        },
+      ],
+      status: {
+        type: String,
+        required: true,
+        enum: ["failed", "paid", "shipping", "delivered"],
+        default: "failed",
+      },
+    costumer: {
+        type: Schema.Types.ObjectId,
+        ref: "Costumer",
+        required: true,
+    },
+},
+{ timestamps: true }
+)
 
 module.exports = mongoose.model("Orders", orderSchema);
