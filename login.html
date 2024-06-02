@@ -143,14 +143,14 @@
             list-style: none;
         }
 
-        #signupContainer {
+        #loginContainer {
             height: 100dvh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        #signupContainer .container {
+        #loginContainer .container {
             width: var(--content-width);
             display: flex;
             flex-direction: column;
@@ -162,7 +162,7 @@
 
         }
 
-        .signupForm {
+        .loginForm {
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -172,7 +172,7 @@
             text-align: center;
         }
 
-        .signupForm input[type=submit] {
+        .loginForm input[type=submit] {
             cursor: pointer;
             background-color: var(--primary-color);
             border: none;
@@ -258,10 +258,10 @@
 </head>
 
 <body>
-    <main id="signupContainer">
+    <main id="loginContainer">
         <div class="container">
             <h1>Welcome Back</h1>
-            <form action="#" method="post" class="signupForm">
+            <form action="#" method="post" class="loginForm">
 
                 <div class="form-group">
                     <label for="name">Username</label>
@@ -273,7 +273,7 @@
                 </div>
                 <p class="already-acc">Don't Have an Account? <span>Create now</span></p>
 
-                <input type="submit" value="Submit">
+                <input type="submit" value="Login">
             </form>
             <div class="extra-option">
                 <span class="or-container">
