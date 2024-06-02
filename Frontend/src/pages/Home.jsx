@@ -1,11 +1,10 @@
 
 import Layout from '../components/layout/Layout'
 import Products from './components/products/Products'
-// import '../components/css/navbar.css'
-// import '../components/css/ca'
+
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-// import Categories from './components/categories/Categories'
+
 
 const Home = () => {
 
@@ -13,7 +12,6 @@ const Home = () => {
   const handleData = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/homePage')
-      console.log("Inisde Home")
       setProducts(response.data.products);
     } catch (error) {
       console.log(error)
@@ -35,13 +33,6 @@ const Home = () => {
             </div>
           </section>
           <Products data={products}/>
-
-          {/* <section className="categories-list">
-            <h2>Categories</h2>
-            <div className="categories-container-list">
-              <Categories data={categories} />
-            </div>
-          </section> */}
         </main>
       </Layout>
     </>

@@ -1,7 +1,6 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy=require('passport-local').Strategy
-const Customer = require("../../model/userModel")
-const mongoose = require("mongoose")
+const GoogleCustomer = require("../../model/googleLogin")
 const bcrypt = require('bcrypt')
 
 
@@ -21,13 +20,13 @@ module.exports = (passport) => {
       phoneNumber:profile.phonenumber || null,
     }
     try {
-      let user = await Customer.findOne({googleId:profile.id});
+      let user = await GoogleCustomer.findOne({googleId:profile.id});
       if(user){
         console.log("Inside User Exists")
         cb(null,user)
       } else{
         console.log("inside user Doesnot exists")
-        user = await Customer.create(newUser);
+        user = await GoogleCustomer.create(newUser);
         cb(null,user)
       }
     } catch (error) {
@@ -35,8 +34,6 @@ module.exports = (passport) => {
     }
   }
   ));
-
-
 
   // Local Strategy for Customer/User
   passport.use(
@@ -74,7 +71,7 @@ module.exports = (passport) => {
     
   passport.deserializeUser(async(id, cb)=> {
     try{
-      const user = await Customer.findById(id);
+      const user = await GoogleCustomer.findById(id);
       cb(null, user)
     } catch(err){
       console.log(err)

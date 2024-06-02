@@ -19,11 +19,6 @@ app.use(cors({
     methods:"GET,POST,PUT,DELETE",
     credentials:true,
 }))
-// app.use(cors({
-//     origin: "http://localhost:3001", 
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     credentials: true
-//   }));
 
 // Configure express-session
 app.use(session({

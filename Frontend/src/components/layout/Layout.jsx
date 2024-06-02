@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // import React from 'react'
 import Cart from '../cart/Cart'
 import Navbar from '../navbar/Navbar'
@@ -9,7 +10,7 @@ import '../../components/css/footer.css'
 const Layout = ({children}) => {
   return (
     <>
-      {/* <Cart /> */}
+      <Cart />
       <Navbar />
       {children}
       <Footer />
