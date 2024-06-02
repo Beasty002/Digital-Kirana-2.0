@@ -8,7 +8,7 @@ import Layout from '../layout/Layout'
 const AdminHome = () => {
   return (
     <>
-      <Layout></Layout>
+      <Layout>Working</Layout>
     </>
   )
 }

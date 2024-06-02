@@ -17,6 +17,7 @@ const authSlice = createSlice({
             state.token = action.payload
         },
         setUser(state,action){
+            console.log('works')
             state.user = action.payload
         }
     }
@@ -43,17 +44,22 @@ export const login = data => {
 }
 
 export const register = data =>{
+    // console.log(data)
     return async function registerChunk(dispatch){
         dispatch(setStatus(STATUS.LOADING))
         try{
             const response = await axios.post('http://localhost:3000/auth/register',data)
+            dispatch(setUser(data))
             console.log(response.data)
-            if(response.status === 200){
-                dispatch(setStatus(STATUS.SUCCESS))
-                dispatch(setUser(data))
-            }else{
-                dispatch(setStatus(STATUS.ERROR))
-            }
+            // dispatch(setUser(data))
+            // console.log(state.user)
+            // console.log(response.data)
+            // console.log(data)
+            // if(response.status === 200){
+            //     dispatch(setStatus(STATUS.SUCCESS))
+            // }else{
+            //     dispatch(setStatus(STATUS.ERROR))
+            // }
         }catch(error){
             dispatch(setStatus(STATUS.ERROR))
         }

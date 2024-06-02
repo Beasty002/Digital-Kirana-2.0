@@ -1,13 +1,19 @@
 import React from 'react'
 import AdminSideBar from '../components/AdminSideBar'
 import AdminNavbar from '../components/AdminNavbar'
+import '../components/css/flex.css'
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
   return (
     <>
-    <AdminNavbar />
-      <AdminSideBar />
+      <div className='flex'>
+        <AdminSideBar />
+        <div className='flexd'>
+
+        <AdminNavbar />
       {children}
+        </div>
+      </div>
     </>
   )
 }

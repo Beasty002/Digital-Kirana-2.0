@@ -6,9 +6,12 @@ const cartSlice = createSlice({
     initialState: {
         cartItems : localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [],
         cartTotalQuantity : 0,
-        cartTotalAmount : 0
+        cartTotalAmount : 0,
     },
     reducers : {
+        toggleCart: state => {
+            state.isOpen = !state.isOpen;
+        },
         addToCart(state,action){
             const itemIndex = state.cartItems.findIndex(item => item._id === action.payload._id) //cartItem ko data ko id rw payload data ko id check gareko aani position of that item is returned it no product value = -1
             if(itemIndex >= 0){
@@ -17,7 +20,7 @@ const cartSlice = createSlice({
                         position : 'bottom-right'
                     })
             }else{
-
+                console.log(action.payload)
                 const tempProduct = {...action.payload, cartQuantity : 1 }
                 state.cartItems.push(tempProduct)
                 toast.success(`Added to cart`,{
@@ -78,8 +81,8 @@ const cartSlice = createSlice({
         },
         getTotals(state,action){
             let {total,quantity} = state.cartItems.reduce((cartTotal, cartItem)=>{
-                const {price,cartQuantity} = cartItem
-                const itemTotal = price * cartQuantity
+                const {salesPrice,cartQuantity} = cartItem
+                const itemTotal = salesPrice * cartQuantity
 
                 cartTotal.total += itemTotal
                 cartTotal.quantity += cartQuantity
@@ -94,5 +97,5 @@ const cartSlice = createSlice({
 
     }
 })
-export const {addToCart,removeFromCart, decreaseCart,increaseCart, clearCart, getTotals} = cartSlice.actions
+export const {toggleCart, addToCart,removeFromCart, decreaseCart,increaseCart, clearCart, getTotals} = cartSlice.actions
 export default cartSlice.reducer
