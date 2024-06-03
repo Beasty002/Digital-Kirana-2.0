@@ -2,6 +2,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy=require('passport-local').Strategy
 const GoogleCustomer = require("../../model/googleLogin")
 const bcrypt = require('bcrypt')
+const {Customer} =require('../../model/userModel')
 
 
 //completed

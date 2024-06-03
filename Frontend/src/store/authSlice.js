@@ -51,10 +51,7 @@ export const register = data =>{
         dispatch(setStatus(STATUS.LOADING))
         try{
             const response = await axios.post('http://localhost:3000/auth/register',data)
-<<<<<<< HEAD
-=======
             // console.log(response.data)
->>>>>>> Abhishek
             if(response.status === 200 && response.data.userToken){
                 dispatch(setStatus(STATUS.SUCCESS))
                 dispatch(setUser(data))
