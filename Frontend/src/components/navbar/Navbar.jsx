@@ -67,10 +67,10 @@ const Navbar = () => {
 
             <nav className="bottom-nav">
                 <ul>
-                    <li><a href="/"><box-icon name='home' ></box-icon>Home</a></li>
-                    <li><a href="/category"><box-icon name='category' ></box-icon> Category</a></li>
-                    <li><a href="/cart"><box-icon name='cart' ></box-icon> Cart</a></li>
-                    <li><a href="/account"><box-icon name='user' ></box-icon>Account</a></li>
+                    <li><Link to="/"><box-icon name='home' ></box-icon>Home</Link></li>
+                    <li><Link to="/category"><box-icon name='category' ></box-icon> Category</Link></li>
+                    <li><Link to="/cart"><box-icon name='cart' ></box-icon> Cart</Link></li>
+                    <li><Link to="/account"><box-icon name='user' ></box-icon>Account</Link></li>
                 </ul>
             </nav>
         </>

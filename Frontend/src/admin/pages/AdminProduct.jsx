@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../layout/Layout'
 import '../components/css/productpage.css'
+import axios from 'axios'
 
 const AdminProduct = () => {
+    const [products,setProducts] = useState([])
+    const handleApi = async () => {
+       try{
+           const response = await axios.get('http://localhost:3000/admin/allProducts')
+           console.log(response.data)
+       } catch(error){
+        console.log(error)
+       }
+    }
+    useEffect(()=>{
+        handleApi()
+    },[])
   return (
     
     <Layout >
