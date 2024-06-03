@@ -8,10 +8,13 @@ import { toggleCart } from '../../store/cartSlice'
 
 
 const Navbar = () => {
+    const [search,setSearch] = useState('')
+    console.log(search)
     const dispatch = useDispatch()
     const [categories,setCategory] = useState([])
     const [cartQuantity,setCartQuantity] = useState()
     const {cartTotalQuantity} = useSelector(state=> state.cart) 
+    const auth = useSelector(state=>state.auth)
     // setCartQuantity(cartTotalQuantity)
     // useEffect(()=>{
     //     setCartQuantity(cartQuantity)
@@ -36,10 +39,16 @@ const Navbar = () => {
                     <div className="menu-slider"> <box-icon name='menu-alt-left' ></box-icon>
                     </div>
                     <div className="search-bar">
-                        <input type="text" name="search" placeholder="Enter the product name...." />
+                        <input type="text" name="search" onChange={e =>setSearch(e.target.value)} placeholder="Enter the product name...." />
                     </div>
                     <ul className="nav-items">
-                        <li><Link to='/login' ><box-icon name='user' ></box-icon> Login</Link></li>
+                        {
+                            auth.token ? (
+                                <li><Link to='/' ><box-icon name='user' ></box-icon> {auth.user.username}</Link></li>
+                            ) : (
+                                <li><Link to='/login' ><box-icon name='user' ></box-icon> Login</Link></li>
+                            )
+                        }
                         <li className="cart-btn"><box-icon name='cart' onClick={()=>{
                             dispatch(toggleCart())
                         }} ></box-icon><span id="cart-item-amt">{cartTotalQuantity}</span></li>

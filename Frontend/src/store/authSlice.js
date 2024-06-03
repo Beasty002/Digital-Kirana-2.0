@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import STATUS from '../global/status'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        user: null,
-        token: null,
+        user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
+        token: Cookies.get('token') ? Cookies.get('token') : null,
         status: null,
     },
     reducers: {
@@ -50,11 +51,13 @@ export const register = data =>{
         dispatch(setStatus(STATUS.LOADING))
         try{
             const response = await axios.post('http://localhost:3000/auth/register',data)
-            // console.log(response.data)
             if(response.status === 200 && response.data.userToken){
                 dispatch(setStatus(STATUS.SUCCESS))
                 dispatch(setUser(data))
                 dispatch(setToken(response.data.userToken))
+                const {username,email,_id} = data
+                localStorage.setItem('user', JSON.stringify({username,email,_id}));
+                Cookies.set('token',response.data.userToken,{expires : 7})
             }else{
                 dispatch(setStatus(STATUS.ERROR))
             }
