@@ -82,10 +82,6 @@ const Navbar = () => {
                     </ul>
                 </div>
             </header>
-<<<<<<< HEAD
-
-=======
->>>>>>> Abhishek
 
             <nav className="bottom-nav">
                 <ul>
