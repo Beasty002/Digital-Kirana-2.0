@@ -22,7 +22,7 @@
             --normal-txt-color: rgb(84, 84, 84);
             --prod-price-color: darkgreen;
             --btn-hover-color: rgb(0, 96, 0);
-            --content-width: 400px;
+            --content-width: 1250px;
         }
 
         * {
@@ -31,11 +31,50 @@
             box-sizing: border-box;
         }
 
+        @media (width <=1300px) {
+            :root {
+                --content-width: 1050px;
+            }
+        }
 
+        @media (width <=1200px) {
+            :root {
+                --content-width: 1050px;
+            }
+        }
 
+        @media (width <=1150px) {
+            :root {
+                --content-width: 900px;
+            }
+        }
+
+        @media (width <=1000px) {
+            :root {
+                --content-width: 800px;
+            }
+        }
+
+        @media (width <=900px) {
+            :root {
+                --content-width: 700px;
+            }
+        }
+
+        @media (width <=800px) {
+            :root {
+                --content-width: 650px;
+            }
+        }
 
         @media (width <=720px) {
+            :root {
+                --content-width: 100%;
+            }
 
+            body {
+                padding-bottom: 40px;
+            }
 
             .nav-cat-items-container {
                 display: none !important;
@@ -78,9 +117,6 @@
         }
 
         @media (width <=450px) {
-            :root {
-                --content-width: 100%;
-            }
 
 
             .product-card-container {
@@ -143,166 +179,676 @@
             list-style: none;
         }
 
-        #signupContainer {
-            margin: 20px 0px;
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .menu-slider {
+            cursor: pointer;
+            display: none;
+            font-size: 2.6rem;
+            padding-top: 8px;
+        }
+
+        .main-nav {
+            width: var(--content-width);
+            color: var(--secondary-txt-color);
+            padding: 20px 0px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+
+
+        .search-bar {
+            margin-left: 20px;
+            flex: 1;
+            gap: 80px;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-bar input {
+            font-size: 0.98rem;
+            width: 100%;
+            border-radius: 50px;
+            padding: 10px 20px;
+            border: none;
+            padding-left: 40px;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+        }
+
+
+        .search-bar i {
+            cursor: pointer;
+            font-size: 1.4rem;
+            color: gray;
+            position: absolute;
+            top: 11px;
+            left: 10px;
+        }
+
+        .nav-items {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-items li {
+            cursor: pointer;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 1.3rem;
+        }
+
+        .nav-items li i {
+            font-size: 1.9rem;
+        }
+
+        .cart-btn {
+            position: relative;
+            border-left: 1px solid var(--secondary-txt-color);
+            padding-left: 20px;
+        }
+
+        #cart-item-amt {
+            position: absolute;
+            top: -10px;
+            right: -12px;
+            font-size: 13px;
+            aspect-ratio: 1;
+            background-color: red;
+            padding-top: 0.14rem;
+            height: 23px;
+            width: 23px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 400px;
+        }
+
+        .nav-cat-items-container {
+            background-color: var(--secondary-color);
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .nav-cat-items {
+            width: var(--content-width);
+            background-color: var(--secondary-color);
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0px;
+        }
+
+        .nav-cat-items li a {
+            color: var(--normal-txt-color);
+
+        }
+
+        .bottom-nav {
+            display: none;
+            background-color: #fff;
+            width: 100vw;
+            position: fixed;
+            bottom: 0;
+            padding: 6px 0px;
+
+        }
+
+        .bottom-nav ul {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .bottom-nav ul li a {
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
+
+        }
+
+        .bottom-nav ul li a i {
+            font-size: 18px;
+        }
+
+        /* -------------------------------------------- */
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #promotionalImageContainer {
+            width: var(--content-width);
+        }
+
+        .main-img-banner img {
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+        }
+
+        .secondary-img-banner img {
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+
+        /* -------------------------------------------- */
+        #productShowcase {
+            margin-top: 20px;
+            width: var(--content-width);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+        }
+
+
+        .product-card-container {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            box-shadow: -1px 2px 8px -2px rgba(0, 0, 0, 0.225);
+            padding: 15px;
+            display: grid;
+            gap: 10px;
+            grid-template-rows: subgrid;
+            grid-row: span 5;
+            border-radius: 10px;
+            transition: transform .2s;
+
+        }
+
+        .product-card:hover {
+            transform: scale(1.02);
+        }
+
+
+        .product-img-container {
+            text-align: center;
+            height: 120px;
+        }
+
+        .product-img-container img {
+            object-fit: contain;
+            width: 80%;
+            height: 95%;
+
+        }
+
+        .product-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .product-price {
+            font-weight: 500;
+            font-size: 1.09rem;
+            color: var(--prod-price-color);
+        }
+
+        .product-qty-changer {
+            display: flex;
+            align-items: center;
+        }
+
+        .product-qty-changer span:nth-child(1) {
+            font-weight: 500;
+        }
+
+        .qty-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .qty-btn span {
+            text-align: center;
+            width: 22px;
+        }
+
+        .qty-btn button {
+            cursor: pointer;
+            border-radius: 50px;
+            height: 24px;
+            width: 24px;
+            font-size: 1rem;
+            background-color: gray;
+            border: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 5px;
+        }
+
+        .add-to-cart-btn {
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: var(--primary-color);
+            border: none;
+            font-size: medium;
+            color: var(--secondary-txt-color);
+            padding: 0.4em 0px;
+            border-radius: 6px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        #signupContainer .container {
-            width: var(--content-width);
-            display: flex;
-            flex-direction: column;
-            margin: auto;
-            background-color: #fff;
-            padding: 14px 30px;
-            border-radius: 15px;
-            gap: 15px;
-
+        .add-to-cart-btn:hover {
+            background-color: var(--btn-hover-color);
         }
 
-        .signupForm {
-            display: flex;
-            flex-direction: column;
+        .add-to-cart-btn i {
+            margin-right: 5px;
+            font-size: 1.3rem;
+        }
+
+        /* -------------------------------------------- */
+        .categories-container-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 10px;
+            margin-top: 10px;
         }
 
-        .container h1 {
-            text-align: center;
-        }
+        .category-card a {
+            background-color: #fff;
+            box-shadow: -1px 2px 8px -2px rgba(0, 0, 0, 0.225);
 
-        .signupForm input[type=submit] {
-            cursor: pointer;
-            background-color: var(--primary-color);
-            border: none;
-            font-size: 1.2rem;
-            color: #fff;
-            padding: 0.2em;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group input {
-            padding: 4px 8px;
-            border-radius: 6px;
-            border: 1px solid rgb(144, 144, 144);
-            font-size: 1.1rem;
-        }
-
-        .already-acc {
-            text-align: right;
-            font-size: 0.85rem;
-        }
-
-        .already-acc span {
-            cursor: pointer;
-            color: blue;
-        }
-
-        .form-divider::before,
-        .form-divider::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 10%;
-            height: 2px;
-            background-color: rgba(0, 0, 0, 0.544);
-        }
-
-
-        .extra-option {
-            margin-top: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 500;
+            color: black;
+            transition: .2s;
         }
 
-        .or-container {
+        .category-card a:hover {
+            transform: scale(1.03);
 
-            position: relative;
-            width: 100%;
+        }
+
+        .category-img-container {
             text-align: center;
-            color: rgb(54, 54, 54);
         }
 
-        .or-container::before,
-        .or-container::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 28%;
-            height: 2px;
-            background-color: rgba(191, 191, 191, 0.544);
-        }
-
-        .or-container::before {
-            left: 0;
-        }
-
-        .or-container::after {
-            right: 0;
-        }
-
-        .extra-links {
-            display: flex;
-            gap: 20px;
+        .category-img-container img {
+            width: 90%;
+            object-fit: contain;
         }
     </style>
 </head>
 
 <body>
-    <main id="signupContainer">
-        <div class="container">
-            <h1>Sign Up</h1>
-            <form action="#" method="post" class="signupForm">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="name">Username</label>
-                    <input type="text" id="name" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Phone Number</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <p class="already-acc">Already Have an account? <span>Login</span></p>
+    <header>
+        <nav class="main-nav">
+            <div class="logo-container">
+                <img src="" alt="Logo">
+            </div>
+            <div class="menu-slider"> <i class='bx bx-menu-alt-left'></i>
+            </div>
+            <div class="search-bar">
+                <input type="text" name="search" placeholder="Enter the product name....">
+                <i class='bx bx-search'></i>
+            </div>
+            <ul class="nav-items">
+                <li><i class='bx bx-user'></i> Login</li>
+                <li class="cart-btn"><i class='bx bx-cart'></i> <span id="cart-item-amt">00</span></li>
+            </ul>
+        </nav>
+        <div class="nav-cat-items-container">
+            <ul class="nav-cat-items">
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
+                <li><a href="">Meat</a></li>
 
-                <input type="submit" value="Sign up">
-            </form>
-            <div class="extra-option">
-                <span class="or-container">
-                    or continue with
-                </span>
-                <div class="extra-links">
-                    <a href=""><img src="https://cdn.freebiesupply.com/logos/large/2x/facebook-logo-2019.png"
-                            width="30"></a>
-                    <a href=""><img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUy9xImRwuUbBnbJ0QgHs5GEcWDeKLqeaOpd2jLQ7SWg&s"
-                            width="30" alt=""></a>
-                </div>
+            </ul>
+        </div>
+    </header>
+    <nav class="bottom-nav">
+        <ul>
+            <li><a href=""><i class='bx bx-home-alt'></i>Home</a></li>
+            <li><a href=""><i class='bx bx-category'></i> Category</a></li>
+            <li><a href=""><i class='bx bx-cart'></i> Cart</a></li>
+            <li><a href=""><i class='bx bx-user'></i>Account</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="promotionalImageContainer">
+            <div class="main-img-banner">
+                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+            </div>
+            <div class="secondary-img-banner">
+                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
             </div>
 
-        </div>
+        </section>
+        <section id="productShowcase">
+            <section class="featured-products">
+                <h2>Featured Products</h2>
+                <div class="product-card-container">
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
+                        </figure>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span style="">Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>00</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <!-- ------------------------------------------------------------ -->
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
+                        </figure>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
+                        </figure>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
+                        </figure>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
+                        </figure>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+
+
+                    <!-- ------------------------------------------------------------ -->
+                </div>
+
+            </section>
+            <section class="featured-products">
+                <h2>Featured Products</h2>
+                <div class="product-card-container">
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
+                        </figure>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <!-- ------------------------------------------------------------ -->
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
+                        </figure>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
+                        </figure>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
+                        </figure>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>0</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <figure class="product-img-container">
+                            <a href=""><img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg"
+                                    alt=""></a>
+                        </figure>
+                        <h3 class="product-name">Product Name</h3>
+                        <span class="product-price">Rs 240</span>
+                        <div class="product-qty-changer">
+                            <span>Qty</span>
+                            <div class="qty-btn">
+                                <button class="decrease">-</button>
+                                <span>00</span>
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn"><i class='bx bx-cart'></i>Add to Cart</button>
+                    </div>
+
+
+                    <!-- ------------------------------------------------------------ -->
+                </div>
+
+            </section>
+            <section class="categories-list">
+                <h2>Categories</h2>
+                <div class="categories-container-list">
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                    <!-- -------------------------------------------------------------------------- -->
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="">
+                            <figure class="category-img-container">
+                                <img src="https://cdn.pixabay.com/photo/2022/12/01/04/35/sunset-7628294_640.jpg" alt="">
+                            </figure>
+                            <p class="category-name">
+                                Grocery
+                            </p>
+                        </a>
+                    </div>
+
+                    <!-- -------------------------------------------------------------------------- -->
+                </div>
+            </section>
+
+            <!-- ---------------------------------------------------------------------- -->
+
+            <!-- ---------------------------------------------------------------------- -->
+        </section>
 
     </main>
-
 
 </body>
 

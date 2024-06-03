@@ -78,7 +78,7 @@ router.route('/reset-password')
             })
             .normalizeEmail(),
     ],
-    AuthControllers.resetPassword
+    AuthControllers.passwordReset
 )
 
 // @ desc Change Costumer Password
@@ -90,7 +90,7 @@ router.route('/changePassword')
             .isAlphanumeric()
             .trim(),
     ],
-    AuthControllers.changePassword
+    AuthControllers.passwordChange
 )
 
 // @ desc Verify Costumer After Registration

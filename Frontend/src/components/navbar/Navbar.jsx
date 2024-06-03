@@ -60,10 +60,6 @@ const Navbar = () => {
                                     alignItems:'centre',backgroundColor:'transparent',border:'none'}
                                 } onClick={getLogoutGoogle}>
                                     <box-icon name='user' ></box-icon>
-                                    <span style={
-                                        { fontSize:'1.1rem',
-                                        fontWeight:'500'}
-                                    }>Logout</span>
                                 </button>
                             </li> :
                             <li><Link to='/login' ><box-icon name='user' ></box-icon> Login</Link></li>
@@ -84,7 +80,6 @@ const Navbar = () => {
                     </ul>
                 </div>
             </header>
-
 
             <nav className="bottom-nav">
                 <ul>
