@@ -107,7 +107,7 @@ router.route('/verify-user')
 router.route('/login/failed').get(AuthControllers.getFailedLogin);
 
 // @dec Success Login
-// @route GEt /auth/login/sucess
+// @route GEt /auth/login/success
 router.route('/login/success').get(AuthControllers.getSuccessLogin);
 
 // @desc Login with google
@@ -125,6 +125,6 @@ router.route("/google/callback").get(passport.authenticate("google",{
 
 // @desc For Logging Out For Google Login
 // @route GET /auth/google/logout
-router.route("/logout").get(AuthControllers.getLogoutGoogle)
+router.route("/google/logout").get(AuthControllers.getLogoutGoogle)
 
 module.exports = router;

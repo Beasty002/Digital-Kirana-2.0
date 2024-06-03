@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // import React from 'react'
 import Cart from '../cart/Cart'
 import Navbar from '../navbar/Navbar'

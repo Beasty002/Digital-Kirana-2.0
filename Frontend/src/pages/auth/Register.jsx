@@ -6,10 +6,8 @@ import {useDispatch} from "react-redux"
 const Register = () => {
   const dispatch = useDispatch()
   const handleRegister = (data) => {
-      dispatch(register(data))
+    dispatch(register(data))
   }
-
-
   return (
     <>
       <Layout>

@@ -7,26 +7,38 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toggleCart } from '../../store/cartSlice'
 
 
+
 const Navbar = () => {
     const [search,setSearch] = useState('')
     console.log(search)
     const dispatch = useDispatch()
-    const [categories,setCategory] = useState([])
-    const [cartQuantity,setCartQuantity] = useState()
-    const {cartTotalQuantity} = useSelector(state=> state.cart) 
-    const auth = useSelector(state=>state.auth)
-    // setCartQuantity(cartTotalQuantity)
-    // useEffect(()=>{
-    //     setCartQuantity(cartQuantity)
-    // },[cartTotalQuantity])
-    useEffect(()=>{
-        const handleAPI = async () =>{
+    const [categories, setCategory] = useState([])
+    const [googleUser, setgoogleUser] = useState()
+    const { cartTotalQuantity } = useSelector(state => state.cart)
+    useEffect(() => {
+        const handleAPI = async () => {
             const response = await axios.get('http://localhost:3000/api/homePage')
             setCategory(response.data.category)
         }
         handleAPI()
     }, [])
-    
+    useEffect(() => {
+        const handleSuccessLogin = async () => {
+            const response = await axios.get('http://localhost:3000/auth/login/success', { withCredentials: true })
+            if (response.status === 200) {
+                setgoogleUser(response.data.user);
+            }
+            else {
+                setgoogleUser(null)
+            }
+        }
+        handleSuccessLogin()
+    }, [])
+
+    const getLogoutGoogle = async () => {
+        window.open("http://localhost:3000/auth/google/logout", "_self")
+    }
+    console.log(googleUser)
     return (
         <>
             <header>
@@ -43,13 +55,23 @@ const Navbar = () => {
                     </div>
                     <ul className="nav-items">
                         {
-                            auth.token ? (
-                                <li><Link to='/' ><box-icon name='user' ></box-icon> {auth.user.username}</Link></li>
-                            ) : (
-                                <li><Link to='/login' ><box-icon name='user' ></box-icon> Login</Link></li>
-                            )
+                            googleUser ?
+                             <li>
+                                <button style={
+                                    { display:'flex', 
+                                    alignItems:'centre',backgroundColor:'transparent',border:'none'}
+                                } onClick={getLogoutGoogle}>
+                                    <box-icon name='user' ></box-icon>
+                                    <span style={
+                                        { fontSize:'1.1rem',
+                                        fontWeight:'500'}
+                                    }>Logout</span>
+                                </button>
+                            </li> :
+                            <li><Link to='/login' ><box-icon name='user' ></box-icon> Login</Link></li>
+
                         }
-                        <li className="cart-btn"><box-icon name='cart' onClick={()=>{
+                        <li className="cart-btn"><box-icon name='cart' onClick={() => {
                             dispatch(toggleCart())
                         }} ></box-icon><span id="cart-item-amt">{cartTotalQuantity}</span></li>
                     </ul>
@@ -64,6 +86,7 @@ const Navbar = () => {
                     </ul>
                 </div>
             </header>
+
 
             <nav className="bottom-nav">
                 <ul>

@@ -5,9 +5,9 @@ const sendMail = require('../helper/emailSender');
 const {validationResult} = require("express-validator");
 const passport = require('passport');
 
-exports.registerCustomer = async(req,res) => {
-    const {username,email,password,phoneNumber} = req.body;
-    // console.log(req.body)
+exports.registerCustomer = async (req, res) => {
+    const { username, email, password, phoneNumber } = req.body;
+    console.log(req.body)
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(422).json({
@@ -33,7 +33,6 @@ exports.registerCustomer = async(req,res) => {
         });
         await costumer.save();
         // can automatically log in the user after registration--using passport-local
-        let userToken;
         req.login(costumer, async (err) => {
 
             if (err) {
@@ -59,6 +58,7 @@ exports.registerCustomer = async(req,res) => {
             
             
         const userId = costumer._id;
+
         const verificationToken = jwt.sign({ userId }, process.env.USER_SECRET_KEY, { expiresIn: '1h' });
         costumer.verificationToken=verificationToken;
         await costumer.save();
@@ -121,19 +121,20 @@ exports.registerCustomer = async(req,res) => {
         </div>
         </body>
         </html>
-        `;        
-                const emailStatus=await sendMail(email,emailSubject,emailBody)
-                if(emailStatus==='success'){
-                    return res.status(200).json({
-                        message: "User registered and logged in successfully",
-                        userToken
-                    })
-                }
-                res.status(422).json({
-                    message: "Error Occurred "
-                })
-            }catch(e){
-                const errMsg="Error Occurred "+e
+        `;
+        const emailStatus = await sendMail(email, emailSubject, emailBody)
+        if (emailStatus === 'success') {
+            return res.status(200).json({
+                message: "User registered and logged in successfully",
+                userToken: userToken,
+            })
+        }
+        await Costumer.findByIdAndDelete(costumer._id);
+        res.status(422).json({
+            message: "Please enter a valid email for verification"
+        })
+    } catch (e) {
+        const errMsg = "Error Occurred " + e
         res.status(422).json({
         message: errMsg
         })
@@ -351,11 +352,13 @@ exports.getFailedLogin = async(req,res) => {
 }
 exports.getSuccessLogin = async(req,res) => {
     try {
+        console.log(req.isAuthenticated());
         if (req.user) {
             res.status(200).json({
                 success: true,
                 message: "Successfully logged in",
                 cookies: req.cookies,
+                user: req.user.userName,
             });
         } else {
             res.status(401).json({
@@ -371,8 +374,10 @@ exports.getSuccessLogin = async(req,res) => {
 
 exports.getLogoutGoogle = async(req,res) => {
     try {
-        req.logout();
-        res.redirect("http://localhost:5173/")
+        req.logout(function (err) {
+            if (err) { return next(err); }
+            res.redirect('http://localhost:5173');
+        });
     } catch (error) {
        console.log(error) 
     }
