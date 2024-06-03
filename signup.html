@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
+        integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <style>
+        :root {
+            --primary-color: green;
+            --secondary-color: white;
+            --primary-txt-color: black;
+            --secondary-txt-color: white;
+            --normal-txt-color: rgb(84, 84, 84);
+            --prod-price-color: darkgreen;
+            --btn-hover-color: rgb(0, 96, 0);
+            --content-width: 400px;
+        }
+
+        * {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            box-sizing: border-box;
+        }
+
+
+
+
+        @media (width <=720px) {
+
+
+            .nav-cat-items-container {
+                display: none !important;
+            }
+
+            .nav-items {
+                display: none !important;
+            }
+
+            .logo-container {
+                display: none;
+            }
+
+            .search-bar {
+                width: 100% !important;
+                font-size: 15px;
+            }
+
+            header {
+                padding: 0px 10px;
+            }
+
+            .main-nav {
+                padding: 5px 0px !important;
+                gap: 40px;
+            }
+
+            .bottom-nav {
+                display: block !important;
+            }
+
+            .menu-slider {
+                display: block !important;
+            }
+
+            .categories-list {
+                display: none;
+            }
+
+        }
+
+        @media (width <=450px) {
+            :root {
+                --content-width: 100%;
+            }
+
+
+            .product-card-container {
+                grid-template-columns: repeat(5, 45%);
+                overflow-x: scroll !important;
+            }
+
+            .nav-cat-items-container {
+                display: none !important;
+            }
+
+            .nav-items {
+                display: none !important;
+            }
+
+            .logo-container {
+                display: none;
+            }
+
+            .search-bar {
+                width: 100% !important;
+                font-size: 15px;
+            }
+
+            header {
+                padding: 0px 10px;
+            }
+
+            .main-nav {
+                padding: 5px 0px !important;
+                gap: 40px;
+            }
+
+            .bottom-nav {
+                display: block !important;
+                z-index: 1;
+            }
+
+            .menu-slider {
+                display: block !important;
+            }
+
+            .categories-list {
+                display: none;
+            }
+
+
+        }
+
+        body {
+            background-color: rgb(240, 240, 240);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        #signupContainer {
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #signupContainer .container {
+            width: var(--content-width);
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            background-color: #fff;
+            padding: 14px 30px;
+            border-radius: 15px;
+            gap: 15px;
+
+        }
+
+        .signupForm {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .container h1 {
+            text-align: center;
+        }
+
+        .signupForm input[type=submit] {
+            cursor: pointer;
+            background-color: var(--primary-color);
+            border: none;
+            font-size: 1.2rem;
+            color: #fff;
+            padding: 0.2em;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group input {
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid rgb(144, 144, 144);
+            font-size: 1.1rem;
+        }
+
+        .already-acc {
+            text-align: right;
+            font-size: 0.85rem;
+        }
+
+        .already-acc span {
+            cursor: pointer;
+            color: blue;
+        }
+
+        .form-divider::before,
+        .form-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 10%;
+            height: 2px;
+            background-color: rgba(0, 0, 0, 0.544);
+        }
+
+
+        .extra-option {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .or-container {
+
+            position: relative;
+            width: 100%;
+            text-align: center;
+            color: rgb(54, 54, 54);
+        }
+
+        .or-container::before,
+        .or-container::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 28%;
+            height: 2px;
+            background-color: rgba(191, 191, 191, 0.544);
+        }
+
+        .or-container::before {
+            left: 0;
+        }
+
+        .or-container::after {
+            right: 0;
+        }
+
+        .extra-links {
+            display: flex;
+            gap: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <main id="signupContainer">
+        <div class="container">
+            <h1>Sign Up</h1>
+            <form action="#" method="post" class="signupForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Username</label>
+                    <input type="text" id="name" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Phone Number</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <p class="already-acc">Already Have an account? <span>Login</span></p>
+
+                <input type="submit" value="Sign up">
+            </form>
+            <div class="extra-option">
+                <span class="or-container">
+                    or continue with
+                </span>
+                <div class="extra-links">
+                    <a href=""><img src="https://cdn.freebiesupply.com/logos/large/2x/facebook-logo-2019.png"
+                            width="30"></a>
+                    <a href=""><img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUy9xImRwuUbBnbJ0QgHs5GEcWDeKLqeaOpd2jLQ7SWg&s"
+                            width="30" alt=""></a>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+
+</body>
+
+</html>
