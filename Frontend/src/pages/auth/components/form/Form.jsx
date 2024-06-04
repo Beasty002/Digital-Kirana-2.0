@@ -49,7 +49,7 @@ const Form = ({ type, onSubmit }) => {
             </div>
         <div class="form-group">
                     <label for="password">Phone Number</label>
-                    <input type="password" id="password" name="password" required />
+                    <input type="number" id="password" name="phoneNumber" required />
                 </div>
             </>
           )

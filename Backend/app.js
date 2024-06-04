@@ -1,11 +1,15 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const multer = require('multer');
+
+const express = require('express');
 const passport = require('passport');
-const cors = require('cors')
-const cookieParser = require('cookie-parser')
+
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const mongoose = require('mongoose')
 
 // For Environment File
 require('dotenv').config()

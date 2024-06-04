@@ -4,6 +4,7 @@ const Costumer = require("../model/userModel");
 
 const authMiddleware = async(req,res,next) =>{
     const token = req.cookies.userToken;
+    console.log(token);
     if (!token) {
         req.costumerToken = null;
         req.costumer = null;

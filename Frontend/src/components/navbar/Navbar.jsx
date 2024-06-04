@@ -88,7 +88,6 @@ const Navbar = () => {
                 </div>
             </header>
 
-
             <nav className="bottom-nav">
                 <ul>
                     <li><Link to="/"><box-icon name='home' ></box-icon>Home</Link></li>

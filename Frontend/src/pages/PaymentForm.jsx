@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import axios from "axios";
 
 const PaymentForm = ({cartData,authData}) => {
-  console.log(cartData)
+  console.log(cartData,authData)
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 

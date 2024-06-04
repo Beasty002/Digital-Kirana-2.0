@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,6 +27,7 @@ const Product = ({data,change}) => {
           <img src= {`../../Assets/Images/Products/${data.frontView}`}
             alt="" />
         </figure>
+
         <h3 className="product-name">{data.productName} </h3>
         <span className="product-price">Rs:{data.salesPrice}</span>
       </Link>
