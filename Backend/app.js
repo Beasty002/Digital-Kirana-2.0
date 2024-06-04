@@ -39,10 +39,44 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+const fileStorage = multer.diskStorage({
+    destination:(req,file,cb)=> {
+        if (file.fieldname === 'imageUrl') {
+            cb(null, "../Frontend/Assets/Images/categories/trying");
+        } else {
+            cb(null, "../Frontend/Assets/Images/Products");
+        }
+    },
+    filename:(req,file,cb) =>{
+        cb(null,file.originalname)
+    }
+});
+const fileFilter = (req,file,cb) =>{
+    if(file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
+        cb(null,true)
+    } else {
+        cb(null,false);
+    }
+}
+const upload = multer(
+    {
+        storage:fileStorage,
+        fileFilter:fileFilter
+    }
+)
 app.use(express.json())
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended:false}))
+const uploadFields = [
+    { name: 'frontView' },
+    { name: 'backView' },
+    {name:'sideView'},
+    {name:'topView'},
+    {name:'imageUrl'}
+    // Add more fields as needed
+  ];
+  
+  app.use(upload.fields(uploadFields));
 
 const authRoutes = require('./routes/authRoute');
 const adminRoutes = require("./routes/adminRoutes")

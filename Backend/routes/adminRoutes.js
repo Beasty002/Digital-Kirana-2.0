@@ -8,8 +8,8 @@ const Admin = require("../model/adminModel");;
 
 // @desc postAdminLogin
 // @route /admin/auth/login
-router.route("/login")
-  .post(adminMiddleware, AdminControllers.postAdminLogin)
+router.route("/auth/login")
+  .post(AdminControllers.postAdminLogin)
 
 // @desc getAdminDashBoard
 // @route GET /admin/dashboard/index

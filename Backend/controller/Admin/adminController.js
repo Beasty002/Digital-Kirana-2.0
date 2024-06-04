@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Category = require("../../model/categoryModel")
 
+// works
 exports.getDashboard = async (req, res) => {
   if (!req.admin) {
     return res.status(401).json({
@@ -15,7 +16,8 @@ exports.getDashboard = async (req, res) => {
     res.status(200).json({
       login: true,
       message: "Admin is logged in",
-      admin: req.admin
+      admin: req.admin,
+      // adminToken:req.cookies.adminToken,
     })
   } catch (error) {
     console.log(error);
@@ -24,7 +26,7 @@ exports.getDashboard = async (req, res) => {
     })
   }
 }
-
+//works
 exports.getAllProducts = async (req, res) => {
   if (!req.admin) {
     return res.status(401).json({
@@ -33,7 +35,7 @@ exports.getAllProducts = async (req, res) => {
     })
   }
   try {
-    const products = await Product.find({});
+    const products = await Product.find();
     res.status(200).json({
       login: true,
       message: "Product Send Successfully",
@@ -46,29 +48,27 @@ exports.getAllProducts = async (req, res) => {
     })
   }
 }
-
+//works
 exports.postAdminLogin = async (req, res) => {
   const { email, password } = req.body;
-  // if(!email || !password){
-  //   return res.status(422).json({
-  //     message:"Enter Email and Password",
-  //   })
-  // }
-  const admin = await Admin.findOne({ email });
+
+  const admin = await Admin.findOne({ adminEmail : email });
   if (!admin) {
-    return res.status(422).json({
+    return res.status(404).json({
       message: "No Admin With That Email Exists",
     })
   }
-  const isMatch = await bcrypt.compare(password, admin.password);
+  const isMatch = await bcrypt.compare(password, admin.adminPassword);
   if (!isMatch) {
-    return res.status(422).json({
+    return res.status(401).json({
       message: "Password is Incorrect"
     })
   }
   const adminToken = jwt.sign({ id: admin._id }, process.env.ADMIN_SECRET_KEY, {
-    expiresIn: "2h"
+    expiresIn: "24h"
   })
+
+  const excludedAdmin = await Admin.findOne({adminEmail:email}).select("-adminPassword");
 
   res.cookie("adminToken", adminToken, {
     secure: true,
@@ -76,14 +76,43 @@ exports.postAdminLogin = async (req, res) => {
   res.status(200).json({
     message: "Admin Login Successfull",
     adminToken,
-    admin
+    admin:excludedAdmin
   })
 }
-
+//works
 exports.postAddProduct = async (req, res) => {
+  const {productName,salesPrice,category,stocks,description} = req.body;
+  const {frontView,backView,topView,sideView} = req.files;
+  
+  try {
+    const newProduct = new Product({
+      productName,
+      salesPrice,
+      category,
+      stocks,
+      description,
+      frontView:frontView[0].originalname,
+      backView:backView[0].originalname,
+      sideView:sideView[0].originalname,
+      topView:topView[0].originalname,
+    })
+    if(await newProduct.save()){
+      return res.status(200).json({
+        message:"Success",
+        admin:req.admin,
+      })
+    }
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message:"DB Error"
+    })
+  }
+
 
 }
-
+//works
 exports.postAddCategory = async (req, res) => {
   if (!req.admin) {
     return res.status(401).json({
@@ -93,12 +122,16 @@ exports.postAddCategory = async (req, res) => {
   }
   try {
     const { name } = req.body;
-    const { image } = req.file;
+    const { imageUrl } = req.files;
     const category = new Category({
       name,
-      imageUrl:image[0].name,
+      imageUrl:imageUrl[0].originalname,
     });
     await category.save();
+    res.status(200).json({
+      message:"Successfully Added category",
+      admin:req.admin,
+    })
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -106,7 +139,7 @@ exports.postAddCategory = async (req, res) => {
     })
   }
 }
-
+//works
 exports.getEditProduct = async (req, res) => {
   if (!req.admin) {
     return res.status(401).json({
