@@ -1,8 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../layout/Layout'
 import '../components/css/productpage.css'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const AdminProduct = () => {
+    const [products,setProducts] = useState([])
+    const [categories,setCategories] = useState([])
+    const handleAPI = async () =>{
+        const response = await axios.get('http://localhost:3000/admin/allProducts')
+        console.log(response.data)
+        setProducts(response.data.products)
+        setCategories(response.data.category)
+    }
+    useEffect(()=>{
+        handleAPI()
+    },[])
+
     return (
 
         <Layout >
@@ -16,10 +30,14 @@ const AdminProduct = () => {
                         </div>
                         <select name="" id="" class="product-category-search">ss
                             <option value="Categories">Categories</option>
-                            <option value="Groccery">Groccery</option>
+                                {
+                                    categories.map(category=>{
+                                        return <option value={category.name}>{category.name}</option>
+                                    })
+                                }
                         </select>
                     </div>
-                    <button class="add-product-btn">Add New Product <i class='bx bx-plus-circle'></i></button>
+                    <button class="add-product-btn"><Link to='addProduct'>Add New Product</Link> <i class='bx bx-plus-circle'></i></button>
                 </section>
                 <section class="admin-product-list">
                     <table class="admin-product-table">
@@ -33,19 +51,26 @@ const AdminProduct = () => {
                             <th class="prod-list-view">View</th>
                             <th class="prod-list-actions">Actions</th>
                         </tr>
+                        {
+                            products.map((product,index)=>{
+                                return(
                         <tr class="product-data">
-                            <td class="prod-data-sn">1</td>
+                            <td class="prod-data-sn">{index+1}</td>
                             <td class="prod-data-img"><img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_0tDxKr6OVOME5w1NODBkotoRW4ih_UsRzuJxlfx_Og&s"
+                                src={`../../../Assets/Images/Products/${product.frontView}`}
                                 alt="" /></td>
-                            <td class="prod-data-name">1</td>
-                            <td class="prod-data-category">1</td>
-                            <td class="prod-data-stock">1</td>
+                            <td class="prod-data-name">{product.productName}</td>
+                            <td class="prod-data-category">{product.category}</td>
+                            <td class="prod-data-stock">{product.stocks}</td>
                             <td class="prod-data-published">1</td>
                             <td class="prod-data-view"><i class='bx bx-search-alt-2 view-prod-btn'></i></td>
                             <td class="prod-data-actions"><i class='bx bx-edit-alt edit-prod-btn'></i><i
                                 class='bx bx-trash-alt delete-prod-btn'></i></td>
                         </tr>
+
+                                )
+                            })
+                        }
                     </table>
                 </section>
 

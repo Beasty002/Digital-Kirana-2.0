@@ -16,6 +16,9 @@ import AdminHome from './admin/pages/AdminHome'
 import AdminProduct from './admin/pages/AdminProduct'
 import { getTotals } from './store/cartSlice'
 import Checkout from './pages/Checkout'
+import AdminCategory from './admin/pages/AdminCategory'
+import AdminAddProduct from './admin/pages/AdminAddProduct'
+import AdminAddCategory from './admin/pages/AdminAddCategory'
 
 
 const App = () => {
@@ -36,6 +39,9 @@ const App = () => {
 
           <Route path='/admin' element={<AdminHome />} />
           <Route path='/adminProduct' element={<AdminProduct />} />
+          <Route path='/adminProduct/addProduct' element={<AdminAddProduct />} />
+          <Route path='/adminCategory' element={<AdminCategory />} />
+          <Route path='/adminCategory/addCategory' element={<AdminAddCategory />} />
         </Routes>
       </BrowserRouter>
 

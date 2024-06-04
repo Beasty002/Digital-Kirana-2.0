@@ -10,7 +10,7 @@ import { toggleCart } from '../../store/cartSlice'
 
 const Navbar = () => {
     const [search,setSearch] = useState('')
-    console.log(search)
+    // console.log(search)
     const dispatch = useDispatch()
     const [categories, setCategory] = useState([])
     const [googleUser, setgoogleUser] = useState()
@@ -26,6 +26,7 @@ const Navbar = () => {
         const handleSuccessLogin = async () => {
             const response = await axios.get('http://localhost:3000/auth/login/success', { withCredentials: true })
             if (response.status === 200) {
+                console.log(response.data)
                 setgoogleUser(response.data.user);
             }
             else {
@@ -65,7 +66,7 @@ const Navbar = () => {
                                     <span style={
                                         { fontSize:'1.1rem',
                                         fontWeight:'500'}
-                                    }>Logout</span>
+                                    }>{googleUser}</span>
                                 </button>
                             </li> :
                             <li><Link to='/login' ><box-icon name='user' ></box-icon> Login</Link></li>
