@@ -6,13 +6,14 @@ const {validationResult} = require("express-validator");
 const passport = require('passport');
 
 exports.registerCustomer = async(req,res) => {
-    const {username,email,password,phoneNumber} = req.body;
+    const {username,fullname,email,password,phoneNumber} = req.body;
     // console.log(req.body)
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(422).json({
             errorMessage: errors.array()[0].msg,
             oldInput: {
+                fullname,
                 username,
                 email,
                 password,
@@ -26,6 +27,7 @@ exports.registerCustomer = async(req,res) => {
         
         
         const costumer = new Costumer({
+            fullName:fullname,
             userName:username,
             email:email,
             password:hashedPassword,
@@ -48,13 +50,7 @@ exports.registerCustomer = async(req,res) => {
             // Set userToken as a cookie
             res.cookie('userToken', userToken, {
                 secure: true,
-                });
-        
-                // Return success response
-                // return res.status(201).json({
-                //     message: 'User registered and logged in successfully',
-                //     userToken: userToken,
-                // });--commented to prevent multiple response 
+                }); 
             });
             
             
@@ -121,19 +117,20 @@ exports.registerCustomer = async(req,res) => {
         </div>
         </body>
         </html>
-        `;        
-                const emailStatus=await sendMail(email,emailSubject,emailBody)
-                if(emailStatus==='success'){
-                    return res.status(200).json({
-                        message: "User registered and logged in successfully",
-                        userToken
-                    })
-                }
-                res.status(422).json({
-                    message: "Error Occurred "
-                })
-            }catch(e){
-                const errMsg="Error Occurred "+e
+        `;
+        const emailStatus = await sendMail(email, emailSubject, emailBody)
+        if (emailStatus === 'success') {
+            return res.status(200).json({
+                message: "User registered and logged in successfully",
+                userToken: userToken,
+            })
+        }
+        await Costumer.findByIdAndDelete(costumer._id);
+        res.status(422).json({
+            message: "Please enter a valid email for verification"
+        })
+    } catch (e) {
+        const errMsg = "Error Occurred " + e
         res.status(422).json({
         message: errMsg
         })

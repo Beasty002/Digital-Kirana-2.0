@@ -2,6 +2,7 @@ import React from 'react'
 import '../components/css/checkout.css'
 import Layout from '../components/layout/Layout'
 import { useSelector } from 'react-redux'
+import PaymentForm from './PaymentForm'
 
 const Checkout = () => {
     const cart = useSelector(state => state.cart)
@@ -16,7 +17,7 @@ const Checkout = () => {
                     <form action="">
                         <div class="order-form-group">
                             <label for="">Deliver to :</label>
-                            <input type="text" readonly placeholder="Username" />
+                            <input type="text" readonly placeholder={auth.user.username}/>
                         </div>
                         <div class="order-form-group">
                             <label for="">Deliver Address :</label>
@@ -30,7 +31,7 @@ const Checkout = () => {
                         </div>
                         <div class="order-form-group">
                             <label for="">Email :</label>
-                            <input type="text" readonly placeholder="aa@gmail.com" />
+                            <input type="text" readonly placeholder={auth.user.email} />
                         </div>
                     </form>
 
@@ -86,17 +87,18 @@ const Checkout = () => {
                         Delivery
                     </span>
                     <span class="value delivery">
-                        Rs 10
+                        Rs 0
                     </span>
                     <span class="title total-payment">
                         Total Payment
                     </span>
                     <span class="value total-payment">
-                        Rs {cart.cartTotalAmount + 10}
+                        Rs {cart.cartTotalAmount}
                     </span>
                     <p class="tax">All tax included</p>
                     <form action="">
-                        <input type="submit" value="Place Order" />
+                        {/* <input type="submit" value="Place Order" /> */}
+                        <PaymentForm cartData={cart} authData={auth}/>
                     </form>
 
                 </div>

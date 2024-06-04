@@ -9,6 +9,8 @@ import { toggleCart } from '../../store/cartSlice'
 
 
 const Navbar = () => {
+    const [search,setSearch] = useState('')
+    console.log(search)
     const dispatch = useDispatch()
     const [categories, setCategory] = useState([])
     const [googleUser, setgoogleUser] = useState()
@@ -49,7 +51,7 @@ const Navbar = () => {
                     <div className="menu-slider"> <box-icon name='menu-alt-left' ></box-icon>
                     </div>
                     <div className="search-bar">
-                        <input type="text" name="search" placeholder="Enter the product name...." />
+                        <input type="text" name="search" onChange={e =>setSearch(e.target.value)} placeholder="Enter the product name...." />
                     </div>
                     <ul className="nav-items">
                         {
@@ -83,10 +85,10 @@ const Navbar = () => {
 
             <nav className="bottom-nav">
                 <ul>
-                    <li><a href="/"><box-icon name='home' ></box-icon>Home</a></li>
-                    <li><a href="/category"><box-icon name='category' ></box-icon> Category</a></li>
-                    <li><a href="/cart"><box-icon name='cart' ></box-icon> Cart</a></li>
-                    <li><a href="/account"><box-icon name='user' ></box-icon>Account</a></li>
+                    <li><Link to="/"><box-icon name='home' ></box-icon>Home</Link></li>
+                    <li><Link to="/category"><box-icon name='category' ></box-icon> Category</Link></li>
+                    <li><Link to="/cart"><box-icon name='cart' ></box-icon> Cart</Link></li>
+                    <li><Link to="/account"><box-icon name='user' ></box-icon>Account</Link></li>
                 </ul>
             </nav>
         </>
