@@ -19,6 +19,7 @@ import Checkout from './pages/Checkout'
 import AdminCategory from './admin/pages/AdminCategory'
 import AdminAddProduct from './admin/pages/AdminAddProduct'
 import AdminAddCategory from './admin/pages/AdminAddCategory'
+import ForgotPassword from './pages/auth/ForgotPassword'
 
 
 const App = () => {
@@ -32,7 +33,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/logout" /> 
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />\
+          <Route path="/register" element={<Register />} />
+          <Route path='/forgotpassword' element={<ForgotPassword />} />
           <Route path="/singlePage/:id" element={<ProductSinglePage />} />
           <Route path="/productCategory/:id" element={<ProductCategory />} />
           <Route path="/checkout" element={<Checkout />} />

@@ -7,7 +7,7 @@ import axios from 'axios'
 const AdminCategory = () => {
   const [categories,setCategories] = useState([])
   const handleAPI = async () =>{
-    const response = await axios.get('http://localhost:3000/admin/allProducts')
+    const response = await axios.get('http://localhost:3000/api/homepage')
     setCategories(response.data.category)
 }
 console.log(categories)

@@ -8,7 +8,7 @@ const AdminProduct = () => {
     const [products,setProducts] = useState([])
     const [categories,setCategories] = useState([])
     const handleAPI = async () =>{
-        const response = await axios.get('http://localhost:3000/admin/allProducts')
+        const response = await axios.get('http://localhost:3000/api/homepage')
         console.log(response.data)
         setProducts(response.data.products)
         setCategories(response.data.category)

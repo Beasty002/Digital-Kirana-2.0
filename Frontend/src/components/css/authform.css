@@ -6,7 +6,7 @@
     --normal-txt-color: rgb(84, 84, 84);
     --prod-price-color: darkgreen;
     --btn-hover-color: rgb(0, 96, 0);
-    --content-width: 420px;
+    --fcontent-width: 400px;
 }
 
 * {
@@ -63,7 +63,7 @@
 
 @media (width <=450px) {
     :root {
-        --content-width: 100%;
+        --fcontent-width: 100%;
     }
 
 
@@ -127,15 +127,16 @@ ul li {
     list-style: none;
 }
 
-#loginContainer {
-    margin: 20px 0px;
+#signupContainer {
+    background-color: rgb(240, 240, 240);
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#loginContainer .container {
-    width: var(--content-width);
+#signupContainer .container {
+    width: var(--fcontent-width);
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -146,7 +147,7 @@ ul li {
 
 }
 
-.loginForm {
+.signupForm {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -155,8 +156,11 @@ ul li {
 .container h1 {
     text-align: center;
 }
+.relative{
+    width: 100%;
+}
 
-.loginForm input[type=submit] {
+.relative button {
     cursor: pointer;
     background-color: var(--primary-color);
     border: none;
@@ -165,6 +169,7 @@ ul li {
     padding: 0.2em;
     border-radius: 8px;
     margin-top: 15px;
+    width: 100%;
 }
 
 .form-group {
@@ -181,8 +186,9 @@ ul li {
 
 .already-acc {
     text-align: right;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 }
+
 
 .already-acc span {
     cursor: pointer;
@@ -237,10 +243,11 @@ ul li {
 .extra-links {
     display: flex;
     gap: 20px;
-}
-
-.forgot-password {
-    color: blue;
+}   
+.forgot-password{
     text-align: right;
-    font-size: .9rem;
+}
+.forgot-password > *{
+    cursor: pointer;
+    color: blue;
 }

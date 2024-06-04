@@ -23,9 +23,9 @@ const Login = () => {
 
   return (
     <>
-      <Layout>
+       
         <Form type='Login' onSubmit={handleLogin} />
-      </Layout>
+      
     </>
   )
 }
