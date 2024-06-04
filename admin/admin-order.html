@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
         integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
     <style>
         * {
@@ -138,8 +141,14 @@
         .order-action select {
             cursor: pointer;
             padding: 0.2em 0.3em;
+        }
 
+        .order-invoice {
+            text-align: center;
+        }
 
+        td.order-invoice>* {
+            cursor: pointer;
         }
     </style>
 </head>
@@ -174,10 +183,11 @@
                     <td class="order-status"><span class="order-status-value pending">Pending</span></td>
                     <td class="order-action"><select name="" id="">
                             <option value="pending">Pending</option>
+                            <option value="Processing">Processing</option>
                             <option value="delivered">Delivered</option>
                             <option value="canceled">Canceled</option>
                         </select></td>
-                    <td class="order-invoice">Invoice</td>
+                    <td class="order-invoice"><i class="fa-solid fa-magnifying-glass-plus"></i></td>
                 </tr>
 
 
