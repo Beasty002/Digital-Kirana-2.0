@@ -3,6 +3,7 @@ const crypto = require("crypto");
 const Product = require("../../model/productModel");
 const Category = require("../../model/categoryModel")
 const orderService = require("../../services/orderServices");
+const Promotion = require("../../model/promotionModel")
 
 
 exports.getIndex = async (req, res) => {
@@ -167,5 +168,34 @@ exports.updateOrderAfterPayment = async (req, res, next) => {
     res.redirect("http://localhost:5173");
   } catch (err) {
     return res.status(400).json({ error: err?.message || "No Orders found" });
+  }
+};
+
+exports.getPromotionImage = async (req, res) => {
+  try {
+    console.log(req.body)
+    const newPromotion = new Promotion(req.body);
+    await newPromotion.save();
+    res.status(201).json({ message: 'Promotion stored successfully!' });
+  } catch (err) {
+    // console.error('Error:', err);
+    res.status(500).json({ message: 'Error storing promotion' });
+  }
+};
+
+exports.getSelectedPromotion = async (req, res) => {
+  console.log(req.query)
+  const { bannerId, adId } = req.query;
+  try {
+    //remove previous banner & advertisement
+    await Promotion.updateMany({ selected: true }, { $set: { selected: false } });
+    //add new banner & advertisement
+    await Promotion.updateMany(
+      { _id: { $in: [bannerId, adId] } },
+      { $set: { selected: true } }
+    );
+    res.status(200).send('Banner and Advertisement selected successfully.');
+  } catch (error) {
+    res.status(500).send('An error occurred.');
   }
 };

@@ -43,6 +43,8 @@ const fileStorage = multer.diskStorage({
     destination:(req,file,cb)=> {
         if (file.fieldname === 'imageUrl') {
             cb(null, "../Frontend/Assets/Images/categories/trying");
+        } else if(file.fieldname === 'promoImg'){
+            cb(null, "../Frontend/Assets/Images/promotion");
         } else {
             cb(null, "../Frontend/Assets/Images/Products");
         }
@@ -72,7 +74,8 @@ const uploadFields = [
     { name: 'backView' },
     {name:'sideView'},
     {name:'topView'},
-    {name:'imageUrl'}
+    {name:'imageUrl'},
+    {name:'promoImg'}
     // Add more fields as needed
   ];
   
