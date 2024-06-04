@@ -1,6 +1,7 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy=require('passport-local').Strategy
 const GoogleCustomer = require("../../model/googleLogin")
+const Customer = require("../../model/userModel");
 const bcrypt = require('bcrypt')
 const {Customer} =require('../../model/userModel')
 
@@ -54,7 +55,6 @@ module.exports = (passport) => {
             console.log("Invalid credentials");
             return done(null, false, { message: 'Invalid credentials' });
           }
-          console.log("Success");
           return done(null, user);
   
         } catch (error) {
