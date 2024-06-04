@@ -5,11 +5,16 @@ import { Link } from 'react-router-dom'
 // import Cart from '../cart/Cart'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleCart } from '../../store/cartSlice'
+import Cookies from 'js-cookie'
 
 
 
 const Navbar = () => {
+
+    const auth = useSelector(state=>state.auth)
+    const token = Cookies.get('token')
     const [search,setSearch] = useState('')
+
     // console.log(search)
     const dispatch = useDispatch()
     const [categories, setCategory] = useState([])
@@ -55,7 +60,7 @@ const Navbar = () => {
                         <input type="text" name="search" onChange={e =>setSearch(e.target.value)} placeholder="Enter the product name...." />
                     </div>
                     <ul className="nav-items">
-                        {
+                        {/* {
                             googleUser ?
                              <li>
                                 <button style={
@@ -68,10 +73,23 @@ const Navbar = () => {
                                         fontWeight:'500'}
                                     }>{googleUser}</span>
                                 </button>
-                            </li> :
-                            <li><Link to='/login' ><box-icon name='user' ></box-icon> Login</Link></li>
+                            </li> : */}
+                            <li>
+                                    <>
+                                {
+                                    token ? (
+                                        <>
+                                        <box-icon name='user' ></box-icon>{auth.user.username}
+                                        </>
+                                    ) : (
 
-                        }
+                                        <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link>
+                                    )
+                                }
+                                    </>
+
+                        
+                         </li>
                         <li className="cart-btn"><box-icon name='cart' onClick={() => {
                             dispatch(toggleCart())
                         }} ></box-icon><span id="cart-item-amt">{cartTotalQuantity}</span></li>

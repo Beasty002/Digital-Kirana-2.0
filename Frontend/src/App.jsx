@@ -20,6 +20,7 @@ import AdminCategory from './admin/pages/AdminCategory'
 import AdminAddProduct from './admin/pages/AdminAddProduct'
 import AdminAddCategory from './admin/pages/AdminAddCategory'
 import ForgotPassword from './pages/auth/ForgotPassword'
+import VerifyUser from './pages/auth/VerifyUser'
 
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path='/forgotpassword' element={<ForgotPassword />} />
+          <Route path='/verify-user/:id' element={<VerifyUser />} />
           <Route path="/singlePage/:id" element={<ProductSinglePage />} />
           <Route path="/productCategory/:id" element={<ProductCategory />} />
           <Route path="/checkout" element={<Checkout />} />

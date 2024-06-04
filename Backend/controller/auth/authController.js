@@ -57,7 +57,8 @@ exports.registerCustomer = async(req,res) => {
         const verificationToken = jwt.sign({ userId }, process.env.USER_SECRET_KEY, { expiresIn: '1h' });
         costumer.verificationToken=verificationToken;
         await costumer.save();
-        const verificationLink = `http://localhost:5173/verify-user?token=${verificationToken}`;
+        // const verificationLink = `http://localhost:5173/verify-user`;
+        const verificationLink = `http://localhost:5173/verify-user/${verificationToken}`;
         
         const emailSubject = 'Digital Kirana : User Verification';
         const emailBody = `
