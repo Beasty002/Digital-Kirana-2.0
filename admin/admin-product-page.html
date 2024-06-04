@@ -24,6 +24,8 @@
         body {
             margin: 0;
             padding: 0;
+            background-color: #f4f4f4da;
+
         }
 
         ul,
@@ -131,8 +133,20 @@
         }
 
         .prod-list-actions,
-        .prod-list-view {
-            width: 100px;
+        .prod-list-view,
+        .prod-list-status,
+        .prod-data-actions,
+        .prod-data-status,
+        .prod-data-view,
+        .prod-data-published,
+        .prod-data-stock,
+        .prod-list-stock,
+        .prod-data-price,
+        .prod-list-price,
+        .prod-data-category,
+        .prod-list-category {
+            width: 120px;
+            text-align: center;
         }
 
         .prod-data-img img {
@@ -168,6 +182,20 @@
             color: blue;
             cursor: pointer;
         }
+
+        .prod-status {
+            padding: 0.3em 0.6em;
+            color: #fff;
+            border-radius: 60px;
+        }
+
+        .selling {
+            background-color: rgb(0, 177, 0);
+        }
+
+        .sold-out {
+            background-color: red;
+        }
     </style>
 </head>
 
@@ -194,8 +222,9 @@
                     <th class="prod-list-img">Image</th>
                     <th class="prod-list-name">Product Name</th>
                     <th class="prod-list-category">Category</th>
+                    <th class="prod-list-price">Price</th>
                     <th class="prod-list-stock">Stock</th>
-                    <th class="prod-list-published">Published</th>
+                    <th class="prod-list-status">Status</th>
                     <th class="prod-list-view">View</th>
                     <th class="prod-list-actions">Actions</th>
                 </tr>
@@ -206,8 +235,9 @@
                             alt=""></td>
                     <td class="prod-data-name">1</td>
                     <td class="prod-data-category">1</td>
+                    <td class="prod-data-price">40</td>
                     <td class="prod-data-stock">1</td>
-                    <td class="prod-data-published">1</td>
+                    <td class="prod-data-status"><span class="prod-status selling">Selling</span></td>
                     <td class="prod-data-view"><i class='bx bx-search-alt-2 view-prod-btn'></i></td>
                     <td class="prod-data-actions"><i class='bx bx-edit-alt edit-prod-btn'></i><i
                             class='bx bx-trash-alt delete-prod-btn'></i></td>
