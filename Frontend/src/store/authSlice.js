@@ -7,7 +7,7 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
-        token: Cookies.get('token') ? Cookies.get('token') : null,
+        token: Cookies.get('userToken') ? Cookies.get('userToken') : null,
         status: null,
     },
     reducers: {
@@ -57,7 +57,7 @@ export const register = data =>{
                 dispatch(setToken(response.data.userToken))
                 const {username,email,_id} = data
                 localStorage.setItem('user', JSON.stringify({username,email,_id}));
-                Cookies.set('token',response.data.userToken,{expires : 7})
+                Cookies.set('userToken',response.data.userToken,{expires : 7})
             }else{
                 dispatch(setStatus(STATUS.ERROR))
             }

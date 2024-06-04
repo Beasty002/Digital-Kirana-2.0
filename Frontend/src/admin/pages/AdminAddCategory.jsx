@@ -15,6 +15,7 @@ const AdminAddCategory = () => {
                 <label for="">Upload Image</label>
                 <div class="img-submitter">
                     <input type="image" src="" alt="" />
+                    <span class='upload-image'>Click to <br/>add image</span>
                 </div>
                 <div class="submit-btn"> <input type="submit" value="Add " />
                 </div>

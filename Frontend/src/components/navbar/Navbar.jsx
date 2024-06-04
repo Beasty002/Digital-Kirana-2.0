@@ -12,13 +12,15 @@ import Cookies from 'js-cookie'
 const Navbar = () => {
 
     const auth = useSelector(state=>state.auth)
-    const token = Cookies.get('token')
+    const {isOpen} = useSelector(state=>state.cart)
+    const userToken = Cookies.get('userToken')
     const [search,setSearch] = useState('')
 
     // console.log(search)
     const dispatch = useDispatch()
     const [categories, setCategory] = useState([])
     const [googleUser, setgoogleUser] = useState()
+    const [overlay,setOverlay] = useState('false')
     const { cartTotalQuantity } = useSelector(state => state.cart)
     useEffect(() => {
         const handleAPI = async () => {
@@ -41,12 +43,17 @@ const Navbar = () => {
         handleSuccessLogin()
     }, [])
 
+    // const overLay = () =>{
+    //     setOverlay(!overlay)
+    // }
+
     const getLogoutGoogle = async () => {
         window.open("http://localhost:3000/auth/google/logout", "_self")
     }
-    console.log(googleUser)
+    // console.log(googleUser)
     return (
         <>
+        <div className={isOpen? 'overlayv' : 'overlay'}></div>
             <header>
                 <nav className="main-nav">
                     <div className="logo-container">
@@ -77,7 +84,7 @@ const Navbar = () => {
                             <li>
                                     <>
                                 {
-                                    token ? (
+                                    userToken ? (
                                         <>
                                         <box-icon name='user' ></box-icon>{auth.user.username}
                                         </>
@@ -91,6 +98,7 @@ const Navbar = () => {
                         
                          </li>
                         <li className="cart-btn"><box-icon name='cart' onClick={() => {
+                            // overLay()
                             dispatch(toggleCart())
                         }} ></box-icon><span id="cart-item-amt">{cartTotalQuantity}</span></li>
                     </ul>

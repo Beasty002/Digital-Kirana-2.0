@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
 
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, decreaseCart } from '../../../store/cartSlice'
+import { useDispatch } from 'react-redux'
+import { addToCart} from '../../../store/cartSlice'
 
 const Product = ({data,change}) => {
- const cart = useSelector(state=>state.cart)
   const dispatch = useDispatch()
   const handleData = () => {
     change(data)
@@ -15,10 +14,8 @@ const Product = ({data,change}) => {
       dispatch(addToCart(product))
   }
 
-  const handleDecreaseCart = data =>{
-    dispatch(decreaseCart(data))
-  }
-  console.log(data)
+  
+  // console.log(data)
   return (
     <>
     <div  className="product-card">

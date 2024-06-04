@@ -158,7 +158,21 @@
     background-color: rgb(240, 240, 240);
     overflow-x: hidden;
 } */
-
+/* .overlay{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    visibility: hidden;
+    background-color: rgba(2, 2, 2, 0.349);
+} */
+.overlayv{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    visibility: visible;
+    background-color: rgba(2, 2, 2, 0.349);
+    z-index: 50;
+}
 a {
     text-decoration: none;
 }

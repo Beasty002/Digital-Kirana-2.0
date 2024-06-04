@@ -6,17 +6,17 @@ const AdminAddProduct = () => {
   return (
     <>
     <Layout>
-       <main id="addProduct">
+    <main id="addProduct">
         <h1 class="page-heading">Products</h1>
         <form action="" class="add-product-form">
             <section class="left-container">
                 <div class="form-group">
                     <label for="">Product Images</label>
                     <div class="add-product-img-container">
-                        <div class="img1">image</div>
-                        <div class="img2">image</div>
-                        <div class="img3">image</div>
-                        <div class="img4">image</div>
+                        <div class="img1"><img src="" alt="" /> <span class='upload-img'>Click to <br />add Image</span> </div>
+                        <div class="img2"><img src="" alt="" /><span class='upload-img'>Click to <br />add Image</span></div>
+                        <div class="img3"><img src="" alt="" /><span class='upload-img'>Click to <br />add Image</span></div>
+                        <div class="img4"><img src="" alt="" /><span class='upload-img'>Click to <br />add Image</span></div>
                     </div>
                     <span class="form-criteria">Only this much image is allowed</span>
                 </div>
@@ -70,12 +70,8 @@ const AdminAddProduct = () => {
                     </div>
                 </div>
                 <input type="submit" value="Add Product" class="add-product-submit-btn" />
-
             </section>
         </form>
-
-
-
     </main>
 
     </Layout>

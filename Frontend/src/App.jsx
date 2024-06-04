@@ -21,6 +21,7 @@ import AdminAddProduct from './admin/pages/AdminAddProduct'
 import AdminAddCategory from './admin/pages/AdminAddCategory'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import VerifyUser from './pages/auth/VerifyUser'
+import AdminCustomerTable from './admin/pages/AdminCustomerTable'
 
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
           <Route path='/adminProduct/addProduct' element={<AdminAddProduct />} />
           <Route path='/adminCategory' element={<AdminCategory />} />
           <Route path='/adminCategory/addCategory' element={<AdminAddCategory />} />
+          <Route path='/adminCustomer' element={<AdminCustomerTable />} />
         </Routes>
       </BrowserRouter>
 

@@ -27,6 +27,7 @@ const Home = () => {
   }, [])
   return (
     <>
+    
       <Layout>
         <main>
           <section id="promotionalImageContainer">

@@ -8,7 +8,7 @@ import Cookies from 'js-cookie'
 const Cart = () => {
     const cart = useSelector(state => state.cart)
     let isOpen = cart.isOpen
-    const token = Cookies.get('token')
+    const token = Cookies.get('userToken')
     
     const changeCart = () =>{
         isOpen = !isOpen
@@ -33,7 +33,7 @@ const Cart = () => {
     },[cart,dispatch])
 
 
-
+    
 
     const handleCheckout=()=>{
         token ? 
@@ -42,6 +42,7 @@ const Cart = () => {
     }
     return (
         <>
+        
             <section id={`${isOpen ? 'open' : 'cartSlider'}`} >
                 <span id="cartCloseBtn" onClick={changeCart}>x</span>
                 <section className="heading-div">

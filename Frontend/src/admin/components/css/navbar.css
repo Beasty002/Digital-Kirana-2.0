@@ -21,9 +21,15 @@ a {
 }
 
 #adminNavBar {
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: flex-end;
     padding: 10px 30px;
+    z-index: 1;
+    background-color: #fff;
+    height: 70px;
+
 }
 
 .nav-contents {
