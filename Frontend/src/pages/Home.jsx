@@ -4,15 +4,20 @@ import Products from './components/products/Products'
 
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { setProducts } from '../store/productSlice'
 
 
 const Home = () => {
-
-  const [products, setProducts] = useState([])
+  const dispatch = useDispatch()
+  const [product, setProduct] = useState([])
   const handleData = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/homePage')
-      setProducts(response.data.products);
+      dispatch(setProducts(response.data.products))
+      setProduct(response.data.products);
+      console.log(response.data.products)
+
     } catch (error) {
       console.log(error)
     }
@@ -32,7 +37,7 @@ const Home = () => {
               <img src={`../../Assets/Images/promotion/advertisement-banner.png`} alt="" />
             </div>
           </section>
-          <Products data={products}/>
+          <Products data={product}/>
         </main>
       </Layout>
     </>

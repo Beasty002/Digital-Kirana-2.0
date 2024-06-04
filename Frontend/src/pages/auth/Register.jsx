@@ -1,4 +1,3 @@
-import Layout from '../../components/layout/Layout'
 import { register } from '../../store/authSlice'
 import Form from './components/form/Form'
 import {useDispatch} from "react-redux"
@@ -10,9 +9,9 @@ const Register = () => {
   }
   return (
     <>
-      <Layout>
+      
         <Form type='Register' onSubmit={handleRegister} />
-      </Layout>
+      
     </>
   )
 }

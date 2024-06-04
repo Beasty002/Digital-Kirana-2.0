@@ -15,7 +15,7 @@ const PaymentForm = ({cartData,authData}) => {
       amount: cartData.cartTotalAmount,
       quantity: cartData.cartTotalQuantity ,
       products: [
-        { product: "665aa7b215cb64cd6b8e2dfa", amount: cartData.cartTotalAmount}
+        { product: cartData.cartItems, amount: cartData.cartTotalAmount}
       ],
       payment_method,
       costumer: "665606745e163fe47b91f066",

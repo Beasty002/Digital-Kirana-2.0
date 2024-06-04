@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 const Cart = () => {
     const cart = useSelector(state => state.cart)
     let isOpen = cart.isOpen
-    console.log(isOpen)
+    // console.log(isOpen)
 
     const changeCart = () =>{
         isOpen = !isOpen

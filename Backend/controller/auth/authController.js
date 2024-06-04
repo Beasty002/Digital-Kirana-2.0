@@ -25,7 +25,6 @@ exports.registerCustomer = async(req,res) => {
     try{
         const hashedPassword = await bcrypt.hash(password,12);
         
-        
         const costumer = new Costumer({
             fullName:fullname,
             userName:username,
@@ -123,6 +122,7 @@ exports.registerCustomer = async(req,res) => {
             return res.status(200).json({
                 message: "User registered and logged in successfully",
                 userToken: userToken,
+                customerId:userId,
             })
         }
         await Costumer.findByIdAndDelete(costumer._id);
@@ -167,6 +167,7 @@ exports.loginCustomer = async (req, res, next) => {
           return res.status(200).json({
             message: 'Logged in successfully',
             userToken: userToken,
+            customerId:user._id,
           });
         });
       } catch (error) {
@@ -339,22 +340,26 @@ exports.verifyUser = async (req, res) => {
 
 
 exports.getFailedLogin = async(req,res) => {
-    console.log("Inside Failed Login")
+    console.log("Inside Failed Google Login")
     res.status(401).json({
         success:false,
-        message:'Failed to login'
+        message:'Failed to login using google'
     })
     
 }
+
 exports.getSuccessLogin = async(req,res) => {
     try {
-        // console.log(req.isAuthenticated());
+        
+        const userToken = jwt.sign({id:req.user._id},process.env.USER_SECRET_KEY,{
+            expiresIn:"24h"
+        })
         if (req.user) {
             res.status(200).json({
                 success: true,
                 message: "Successfully logged in",
                 cookies: req.cookies,
-                user: req.user.userName,
+                userToken,
             });
         } else {
             res.status(401).json({
