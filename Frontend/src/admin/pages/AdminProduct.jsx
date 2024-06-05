@@ -8,10 +8,12 @@ const AdminProduct = () => {
     const [products,setProducts] = useState([])
     const [categories,setCategories] = useState([])
     const handleAPI = async () =>{
-        const response = await axios.get('http://localhost:3000/admin/dashboard/allProducts')
-        console.log(response.data)
-        setProducts(response.data.products)
-        setCategories(response.data.category)
+        const product = await axios.get('http://localhost:3000/admin/dashboard/allProducts')
+        const category = await axios.get('http://localhost:3000/admin/dashboard/allCategories')
+        setProducts(product.data.products)
+        setCategories(category.data.allCategories)
+        console.log(products)
+        // setCategories(category.data.category)
     }
     useEffect(()=>{
         handleAPI()

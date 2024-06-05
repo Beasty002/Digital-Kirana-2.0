@@ -98,7 +98,7 @@ const Checkout = () => {
                                 <p className="tax">All tax included</p>
                                 <form action="">
                                     {/* <input type="submit" value="Place Order" /> */}
-                                    <PaymentForm cartData={cart} authData={auth} />
+                                    <PaymentForm  />
                                 </form>
 
                             </div>

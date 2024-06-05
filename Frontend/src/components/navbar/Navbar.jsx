@@ -15,7 +15,6 @@ const Navbar = ({ data }) => {
     const auth = useSelector(state => state.auth)
     const { isOpen } = useSelector(state => state.cart)
     const userToken = Cookies.get('userToken')
-    console.log(userToken)
     const googleToken = Cookies.get('googleToken')
     const facebookToken = Cookies.get('facebookToken')
     const [search, setSearch] = useState('')

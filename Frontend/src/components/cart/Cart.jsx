@@ -37,8 +37,13 @@ const Cart = () => {
 
     const handleCheckout=()=>{
         token ? 
-        navigate('/checkout') :
-        navigate('/login')
+            
+            navigate('/checkout')     
+        
+            : 
+
+                navigate('/login')
+            
     }
     return (
         <>
