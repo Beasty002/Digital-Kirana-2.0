@@ -22,7 +22,8 @@ ul li {
 }
 
 footer {
-    position: relative;
+    position: absolute;
+    height: 170px;
     bottom: 0px;
     background-color: var(--primary-color);
     width: 100%;
