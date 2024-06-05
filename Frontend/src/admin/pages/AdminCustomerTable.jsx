@@ -1,9 +1,11 @@
 import React from 'react'
-// import '../../components/css/allcustomer.css'
+import Layout from '../layout/Layout'
+import '../components/css/allcustomer.css'
 
 const AdminCustomerTable = () => {
   return (
     <>
+    <Layout>
        <main id="adminCustomerPage">
         <h1>Customers</h1>
         <section class="admin-cus-search">
@@ -40,6 +42,8 @@ const AdminCustomerTable = () => {
 
 
     </main>
+
+    </Layout>
     </>
   )
 }

@@ -7,6 +7,7 @@ import PaymentForm from './PaymentForm'
 const Checkout = () => {
     const cart = useSelector(state => state.cart)
     const auth = useSelector(state => state.auth)
+    const {username,email} = auth.user
   return (
     <>
     <Layout>
@@ -17,7 +18,7 @@ const Checkout = () => {
                     <form action="">
                         <div class="order-form-group">
                             <label for="">Deliver to :</label>
-                            <input type="text" readonly placeholder={auth.user.username}/>
+                            <input type="text" readonly placeholder={username}/>
                         </div>
                         <div class="order-form-group">
                             <label for="">Deliver Address :</label>
@@ -31,7 +32,7 @@ const Checkout = () => {
                         </div>
                         <div class="order-form-group">
                             <label for="">Email :</label>
-                            <input type="text" readonly placeholder={auth.user.email} />
+                            <input type="text" readonly placeholder={email} />
                         </div>
                     </form>
 
@@ -42,7 +43,7 @@ const Checkout = () => {
                            
                            
                            <div class="order-item-container">
-                            {console.log(cartItem)}
+                            {/* {console.log(cartItem)} */}
                         <i class='bx bx-x prod-del-btn'></i>
                         <figure class="order-item-image">
                         <img src={`../../Assets/Images/Products/${cartItem.frontView}`}

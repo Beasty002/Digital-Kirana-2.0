@@ -29,19 +29,19 @@ const Navbar = () => {
         }
         handleAPI()
     }, [])
-    useEffect(() => {
-        const handleSuccessLogin = async () => {
-            const response = await axios.get('http://localhost:3000/auth/login/success', { withCredentials: true })
-            if (response.status === 200) {
-                console.log(response.data)
-                setgoogleUser(response.data.user);
-            }
-            else {
-                setgoogleUser(null)
-            }
-        }
-        handleSuccessLogin()
-    }, [])
+    // useEffect(() => {
+    //     const handleSuccessLogin = async () => {
+    //         const response = await axios.get('http://localhost:3000/auth/login/success', { withCredentials: true })
+    //         if (response.status === 200) {
+    //             console.log(response.data)
+    //             setgoogleUser(response.data.user);
+    //         }
+    //         else {
+    //             setgoogleUser(null)
+    //         }
+    //     }
+    //     handleSuccessLogin()
+    // }, [])
 
     // const overLay = () =>{
     //     setOverlay(!overlay)
