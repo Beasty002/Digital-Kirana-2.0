@@ -43,6 +43,13 @@ const productSchema = new Schema({
         type:String,
         required:true,
     },
+    Brand:{
+        type:String
+    },
+    Unit:{
+        type:String,
+        enum:["Kilogram" , "Pieces" ,"Box"]
+    }
 })
 
 module.exports = mongoose.model("Products",productSchema)

@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
+// import React from 'react'
 import AdminSideBar from '../components/AdminSideBar'
 import AdminNavbar from '../components/AdminNavbar'
 import '../components/css/flex.css'
@@ -12,8 +13,9 @@ const Layout = ({ children }) => {
       <div className='flex'>
         <AdminSideBar />
         <div className='flexd'>
-        <AdminNavbar />
-      {children}
+
+          <AdminNavbar />
+          {children}
         </div>
       </div>
     </>

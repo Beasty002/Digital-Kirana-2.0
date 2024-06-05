@@ -9,6 +9,11 @@ const authMiddleware = require("../middleware/authMiddleware");
 router.route("/homePage")
     .get(authMiddleware,pageControllers.getIndex);
 
+ // @desc getReactHomeOrIndexPage
+// @route GET /api/categoryNames
+router.route("/categoryNames")
+    .get(authMiddleware,pageControllers.getCategoryName);
+
 // @desc getSingelProductPagewithSimilarProducts
 // @route GET /api/singlePage/:id
 router.route("/singlePage/:id")
@@ -16,17 +21,19 @@ router.route("/singlePage/:id")
 
 // @desc getReactCategoryProductsPage
 // @route GET /api/productCategory/:id
-router.route("/productCategory/:id")
+router.route("/productCategory/:name")
     .get(authMiddleware,pageControllers.getCategoryProducts);   
 
 // @desc getPaymentSuccessPage
-// @route GET /api/esewa-success/:data
-router.route("/esewa-success/:data")
+// @route GET /api/esewa-success/
+router.route("/esewa-success")
     .get(authMiddleware,pageControllers.handleEsewaSuccess,pageControllers.updateOrderAfterPayment); 
 
 
 // @desc Create Payment Order
-// @route GET /api/create/:id
-router.route("/create/:id")
+// @route GET /api/create
+router.route("/create")
     .post(authMiddleware,pageControllers.createOrder); 
+
+
 module.exports = router;

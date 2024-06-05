@@ -24,10 +24,10 @@ const Product = ({data,change}) => {
           <img src= {`../../Assets/Images/Products/${data.frontView}`}
             alt="" />
         </figure>
+      </Link>
 
         <h3 className="product-name">{data.productName} </h3>
         <span className="product-price">Rs:{data.salesPrice}</span>
-      </Link>
         <div className="product-qty-changer">
           <span >Qty</span> 
            <div className="qty-btn">

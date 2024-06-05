@@ -25,6 +25,9 @@ const Form = ({ type, onSubmit }) => {
   const google = () => {
     window.open("http://localhost:3000/auth/login/google", "_self")
   }
+  const facebook = () =>{
+    
+  }
   return (
     <>
       <main id="signupContainer">
@@ -91,8 +94,10 @@ const Form = ({ type, onSubmit }) => {
               or continue with
             </span>
             <div className="extra-links">
-              <a href=""><img src="https://cdn.freebiesupply.com/logos/large/2x/facebook-logo-2019.png"
-                width="30" /></a>
+              <div onClick={facebook}>
+              <img src="https://cdn.freebiesupply.com/logos/large/2x/facebook-logo-2019.png"
+                width="30" />
+              </div>
               <div onClick={google}><img
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUy9xImRwuUbBnbJ0QgHs5GEcWDeKLqeaOpd2jLQ7SWg&s"
                 width="30" alt="" /></div>

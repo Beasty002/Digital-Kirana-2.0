@@ -8,24 +8,30 @@ const orderService = require("../../services/orderServices");
 exports.getIndex = async (req, res) => {
   try {
     const products = await Product.find({});
-    const categories = await Category.find({});
 
     if (!req.costumerToken) {
       return res.status(200).json({
         products: products,
-        category: categories,
       })
     }
     return res.status(200).json({
       costumerToken: req.costumerToken,
       products: products,
-      category: categories,
     })
   } catch (error) {
     console.log(error)
   }
 }
-
+exports.getCategoryName = async(req,res) => {
+  try{
+    const categoryNames = await Category.find({});
+    res.status(200).json({
+      categories:categoryNames
+    })
+  } catch(err){
+    console.log(err);
+  }
+}
 
 exports.getSingleProduct = async (req, res) => {
   try {
@@ -57,10 +63,10 @@ exports.getSingleProduct = async (req, res) => {
 
 exports.getCategoryProducts = async (req, res) => {
   try {
-    const categoryID = req.params.id;
-    // console.log("Inside Product Category")
-    const category = await Category.find({ _id: categoryID });
-    // console.log(category)
+    const categoryName = req.params.name;
+    
+    const category = await Category.find({name: categoryName });
+    
     const products = await Product.find({ category: category[0].name });
     if (!req.costumerToken) {
       return res.status(200).json({

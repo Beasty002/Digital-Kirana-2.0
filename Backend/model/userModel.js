@@ -3,28 +3,28 @@ const Schema = mongoose.Schema;
 
 // Create Costumer Schema
 const costumerSchema = new Schema({
-    userName:{
-        type:String,
-        required:true,
-        unique:true,
+    userName: {
+        type: String,
+        required: true,
+        unique: true,
     },
-    fullName:{
-        type:String,
-        required:true,
+    fullName: {
+        type: String,
+        required: true,
     },
-    email:{
-        type:String,
-        required:true,
-        unique:true,
+    email: {
+        type: String,
+        required: true,
+        unique: true,
     },
-    password:{
-        type:String,
+    password: {
+        type: String,
     },
-    phoneNumber:{
-        type:Number,
-        required:true,
+    phoneNumber: {
+        type: Number,
+        required: true,
     },
-    verificationToken:{
+    verificationToken: {
         type: String,
         default: null,
     },
@@ -41,6 +41,10 @@ const costumerSchema = new Schema({
             type: Date,
             default: null,
         }
+    },
+},
+    {
+        timestamps: true
     }
-})
-module.exports = mongoose.model("Costumer",costumerSchema)
+)
+module.exports = mongoose.model("Costumer", costumerSchema)
