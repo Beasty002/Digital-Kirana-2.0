@@ -12,8 +12,6 @@ const AdminProduct = () => {
         const category = await axios.get('http://localhost:3000/admin/dashboard/allCategories')
         setProducts(product.data.products)
         setCategories(category.data.allCategories)
-        console.log(products)
-        // setCategories(category.data.category)
     }
     useEffect(()=>{
         handleAPI()
@@ -33,8 +31,8 @@ const AdminProduct = () => {
                         <select name="" id="" class="product-category-search">ss
                             <option value="Categories">Categories</option>
                                 {
-                                    categories.map(category=>{
-                                        return <option value={category.name}>{category.name}</option>
+                                    categories.map((category,index)=>{
+                                        return <option key={index} value={category.name}>{category.name}</option>
                                     })
                                 }
                         </select>
@@ -49,14 +47,13 @@ const AdminProduct = () => {
                             <th class="prod-list-name">Product Name</th>
                             <th class="prod-list-category">Category</th>
                             <th class="prod-list-stock">Stock</th>
-                            <th class="prod-list-published">Published</th>
                             <th class="prod-list-view">View</th>
                             <th class="prod-list-actions">Actions</th>
                         </tr>
                         {
                             products.map((product,index)=>{
                                 return(
-                        <tr class="product-data">
+                        <tr class="product-data" key={index}>
                             <td class="prod-data-sn">{index+1}</td>
                             <td class="prod-data-img"><img
                                 src={`../../../Assets/Images/Products/${product.frontView}`}
@@ -64,7 +61,6 @@ const AdminProduct = () => {
                             <td class="prod-data-name">{product.productName}</td>
                             <td class="prod-data-category">{product.category}</td>
                             <td class="prod-data-stock">{product.stocks}</td>
-                            <td class="prod-data-published">1</td>
                             <td class="prod-data-view"><i class='bx bx-search-alt-2 view-prod-btn'></i></td>
                             <td class="prod-data-actions"><i class='bx bx-edit-alt edit-prod-btn'></i><i
                                 class='bx bx-trash-alt delete-prod-btn'></i></td>

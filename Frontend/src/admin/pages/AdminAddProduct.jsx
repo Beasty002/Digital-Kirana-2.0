@@ -1,8 +1,27 @@
 
+import { useState } from 'react'
 import '../components/css/addproduct.css'
 import Layout from '../layout/Layout'
 
 const AdminAddProduct = () => {
+    const [data,setData] = useState({
+        title : '',
+        subtitle : '',
+        category : '',
+        description : '',
+        image: ''
+      })
+      console.log(data)
+      const handleChange = (e) =>{
+        const {name,value} = e.target
+        setData({
+          ...data,
+          [name]: name == 'image' ? e.target.files[0] : value
+        })
+      }
+    const handePostApi = async () =>{
+        const response = await axios.post('http://localhost:3000/admin/dashboard/add-product')
+    }
   return (
     <>
     <Layout>
@@ -13,7 +32,7 @@ const AdminAddProduct = () => {
                 <div className="form-group">
                     <label htmlFor="">Product Images</label>
                     <div className="add-product-img-container">
-                        <div className="img1"><img src="" alt="" /> <span className='upload-img'>Click to <br />add Image</span> </div>
+                        <div className="img1"><img src="" alt="" /> <span className='upload-img'>Click to <br />add Image</span></div>
                         <div className="img2"><img src="" alt="" /><span className='upload-img'>Click to <br />add Image</span></div>
                         <div className="img3"><img src="" alt="" /><span className='upload-img'>Click to <br />add Image</span></div>
                         <div className="img4"><img src="" alt="" /><span className='upload-img'>Click to <br />add Image</span></div>
@@ -31,34 +50,35 @@ const AdminAddProduct = () => {
             <section className="right-container">
                 <div className="form-group">
                     <label htmlFor="">Product Name</label>
-                    <input type="text" />
+                    <input type="text" name='productName' onChange={handleChange}/>
                 </div>
                 <div className="form-group-container">
                     <div className="form-group">
                         <label htmlFor="">Category</label>
-                        <select name="" id="">
+                        <select name="category" id="">
                             <option value="">category1</option>
                         </select>
                     </div>
                     <div className="form-group">
+                        <label htmlFor="">Sales Price</label>
+                        <input type="text" name='salesPrice' onChange={handleChange}/>
+                    </div>
+                    <div className="form-group">
                         <label htmlFor="">Brand</label>
-                        <input type="text" />
+                        <input type="text" name='Brand' onChange={handleChange}/>
                     </div>
                 </div>
                 <div className="form-group-container">
                     <div className="form-group">
-                        <label htmlFor="">Product Name</label>
-                        <input type="text" />
+                        <label htmlFor="">Price</label>
+                        <input type="text" name='salesPrice'  onChange={handleChange}/>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="">Product Name</label>
-                        <input type="text" />
-                    </div>
+                  
                 </div>
                 <div className="form-group-container">
                     <div className="form-group">
                         <label htmlFor="">Stock Quantity</label>
-                        <input type="text" />
+                        <input type="text" name='stocks' onChange={handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Unit</label>

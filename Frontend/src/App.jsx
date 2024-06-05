@@ -24,6 +24,7 @@ import VerifyUser from './pages/auth/VerifyUser'
 import AdminCustomerTable from './admin/pages/AdminCustomerTable'
 import AdminOrderPage from './admin/pages/AdminOrderPage'
 import AdminBanner from './admin/pages/AdminBanner'
+import CustomerProfile from './pages/CustomerProfile'
 
 
 const App = () => {
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/singlePage/:id" element={<ProductSinglePage />} />
           <Route path="/productCategory/:id" element={<ProductCategory />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/customerProfile" element={<CustomerProfile />} />
 
           <Route path='/adminDashboard' element={<AdminHome />} />
           <Route path='/adminProduct' element={<AdminProduct />} />
