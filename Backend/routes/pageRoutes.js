@@ -9,6 +9,11 @@ const authMiddleware = require("../middleware/authMiddleware");
 router.route("/homePage")
     .get(authMiddleware,pageControllers.getIndex);
 
+ // @desc getReactHomeOrIndexPage
+// @route GET /api/categoryNames
+router.route("/categoryNames")
+    .get(authMiddleware,pageControllers.getCategoryName);
+
 // @desc getSingelProductPagewithSimilarProducts
 // @route GET /api/singlePage/:id
 router.route("/singlePage/:id")

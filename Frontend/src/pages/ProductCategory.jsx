@@ -13,7 +13,6 @@ const ProductCategory = () => {
     const handleAPI = async () => {
       const response = await axios.get(`http://localhost:3000/api/productCategory/${id}`)
       setProducts(response.data.categoryProducts);
-      // console.log("Inside Product Category")
     }
     handleAPI()
   }, [id])

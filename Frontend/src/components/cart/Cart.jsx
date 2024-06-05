@@ -8,7 +8,7 @@ import Cookies from 'js-cookie'
 const Cart = () => {
     const cart = useSelector(state => state.cart)
     let isOpen = cart.isOpen
-    const token = Cookies.get('userToken')
+    const token = Cookies.get('userToken') || Cookies.get("googleToken") || Cookies.get("facebookToken");
     
     const changeCart = () =>{
         isOpen = !isOpen

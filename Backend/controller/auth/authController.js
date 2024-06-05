@@ -359,16 +359,17 @@ exports.getFailedLogin = async(req,res) => {
 
 exports.getSuccessLogin = async(req,res) => {
     try {
-        
-        // const userToken = jwt.sign({id:req.user._id},process.env.USER_SECRET_KEY,{
-        //     expiresIn:"24h"
-        // })
         if (req.user) {
+            const userToken = jwt.sign({id:req.user._id.toString()},process.env.USER_SECRET_KEY,{
+                expiresIn:"24h"
+            })
+            const {username,email} = req.user
             res.status(200).json({
                 success: true,
                 message: "Successfully logged in",
                 cookies: req.cookies,
-                userToken,
+                googleToken: userToken,
+                user:{username,email}
             });
         } else {
             res.status(401).json({

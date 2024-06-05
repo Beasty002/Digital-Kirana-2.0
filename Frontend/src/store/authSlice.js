@@ -18,7 +18,6 @@ const authSlice = createSlice({
             state.token = action.payload
         },
         setUser(state,action){
-            // console.log('works')
             state.user = action.payload
         }
     }
@@ -46,7 +45,6 @@ export const login = data => {
 }
 
 export const register = data =>{
-    // console.log(data)
     return async function registerChunk(dispatch){
         dispatch(setStatus(STATUS.LOADING))
         try{
@@ -62,6 +60,22 @@ export const register = data =>{
                 dispatch(setStatus(STATUS.ERROR))
             }
         }catch(error){
+            dispatch(setStatus(STATUS.ERROR))
+        }
+    }
+}
+
+export const handleSuccessLogin = () => {
+    return async (dispatch) => {
+        const response = await axios.get('http://localhost:3000/auth/login/success', { withCredentials: true })
+        if (response.status === 200) {
+            dispatch(setStatus(STATUS.SUCCESS))
+            dispatch(setUser(response.data.user))
+            dispatch(setToken(response.data.userToken))
+            const {username,email} = response.data.user;
+            localStorage.setItem('user', JSON.stringify({username,email}));
+            Cookies.set("googleToken", response.data.googleToken)
+        } else{
             dispatch(setStatus(STATUS.ERROR))
         }
     }

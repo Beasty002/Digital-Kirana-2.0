@@ -16,8 +16,6 @@ const Home = () => {
       const response = await axios.get('http://localhost:3000/api/homePage')
       dispatch(setProducts(response.data.products))
       setProduct(response.data.products);
-      console.log(response.data.products)
-
     } catch (error) {
       console.log(error)
     }

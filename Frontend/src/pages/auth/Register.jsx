@@ -9,9 +9,7 @@ const Register = () => {
   }
   return (
     <>
-      
-        <Form type='Register' onSubmit={handleRegister} />
-      
+      <Form type='Register' onSubmit={handleRegister} />
     </>
   )
 }
