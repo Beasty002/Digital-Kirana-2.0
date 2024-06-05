@@ -3,7 +3,6 @@ const LocalStrategy=require('passport-local').Strategy
 const GoogleCustomer = require("../../model/googleLogin")
 const Customer = require("../../model/userModel");
 const bcrypt = require('bcrypt')
-const {Customer} =require('../../model/userModel')
 
 
 //completed

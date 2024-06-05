@@ -8,7 +8,7 @@ const promotionSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
-    enum: ['banner', 'advertisment']
+    enum: ['banner', 'advertisement']
   },
   selected: {
     type: Boolean,

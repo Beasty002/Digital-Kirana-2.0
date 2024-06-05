@@ -205,3 +205,25 @@ exports.getSelectedPromotion = async (req, res) => {
     res.status(500).send('An error occurred.');
   }
 };
+
+exports.getSearchData = async (req, res) => {
+  try {
+      const query = req.params.query
+      // console.log(query);
+      if (!query) {
+          return res.status(400).json({ message: 'Search query is required' });
+      }
+
+      // Filtering products 
+      const products = await Product.find({ 
+          productName: new RegExp(query, 'i') 
+      }, '_id');
+
+      const productIds = products.map(product => product._id);
+
+      res.status(200).json({ productIds });
+  } catch (error) {
+      console.error('Error fetching search data:', error);
+      res.status(500).json({ message: 'Server error' });
+  }
+};

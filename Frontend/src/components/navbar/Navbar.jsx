@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toggleCart } from '../../store/cartSlice'
 import Cookies from 'js-cookie'
 import { handleSuccessLogin } from '../../store/authSlice'
+import axios from 'axios'
 
 
 const Navbar = ({ data }) => {
@@ -39,6 +40,24 @@ const Navbar = ({ data }) => {
         window.open("http://localhost:3000/auth/google/logout", "_self")
     }
     // console.log(googleUser)
+
+    const handleSearch = async () => {
+        if(search===''){
+            return
+        }
+        try {
+            const response = await axios.get(`http://localhost:3000/api/search/${search}`)
+            const productIds = await response.data.productIds;
+            console.log(productIds)
+            // renderSearchResults(productIds);
+        } catch (error) {
+            console.error('Error fetching search results:', error);
+        }
+    };
+    const handleChange=(e)=>{
+        setSearch(e.target.value)
+        handleSearch()
+    }
     return (
         <>
             <div className={isOpen ? 'overlayv' : 'overlay'}></div>
@@ -52,7 +71,7 @@ const Navbar = ({ data }) => {
                     <div className="menu-slider"> <box-icon name='menu-alt-left' ></box-icon>
                     </div>
                     <div className="search-bar">
-                        <input type="text" name="search" onChange={e => setSearch(e.target.value)} placeholder="Enter the product name...." />
+                        <input type="text" name="search" onChange={handleChange} placeholder="Enter the product name...." />
                     </div>
                     <ul className="nav-items">
                         <li>
