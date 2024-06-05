@@ -25,11 +25,18 @@ a {
     padding: 10px 20px;
 }
 
+#bannerContainer {
+    width: 100%;
+}
+
 #bannerContainer h2 {
     margin-top: 15px;
+
 }
 
 .primary-banner {
+    width: 100%;
+    background-color: red;
     background-color: #fff;
     border-radius: 15px;
     display: grid;
@@ -92,6 +99,7 @@ a {
 }
 
 .submit-btn-container {
+    width: 100%;
     text-align: right;
 }
 
