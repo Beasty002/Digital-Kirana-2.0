@@ -3,7 +3,9 @@ const Product = require("../../model/productModel")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Category = require("../../model/categoryModel")
-
+const Customer = require("../../model/userModel")
+const GoogleCustomer = require("../../model/googleLogin.js")
+const Order = require("../../model/orderModel")
 // works
 exports.getDashboard = async (req, res) => {
   if (!req.admin) {
@@ -49,6 +51,22 @@ exports.getAllProducts = async (req, res) => {
   }
 }
 //works
+exports.getAllCustomers = async(req,res) => {
+  try {
+    const allLocalCustomers = await Customer.find({});
+    const allGoogleCustomers = await GoogleCustomer.find({});
+    res.status(200).json({
+      allLocalCustomers,
+      allGoogleCustomers
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message:"DB Error"
+    })
+  }
+}
+//works
 exports.postAdminLogin = async (req, res) => {
   const { email, password } = req.body;
 
@@ -81,7 +99,7 @@ exports.postAdminLogin = async (req, res) => {
 }
 //works
 exports.postAddProduct = async (req, res) => {
-  const {productName,salesPrice,category,stocks,description} = req.body;
+  const {productName,salesPrice,category,stocks,description,Brand,Unit} = req.body;
   const {frontView,backView,topView,sideView} = req.files;
   
   try {
@@ -95,6 +113,8 @@ exports.postAddProduct = async (req, res) => {
       backView:backView[0].originalname,
       sideView:sideView[0].originalname,
       topView:topView[0].originalname,
+      Brand,
+      Unit
     })
     if(await newProduct.save()){
       return res.status(200).json({
@@ -111,6 +131,34 @@ exports.postAddProduct = async (req, res) => {
   }
 
 
+}
+//works
+exports.getAllCategories = async(req,res) => {
+  try {
+    const allCategories = await Category.find({})
+    res.status(200).json({
+      allCategories
+    })
+    } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message:"DB Error"
+    })
+  }
+}
+//works
+exports.getAllOrders = async(req,res) => {
+  try {
+    const allOrders = await Order.find({})
+    res.status(200).json({
+      allOrders
+    })
+    } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message:"DB Error"
+    })
+  }
 }
 //works
 exports.postAddCategory = async (req, res) => {
@@ -178,7 +226,6 @@ exports.postEditProduct = async (req, res) => {
       message:"Product Cant Be Updated",
     })
   } catch(error){
-    console.log(error);
     console.log(error);
     res.status(500).json({
       message: "DB 500 Error"

@@ -4,7 +4,6 @@ const router = express.Router();
 const AdminControllers = require("../controller/Admin/adminController");
 const adminMiddleware = require("../middleware/adminMiddleware");
 
-const Admin = require("../model/adminModel");;
 
 // @desc postAdminLogin
 // @route /admin/auth/login
@@ -33,6 +32,20 @@ router.route("/dashboard/edit-product/:id")
 router.route("/dashboard/allProducts")
   .get(adminMiddleware, AdminControllers.getAllProducts);
 
+// @desc getAllProducts
+// @route GET /admin/dashboard/allCustomers
+router.route("/dashboard/allCustomers")
+  .get(AdminControllers.getAllCustomers);
+
+// @desc getAllProducts
+// @route GET /admin/dashboard/allCategories
+router.route("/dashboard/allCategories")
+  .get(AdminControllers.getAllCategories);
+
+// @desc getAllProducts
+// @route GET /admin/dashboard/allOrders
+router.route("/dashboard/allOrders")
+  .get(AdminControllers.getAllOrders);
 
 // @desc postAddCategory
 // @route POST /admin/dashboard/add-category

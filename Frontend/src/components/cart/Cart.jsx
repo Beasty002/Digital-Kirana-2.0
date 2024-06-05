@@ -1,16 +1,18 @@
 
 import { useDispatch, useSelector } from 'react-redux'
-import { clearCart, decreaseCart, getTotals, increaseCart, removeFromCart } from '../../store/cartSlice'
+import { clearCart, decreaseCart, getTotals, increaseCart, removeFromCart, toggleCart } from '../../store/cartSlice'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 const Cart = () => {
     const cart = useSelector(state => state.cart)
     let isOpen = cart.isOpen
-    // console.log(isOpen)
-
+    const token = Cookies.get('userToken') || Cookies.get("googleToken") || Cookies.get("facebookToken");
+    
     const changeCart = () =>{
         isOpen = !isOpen
+        dispatch(toggleCart(isOpen))
     }
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -31,13 +33,16 @@ const Cart = () => {
     },[cart,dispatch])
 
 
-
+    
 
     const handleCheckout=()=>{
-        navigate('/checkout')
+        token ? 
+        navigate('/checkout') :
+        navigate('/login')
     }
     return (
         <>
+        
             <section id={`${isOpen ? 'open' : 'cartSlider'}`} >
                 <span id="cartCloseBtn" onClick={changeCart}>x</span>
                 <section className="heading-div">

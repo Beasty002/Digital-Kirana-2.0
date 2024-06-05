@@ -20,5 +20,7 @@ const googleCustumerSchema = new Schema({
     type: Number,
     default: null,
   },
-})
+},
+  { timestamps: true  }
+)
 module.exports = mongoose.model("Google Costumer", googleCustumerSchema)

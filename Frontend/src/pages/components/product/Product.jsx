@@ -2,10 +2,9 @@
 
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { addToCart } from '../../../store/cartSlice'
+import { addToCart} from '../../../store/cartSlice'
 
 const Product = ({data,change}) => {
- 
   const dispatch = useDispatch()
   const handleData = () => {
     change(data)
@@ -15,6 +14,8 @@ const Product = ({data,change}) => {
       dispatch(addToCart(product))
   }
 
+  
+  // console.log(data)
   return (
     <>
     <div  className="product-card">
@@ -24,17 +25,18 @@ const Product = ({data,change}) => {
             alt="" />
         </figure>
       </Link>
+
         <h3 className="product-name">{data.productName} </h3>
         <span className="product-price">Rs:{data.salesPrice}</span>
         <div className="product-qty-changer">
-          <span >Qty</span>
-          <div className="qty-btn">
-            <button className="decrease">-</button>
+          <span >Qty</span> 
+           <div className="qty-btn">
+            <button className="decrease" >-</button>
             <span>00</span>
             <button className="increase">+</button>
           </div>
         </div>
-        <button className="add-to-cart-btn" onClick={()=> handleAddToCart(data)}><box-icon name='cart' color='#ffffff' ></box-icon> Add to Cart</button>
+        <button className="add-to-cart-btn" onClick={()=> handleAddToCart(data)}><box-icon name='cart' ></box-icon>Add to Cart</button>
 
     </div>
     </>

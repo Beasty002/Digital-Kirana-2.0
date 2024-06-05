@@ -49,15 +49,14 @@ exports.registerCustomer = async(req,res) => {
             // Set userToken as a cookie
             res.cookie('userToken', userToken, {
                 secure: true,
-                }); 
-            });
-            
+            }); 
+        });  
             
         const userId = costumer._id;
         const verificationToken = jwt.sign({ userId }, process.env.USER_SECRET_KEY, { expiresIn: '1h' });
         costumer.verificationToken=verificationToken;
         await costumer.save();
-        const verificationLink = `http://localhost:5173/verify-user?token=${verificationToken}`;
+        const verificationLink = `http://localhost:5173/verify-user/${verificationToken}`;
         
         const emailSubject = 'Digital Kirana : User Verification';
         const emailBody = `
@@ -308,33 +307,43 @@ exports.passwordChange = async(req,res) => {
 //user verification
 exports.verifyUser = async (req, res) => {
     try {
-        const token = req.query.token;
+        const token = req.params.token;
         if (!token) {
-            return res.status(400).send('Verification token is required');
+            return res.status(400).json({
+                message:"Verification token is required"
+            });
         }
-        console.log(token)
         const decoded = jwt.verify(token, process.env.USER_SECRET_KEY);
         const userId = decoded.userId;
-        console.log(userId)
         
         const user = await Costumer.findById(userId);
-        console.log(user)
+        
         if (!user) {
-            return res.status(400).send('Invalid token');
+            return res.status(400).json({
+                message:"no User With That Token exists"
+            });
         }
         if(user.verified===true){
-            return res.status(400).send('User already verified');
+            return res.status(400).json({
+                message:'User already verified'
+            });
         }
         if(token!==user.verificationToken){
-            return res.status(400).send('Invalid token');
+            return res.status(400).json({
+                message:'Invalid token'
+            });
         }
         user.verified = true;
         user.verificationToken=null;
         await user.save();
 
-        res.status(201).send('User verified successfully');
+        res.status(201).json({
+            message:'User verified successfully'
+        });
     } catch (error) {
-        res.status(400).send('Invalid or expired token'+error);
+        res.status(400).json({
+            message:'Invalid or expired token'+error,
+        });
     }
 };
 
@@ -350,16 +359,17 @@ exports.getFailedLogin = async(req,res) => {
 
 exports.getSuccessLogin = async(req,res) => {
     try {
-        
-        const userToken = jwt.sign({id:req.user._id},process.env.USER_SECRET_KEY,{
-            expiresIn:"24h"
-        })
         if (req.user) {
+            const userToken = jwt.sign({id:req.user._id.toString()},process.env.USER_SECRET_KEY,{
+                expiresIn:"24h"
+            })
+            const {username,email} = req.user
             res.status(200).json({
                 success: true,
                 message: "Successfully logged in",
                 cookies: req.cookies,
-                userToken,
+                googleToken: userToken,
+                user:{username,email}
             });
         } else {
             res.status(401).json({

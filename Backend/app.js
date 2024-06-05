@@ -77,9 +77,9 @@ const uploadFields = [
     {name:'imageUrl'},
     {name:'promoImg'}
     // Add more fields as needed
-  ];
+];
   
-  app.use(upload.fields(uploadFields));
+app.use(upload.fields(uploadFields));
 
 const authRoutes = require('./routes/authRoute');
 const adminRoutes = require("./routes/adminRoutes")

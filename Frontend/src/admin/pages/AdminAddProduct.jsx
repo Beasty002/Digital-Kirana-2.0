@@ -1,4 +1,4 @@
-import React from 'react'
+
 import '../components/css/addproduct.css'
 import Layout from '../layout/Layout'
 
@@ -6,62 +6,62 @@ const AdminAddProduct = () => {
   return (
     <>
     <Layout>
-       <main id="addProduct">
-        <h1 class="page-heading">Products</h1>
-        <form action="" class="add-product-form">
-            <section class="left-container">
-                <div class="form-group">
-                    <label for="">Product Images</label>
-                    <div class="add-product-img-container">
-                        <div class="img1">image</div>
-                        <div class="img2">image</div>
-                        <div class="img3">image</div>
-                        <div class="img4">image</div>
+    <main id="addProduct">
+        <h1 className="page-heading">Products</h1>
+        <form action="" className="add-product-form">
+            <section className="left-container">
+                <div className="form-group">
+                    <label htmlFor="">Product Images</label>
+                    <div className="add-product-img-container">
+                        <div className="img1"><img src="" alt="" /> <span className='upload-img'>Click to <br />add Image</span> </div>
+                        <div className="img2"><img src="" alt="" /><span className='upload-img'>Click to <br />add Image</span></div>
+                        <div className="img3"><img src="" alt="" /><span className='upload-img'>Click to <br />add Image</span></div>
+                        <div className="img4"><img src="" alt="" /><span className='upload-img'>Click to <br />add Image</span></div>
                     </div>
-                    <span class="form-criteria">Only this much image is allowed</span>
+                    <span className="form-criteria">Only this much image is allowed</span>
                 </div>
-                <div class="form-group">
-                    <label for="">Product Description</label>
-                    <textarea name="" id="" class="product-description"></textarea>
-                    <span class="form-criteria">NO more than 500 characters</span>
+                <div className="form-group">
+                    <label htmlFor="">Product Description</label>
+                    <textarea name="" id="" className="product-description"></textarea>
+                    <span className="form-criteria">NO more than 500 characters</span>
 
                 </div>
 
             </section>
-            <section class="right-container">
-                <div class="form-group">
-                    <label for="">Product Name</label>
+            <section className="right-container">
+                <div className="form-group">
+                    <label htmlFor="">Product Name</label>
                     <input type="text" />
                 </div>
-                <div class="form-group-container">
-                    <div class="form-group">
-                        <label for="">Category</label>
+                <div className="form-group-container">
+                    <div className="form-group">
+                        <label htmlFor="">Category</label>
                         <select name="" id="">
                             <option value="">category1</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="">Brand</label>
+                    <div className="form-group">
+                        <label htmlFor="">Brand</label>
                         <input type="text" />
                     </div>
                 </div>
-                <div class="form-group-container">
-                    <div class="form-group">
-                        <label for="">Product Name</label>
+                <div className="form-group-container">
+                    <div className="form-group">
+                        <label htmlFor="">Product Name</label>
                         <input type="text" />
                     </div>
-                    <div class="form-group">
-                        <label for="">Product Name</label>
+                    <div className="form-group">
+                        <label htmlFor="">Product Name</label>
                         <input type="text" />
                     </div>
                 </div>
-                <div class="form-group-container">
-                    <div class="form-group">
-                        <label for="">Stock Quantity</label>
+                <div className="form-group-container">
+                    <div className="form-group">
+                        <label htmlFor="">Stock Quantity</label>
                         <input type="text" />
                     </div>
-                    <div class="form-group">
-                        <label for="">Unit</label>
+                    <div className="form-group">
+                        <label htmlFor="">Unit</label>
                         <select name="" id="">
                             <option value="">Pieces</option>
                             <option value="">Killogram</option>
@@ -69,13 +69,9 @@ const AdminAddProduct = () => {
                         </select>
                     </div>
                 </div>
-                <input type="submit" value="Add Product" class="add-product-submit-btn" />
-
+                <input type="submit" value="Add Product" className="add-product-submit-btn" />
             </section>
         </form>
-
-
-
     </main>
 
     </Layout>

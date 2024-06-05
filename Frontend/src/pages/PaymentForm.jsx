@@ -9,8 +9,8 @@ const PaymentForm = ({cartData,authData}) => {
   const [error, setError] = useState(null);
 
   const handlePayment = async (payment_method) => {
-    console.log(cartData.cartTotalQuantity)
-    const url = "http://localhost:3000/api/create/1";
+    
+    const url = "http://localhost:3000/api/create";
     const data = {
       amount: cartData.cartTotalAmount,
       quantity: cartData.cartTotalQuantity ,

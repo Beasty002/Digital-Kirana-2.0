@@ -1,47 +1,47 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import {useState } from 'react'
 import { Link } from 'react-router-dom'
 // import Cart from '../cart/Cart'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleCart } from '../../store/cartSlice'
+import Cookies from 'js-cookie'
+import { handleSuccessLogin } from '../../store/authSlice'
 
 
+const Navbar = ({ data }) => {
 
-const Navbar = () => {
-    const [search,setSearch] = useState('')
-    // console.log(search)
+    const auth = useSelector(state => state.auth)
+    const { isOpen } = useSelector(state => state.cart)
+    const userToken = Cookies.get('userToken')
+    const googleToken = Cookies.get('googleToken')
+    const facebookToken = Cookies.get('facebookToken')
+    const [search, setSearch] = useState('')
+
     const dispatch = useDispatch()
-    const [categories, setCategory] = useState([])
-    const [googleUser, setgoogleUser] = useState()
+
+    const facebookUser = false
+    // const [overlay, setOverlay] = useState('false')
     const { cartTotalQuantity } = useSelector(state => state.cart)
-    useEffect(() => {
-        const handleAPI = async () => {
-            const response = await axios.get('http://localhost:3000/api/homePage')
-            setCategory(response.data.category)
-        }
-        handleAPI()
-    }, [])
-    useEffect(() => {
-        const handleSuccessLogin = async () => {
-            const response = await axios.get('http://localhost:3000/auth/login/success', { withCredentials: true })
-            if (response.status === 200) {
-                console.log(response.data)
-                setgoogleUser(response.data.user);
-            }
-            else {
-                setgoogleUser(null)
-            }
-        }
-        handleSuccessLogin()
-    }, [])
+
+
+    if (!googleToken && !userToken && !facebookToken) {
+        dispatch(handleSuccessLogin())
+    }
+
+    // const overLay = () =>{
+    //     setOverlay(!overlay)
+    // }
 
     const getLogoutGoogle = async () => {
+        Cookies.remove("googleToken","connect.sid")
         window.open("http://localhost:3000/auth/google/logout", "_self")
     }
-    console.log(googleUser)
+    // console.log(googleUser)
     return (
         <>
+            <div className={isOpen ? 'overlayv' : 'overlay'}></div>
             <header>
                 <nav className="main-nav">
                     <div className="logo-container">
@@ -52,27 +52,35 @@ const Navbar = () => {
                     <div className="menu-slider"> <box-icon name='menu-alt-left' ></box-icon>
                     </div>
                     <div className="search-bar">
-                        <input type="text" name="search" onChange={e =>setSearch(e.target.value)} placeholder="Enter the product name...." />
+                        <input type="text" name="search" onChange={e => setSearch(e.target.value)} placeholder="Enter the product name...." />
                     </div>
                     <ul className="nav-items">
-                        {
-                            googleUser ?
-                             <li>
-                                <button style={
-                                    { display:'flex', 
-                                    alignItems:'centre',backgroundColor:'transparent',border:'none'}
-                                } onClick={getLogoutGoogle}>
-                                    <box-icon name='user' ></box-icon>
-                                    <span style={
-                                        { fontSize:'1.1rem',
-                                        fontWeight:'500'}
-                                    }>{googleUser}</span>
-                                </button>
-                            </li> :
-                            <li><Link to='/login' ><box-icon name='user' ></box-icon> Login</Link></li>
+                        <li>
+                            <>
+                                {
+                                    userToken ? (
+                                        <>
+                                            <box-icon name='user' ></box-icon>{auth.user.username}
+                                        </>
+                                    ) : googleToken ? (
+                                        <>
+                                            <box-icon name='user'onClick={getLogoutGoogle} ></box-icon>
+                                            {/* {auth.user.userName} */}
+                                        </>
+                                    ) : facebookUser ? (
+                                        <>
+                                            <box-icon name='user' ></box-icon>{facebookUser}
+                                        </>
+                                    ) :
+                                        (
 
-                        }
+                                            <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link>
+                                        )
+                                }
+                            </>
+                        </li>
                         <li className="cart-btn"><box-icon name='cart' onClick={() => {
+                            // overLay()
                             dispatch(toggleCart())
                         }} ></box-icon><span id="cart-item-amt">{cartTotalQuantity}</span></li>
                     </ul>
@@ -80,8 +88,8 @@ const Navbar = () => {
                 <div className="nav-cat-items-container">
                     <ul className="nav-cat-items">
                         {
-                            categories.map((category, index) => {
-                                return <li key={index} ><Link to={`/productCategory/${category._id}`} >{category.name}</Link></li>
+                            data.map((category, index) => {
+                                return <li key={index} ><Link to={`/productCategory/${category.name}`} >{category.name}</Link></li>
                             })
                         }
                     </ul>

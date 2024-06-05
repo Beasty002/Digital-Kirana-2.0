@@ -7,7 +7,7 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
-        token: Cookies.get('token') ? Cookies.get('token') : null,
+        token: Cookies.get('userToken') ? Cookies.get('userToken') : null,
         status: null,
     },
     reducers: {
@@ -18,7 +18,6 @@ const authSlice = createSlice({
             state.token = action.payload
         },
         setUser(state,action){
-            // console.log('works')
             state.user = action.payload
         }
     }
@@ -46,7 +45,6 @@ export const login = data => {
 }
 
 export const register = data =>{
-    // console.log(data)
     return async function registerChunk(dispatch){
         dispatch(setStatus(STATUS.LOADING))
         try{
@@ -57,11 +55,27 @@ export const register = data =>{
                 dispatch(setToken(response.data.userToken))
                 const {username,email,_id} = data
                 localStorage.setItem('user', JSON.stringify({username,email,_id}));
-                Cookies.set('token',response.data.userToken,{expires : 7})
+                Cookies.set('userToken',response.data.userToken,{expires : 7})
             }else{
                 dispatch(setStatus(STATUS.ERROR))
             }
         }catch(error){
+            dispatch(setStatus(STATUS.ERROR))
+        }
+    }
+}
+
+export const handleSuccessLogin = () => {
+    return async (dispatch) => {
+        const response = await axios.get('http://localhost:3000/auth/login/success', { withCredentials: true })
+        if (response.status === 200) {
+            dispatch(setStatus(STATUS.SUCCESS))
+            dispatch(setUser(response.data.user))
+            dispatch(setToken(response.data.userToken))
+            const {username,email} = response.data.user;
+            localStorage.setItem('user', JSON.stringify({username,email}));
+            Cookies.set("googleToken", response.data.googleToken)
+        } else{
             dispatch(setStatus(STATUS.ERROR))
         }
     }
