@@ -61,7 +61,7 @@ const AdminProduct = () => {
                             <td class="prod-data-name">{product.productName}</td>
                             <td class="prod-data-category">{product.category}</td>
                             <td class="prod-data-stock">{product.stocks}</td>
-                            <td class="prod-data-view"><i class='bx bx-search-alt-2 view-prod-btn'></i></td>
+                            <td class="prod-data-view"><Link to='/adminProductDetail'><box-icon name='search-alt-2'></box-icon></Link></td>
                             <td class="prod-data-actions"><i class='bx bx-edit-alt edit-prod-btn'></i><i
                                 class='bx bx-trash-alt delete-prod-btn'></i></td>
                         </tr>

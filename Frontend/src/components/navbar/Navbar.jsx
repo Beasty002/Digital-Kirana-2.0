@@ -12,6 +12,8 @@ import { handleSuccessLogin } from '../../store/authSlice'
 
 const Navbar = ({ data }) => {
 
+    const [isDrop, setIsDrop] = useState(false)
+
     const auth = useSelector(state => state.auth)
     const { isOpen } = useSelector(state => state.cart)
     const userToken = Cookies.get('userToken')
@@ -20,6 +22,14 @@ const Navbar = ({ data }) => {
     const [search, setSearch] = useState('')
 
     const dispatch = useDispatch()
+
+    const handleDropDown = () =>{
+        setIsDrop(!isDrop)
+    }
+
+    const handleLogout = () =>{
+        
+    }
 
     const facebookUser = false
     // const [overlay, setOverlay] = useState('false')
@@ -52,10 +62,13 @@ const Navbar = ({ data }) => {
                     <div className="menu-slider"> <box-icon name='menu-alt-left' ></box-icon>
                     </div>
                     <div className="search-bar">
+                        {/* <i> */}
+                        {/* <box-icon name='search-alt-2'></box-icon> */}
                         <input type="text" name="search" onChange={e => setSearch(e.target.value)} placeholder="Enter the product name...." />
+                        {/* </i> */}
                     </div>
                     <ul className="nav-items">
-                        <li>
+                        <li className='dropdown-container' onClick={handleDropDown}>
 
                             <>
                                 {
@@ -63,6 +76,11 @@ const Navbar = ({ data }) => {
                                     userToken ? (
                                         <>
                                             <box-icon name='user' className="bi-clr"></box-icon>{auth.user.username}
+                                            <ul className={!isDrop ? 'dropdown' : 'dropdownvisible'}>
+                                                <li><Link to='/customerProfile'>My Profile</Link></li>
+                                                <li onClick={handleLogout}>Logout</li>
+                                            </ul>
+
                                             {/* <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link> */}
                                         </>
                                     ) :

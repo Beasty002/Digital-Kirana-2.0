@@ -1,8 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../components/css/customerprofile.css'
 import Layout from '../components/layout/Layout'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 const CustomerProfile = () => {
+    const auth = useSelector(state=>state.auth)
+    const {email,username} = auth.user
+    // console.log(auth)
+    const [allOrders,setOrders] = useState([])
+    const [failedOrder,setFailedOrder] = useState([])
+    const handleAPI = async () =>{
+        const response = await axios.get('http://localhost:3000/admin/dashboard/allOrders')
+        // console.log(response.data.allOrders)
+        setOrders(response.data.allOrders)
+    }
+    useEffect(()=>{
+        handleAPI()
+    },[])
+    
   return (
     <>   
     <Layout>
@@ -14,11 +30,11 @@ const CustomerProfile = () => {
                         <section className="customer-left-container">
                             <div className="customer-detail">
                                 <span className="label">Username: </span>
-                                <span className="value">Monkey D. Luffy</span>
+                                <span className="value">{email}</span>
                             </div>
                             <div className="customer-detail">
                                 <span className="label">Email: </span>
-                                <span className="value">luffy@gmail.com</span>
+                                <span className="value">{username}</span>
                             </div>
                         </section>
                         <section className="customer-right-container">
@@ -48,15 +64,23 @@ const CustomerProfile = () => {
                             <hr className="divider" />
                             <div className="orderitem">
                                 <section className="item-list">
-                                    <div className="item">
-                                        <div>
-                                            <img src="./Assets/Images/Products/product1.jpg" className="item-image" alt="Product 1" />
-                                            <span className="item-name">Product Name 1</span>
-                                        </div>
-                                        <span className="item-qty">Qty: <span>2</span></span>
-                                        <span className="item-price">Rs <span>2000</span></span>
-                                    </div>
-                                    <hr className="item-divider" />
+                                    {
+                                        allOrders.map((order,index)=>(
+                                            <>
+                                            <div className="item">
+                                                <div>
+                                                    <img src="./Assets/Images/Products/product1.jpg" className="item-image" alt="Product 1" />
+                                                    <span className="item-name">Product Name {index+1}</span>
+                                                </div>
+                                                <span className="item-qty">Qty: <span>{order.products[0].quantity}</span></span>
+                                                <span className="item-price">Rs <span>2000</span></span>
+                                            </div>
+                                            <hr className="item-divider" />
+                                            </>
+                                        ))
+                                    }
+
+                                    
                                     <div className="item">
                                         <div>
                                             <img src="./Assets/Images/Products/product2.jpg" className="item-image" alt="Product 2" />
