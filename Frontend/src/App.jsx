@@ -33,7 +33,6 @@ const App = () => {
       <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/logout" /> 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path='/forgotpassword' element={<ForgotPassword />} />
@@ -42,7 +41,7 @@ const App = () => {
           <Route path="/productCategory/:id" element={<ProductCategory />} />
           <Route path="/checkout" element={<Checkout />} />
 
-          <Route path='/admin' element={<AdminHome />} />
+          <Route path='/adminDashboard' element={<AdminHome />} />
           <Route path='/adminProduct' element={<AdminProduct />} />
           <Route path='/adminProduct/addProduct' element={<AdminAddProduct />} />
           <Route path='/adminCategory' element={<AdminCategory />} />

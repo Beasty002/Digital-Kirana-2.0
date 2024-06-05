@@ -6,6 +6,7 @@ import PaymentForm from './PaymentForm'
 
 const Checkout = () => {
     const cart = useSelector(state => state.cart)
+    // console.log(cart.cartItems)
     const auth = useSelector(state => state.auth)
     return (
         <>
@@ -38,7 +39,8 @@ const Checkout = () => {
                             </section>
                             <section className="order-items-list">
                                 {
-                                    cart.cartItems.map((cartItem) => {
+                                    cart.cartItems.map((cartItem) => (
+
                                         <div className="order-item-container">
 
                                             <i className='bx bx-x prod-del-btn'></i>
@@ -60,7 +62,7 @@ const Checkout = () => {
                                             </div>
 
                                         </div>
-                                    })
+                                    ))
                                 }
                             </section>
                         </section>

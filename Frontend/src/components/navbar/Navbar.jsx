@@ -16,6 +16,7 @@ const Navbar = ({ data }) => {
     const auth = useSelector(state => state.auth)
     const { isOpen } = useSelector(state => state.cart)
     const userToken = Cookies.get('userToken')
+    console.log(userToken)
     const googleToken = Cookies.get('googleToken')
     const facebookToken = Cookies.get('facebookToken')
     const [search, setSearch] = useState('')
@@ -80,17 +81,9 @@ const Navbar = ({ data }) => {
                                     userToken ? (
                                         <>
                                             <box-icon name='user' ></box-icon>{auth.user.username}
+                                            {/* <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link> */}
                                         </>
-                                    ) : googleToken ? (
-                                        <>
-                                            <box-icon name='user'onClick={getLogoutGoogle} ></box-icon>
-                                            {/* {auth.user.userName} */}
-                                        </>
-                                    ) : facebookUser ? (
-                                        <>
-                                            <box-icon name='user' ></box-icon>{facebookUser}
-                                        </>
-                                    ) :
+                                    )  :
                                         (
 
                                             <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link>
