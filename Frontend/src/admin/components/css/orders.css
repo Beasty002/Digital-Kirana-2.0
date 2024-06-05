@@ -30,6 +30,7 @@ a {
 
 .searchbar-container {
     position: relative;
+
 }
 
 .searchbar-container i {
@@ -45,6 +46,7 @@ a {
     padding: 20px 15px;
     border-radius: 12px;
     justify-content: space-between;
+    width: 100%;
 }
 
 .admin-order-search-container {
