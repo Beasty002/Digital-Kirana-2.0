@@ -9,6 +9,11 @@
     --content-width: 1250px;
 }
 
+.category-product {
+    display: flex;
+    justify-content: center;
+}
+
 @media (width <=1300px) {
     :root {
         --content-width: 1050px;
@@ -176,9 +181,10 @@
     width: var(--content-width);
 }
 
-.category-product-list .product-card-container {
+.category-product #productShowcase .featured-products .product-card-container {
+    margin-top: 40px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(5, 1fr) !important;
     gap: 15px;
     margin-top: 10px;
     padding-bottom: 10px;
