@@ -1,5 +1,5 @@
 // import React from 'react'
-import React, { memo } from 'react';
+// import React, { memo } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import '../components/css/productDetail.css'
 import Layout from '../components/layout/Layout'
@@ -12,13 +12,11 @@ const ProductSinglePage = () => {
     const { id } = useParams()
 
     const [product, setProduct] = useState({})
-    const { frontView, backView, sideView, topView, productName, salesPrice, stocks, description,category } = product;
+    const { frontView, backView, sideView, topView, productName, salesPrice, stocks, description,category,Brand } = product;
     const [similarProducts, setSimilarProducts] = useState([])
-    // const [data,setData] = useState({})
     useEffect(() => {
         const handleAPI = async () => {
             const singleProduct = await axios.get(`http://localhost:3000/api/singlePage/${id}`)
-            // console.log(singleProduct.data)
             setProduct(singleProduct.data.productData)
             setSimilarProducts(singleProduct.data.similarProducts)  
         }
@@ -37,7 +35,7 @@ const ProductSinglePage = () => {
                     <section className="full-product-page">
                         <ul className="category-page-bread-crumb">
                             <li><Link to='/'>Home</Link></li>
-                            <li><Link to='/productCategory'>{category} </Link></li>
+                            <li><Link to={`/productCategory/${category}`}>{category} </Link></li>
                             <li>{productName}</li>
                         </ul>
                         <section className="product-content-container">
@@ -66,7 +64,7 @@ const ProductSinglePage = () => {
                                 <div className="product-main-detail">
                                     <h1 id="productName">{productName}</h1>
                                     <p className="rating"></p>
-                                    <p className="product-brand">Brand : <span>Anime</span></p>
+                                    <p className="product-brand">Brand : <span>{Brand}</span></p>
                                     <p className="main-product-price">{salesPrice}</p>
                                     <p className="product-mrp">Rs 456</p>
                                     <div className="main-product-qty-btn-container">

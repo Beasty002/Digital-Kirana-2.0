@@ -107,7 +107,7 @@ const Navbar = () => {
                     <ul className="nav-cat-items">
                         {
                             categories.map((category, index) => {
-                                return <li key={index} ><Link to={`/productCategory/${category._id}`} >{category.name}</Link></li>
+                                return <li key={index} ><Link to={`/productCategory/${category.name}`} >{category.name}</Link></li>
                             })
                         }
                     </ul>

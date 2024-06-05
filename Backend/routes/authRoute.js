@@ -95,7 +95,7 @@ router.route('/changePassword')
 
 // @ desc Verify Costumer After Registration
 // @ route POST /auth/verify-user
-router.route('/verify-user')
+router.route('/verify-user/:token')
     .post([
     ],
     AuthControllers.verifyUser
