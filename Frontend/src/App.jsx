@@ -22,6 +22,8 @@ import AdminAddCategory from './admin/pages/AdminAddCategory'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import VerifyUser from './pages/auth/VerifyUser'
 import AdminCustomerTable from './admin/pages/AdminCustomerTable'
+import AdminOrderPage from './admin/pages/AdminOrderPage'
+import AdminBanner from './admin/pages/AdminBanner'
 
 
 const App = () => {
@@ -47,6 +49,8 @@ const App = () => {
           <Route path='/adminCategory' element={<AdminCategory />} />
           <Route path='/adminCategory/addCategory' element={<AdminAddCategory />} />
           <Route path='/adminCustomer' element={<AdminCustomerTable />} />
+          <Route path='/adminOrder' element={<AdminOrderPage />} />
+          <Route path='/adminBanner' element={<AdminBanner />} />
         </Routes>
       </BrowserRouter>
 

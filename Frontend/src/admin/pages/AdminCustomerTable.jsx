@@ -8,7 +8,6 @@ const AdminCustomerTable = () => {
     const [googleCustomers,setGoogleCustomers] = useState([])
     const handleAPI = async () =>{
         const response = await axios.get('http://localhost:3000/admin/dashboard/allCustomers')
-        console.log(response.data)
         setLocalCustomers(response.data.allLocalCustomers)
         setGoogleCustomers(response.data.allGoogleCustomers)
     }
@@ -57,14 +56,17 @@ const AdminCustomerTable = () => {
                 }
                 {
                     googleCustomers.map((customer,index)=>{
+                        return(
+
                         <tr class="cus-data">
                     <td class="cus-data-id">{index+1}</td>
                     <td class="cus-data-name">{customer.userName}</td>
                     <td class="cus-data-email">{customer.email}</td>
-                    <td class="cus-data-number">1</td>
+                    <td class="cus-data-number">{customer.phoneNumber}</td>
                     <td class="cus-data-view"><i class='bx bx-search-alt-2 view-cus-btn'></i></td>
                     <td class="cus-data-actions"><i class='bx bx-trash-alt delete-cus-btn'></i></td>
                 </tr>
+                        )
                     })
                 }
             </table>

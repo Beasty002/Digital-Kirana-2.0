@@ -1,6 +1,15 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
 const AdminNavbar = () => {
+    const [admin,setAdmin] = useState()
+    const handleAPI = async () =>{
+        const response = await axios.get('http://localhost:3000/admin/dashboard/index')
+        console.log(response.data)
+    }
+    useEffect(()=>{
+        handleAPI()
+    },[])
     return (
         <>
             <nav id="adminNavBar">
