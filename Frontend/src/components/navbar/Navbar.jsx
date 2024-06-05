@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
-import {useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 // import Cart from '../cart/Cart'
 import { useDispatch, useSelector } from 'react-redux'
@@ -35,7 +35,7 @@ const Navbar = ({ data }) => {
     // }
 
     const getLogoutGoogle = async () => {
-        Cookies.remove("googleToken","connect.sid")
+        Cookies.remove("googleToken", "connect.sid")
         window.open("http://localhost:3000/auth/google/logout", "_self")
     }
     // console.log(googleUser)
@@ -56,14 +56,16 @@ const Navbar = ({ data }) => {
                     </div>
                     <ul className="nav-items">
                         <li>
+
                             <>
                                 {
+
                                     userToken ? (
                                         <>
-                                            <box-icon name='user' ></box-icon>{auth.user.username}
+                                            <box-icon name='user' className="bi-clr"></box-icon>{auth.user.username}
                                             {/* <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link> */}
                                         </>
-                                    )  :
+                                    ) :
                                         (
 
                                             <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link>
@@ -94,6 +96,11 @@ const Navbar = ({ data }) => {
                     <li><Link to="/category"><box-icon name='category' ></box-icon> Category</Link></li>
                     <li><Link to="/cart"><box-icon name='cart' ></box-icon> Cart</Link></li>
                     <li><Link to="/account"><box-icon name='user' ></box-icon>Account</Link></li>
+                </ul>
+                <ul className="drop-down-container">
+                    <li>My Profile</li>
+                    <li>Logout</li>
+
                 </ul>
             </nav>
         </>
