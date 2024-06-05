@@ -7,6 +7,7 @@ import PaymentForm from './PaymentForm'
 const Checkout = () => {
     const cart = useSelector(state => state.cart)
     const auth = useSelector(state => state.auth)
+    const { username, email } = auth.user
     return (
         <>
             <Layout>
@@ -16,22 +17,22 @@ const Checkout = () => {
                             <section className="order-user-info">
                                 <form action="">
                                     <div className="order-form-group">
-                                        <label htmlFor="">Deliver to :</label>
-                                        <input type="text" readOnly placeholder={auth.user.username} />
+                                        <label for="">Deliver to :</label>
+                                        <input type="text" readOnly placeholder={username} />
                                     </div>
                                     <div className="order-form-group">
-                                        <label htmlFor="">Deliver Address :</label>
+                                        <label for="">Deliver Address :</label>
                                         <input type="text" />
                                         <span className="change-btn">Change</span>
                                     </div>
                                     <div className="order-form-group">
-                                        <label htmlFor="">Phone Number :</label>
+                                        <label for="">Phone Number :</label>
                                         <input type="text" />
                                         <span className="change-btn">Change</span>
                                     </div>
                                     <div className="order-form-group">
-                                        <label htmlFor="">Email :</label>
-                                        <input type="text" readOnly placeholder={auth.user.email} />
+                                        <label for="">Email :</label>
+                                        <input type="text" readOnly placeholder={email} />
                                     </div>
                                 </form>
 
@@ -40,7 +41,7 @@ const Checkout = () => {
                                 {
                                     cart.cartItems.map((cartItem) => {
                                         <div className="order-item-container">
-
+                                            {/* {console.log(cartItem)} */}
                                             <i className='bx bx-x prod-del-btn'></i>
                                             <figure className="order-item-image">
                                                 <img src={`../../Assets/Images/Products/${cartItem.frontView}`}

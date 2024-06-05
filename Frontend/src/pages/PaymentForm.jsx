@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const PaymentForm = ({cartData,authData}) => {
-  console.log(cartData,authData)
+  // console.log(cartData,authData)
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -12,10 +12,9 @@ const PaymentForm = ({cartData,authData}) => {
     
     const url = "http://localhost:3000/api/create";
     const data = {
-      amount: cartData.cartTotalAmount,
-      quantity: cartData.cartTotalQuantity ,
+      amount: 1,
       products: [
-        { product: cartData.cartItems, amount: cartData.cartTotalAmount}
+        { product: null, quantity: 12}
       ],
       payment_method,
       costumer: "665606745e163fe47b91f066",

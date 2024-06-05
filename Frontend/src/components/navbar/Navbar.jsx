@@ -22,7 +22,6 @@ const Navbar = ({ data }) => {
     const dispatch = useDispatch()
 
     const facebookUser = false
-    // const [overlay, setOverlay] = useState('false')
     const { cartTotalQuantity } = useSelector(state => state.cart)
 
 
@@ -30,15 +29,10 @@ const Navbar = ({ data }) => {
         dispatch(handleSuccessLogin())
     }
 
-    // const overLay = () =>{
-    //     setOverlay(!overlay)
-    // }
-
     const getLogoutGoogle = async () => {
         Cookies.remove("googleToken","connect.sid")
         window.open("http://localhost:3000/auth/google/logout", "_self")
     }
-    // console.log(googleUser)
     return (
         <>
             <div className={isOpen ? 'overlayv' : 'overlay'}></div>

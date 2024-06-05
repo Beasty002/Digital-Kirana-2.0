@@ -56,8 +56,11 @@ exports.getAllCustomers = async(req,res) => {
     const allLocalCustomers = await Customer.find({});
     const allGoogleCustomers = await GoogleCustomer.find({});
     res.status(200).json({
-      allLocalCustomers,
-      allGoogleCustomers
+      allCustomers :{
+        allLocalCustomers,
+        allGoogleCustomers
+      }
+      
     })
   } catch (error) {
     console.log(error);
