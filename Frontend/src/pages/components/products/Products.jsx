@@ -16,7 +16,11 @@ const Products = ({data,type}) => {
               <h2>Non Featured Products</h2>
               {/* <h2>{data[0].category} Products</h2> */}
               </>
-            ):(
+            ) : type === 'search' ? (
+              <>
+                <h2>Search Results</h2>
+              </>
+            ) :(
               <h2>Featured Products</h2>
             )
           }
