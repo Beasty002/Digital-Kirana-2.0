@@ -80,14 +80,7 @@ const Navbar = ({ data }) => {
                     <div className="menu-slider"> <box-icon name='menu-alt-left' ></box-icon>
                     </div>
                     <div className="search-bar">
-<<<<<<< HEAD
                         <input type="text" name="search" onChange={handleChange} placeholder="Enter the product name...." />
-=======
-                        {/* <i> */}
-                        {/* <box-icon name='search-alt-2'></box-icon> */}
-                        <input type="text" name="search" onChange={e => setSearch(e.target.value)} placeholder="Enter the product name...." />
-                        {/* </i> */}
->>>>>>> Kaushal
                     </div>
                     <ul className="nav-items">
                         <li className='dropdown-container' onClick={handleDropDown}>
