@@ -41,7 +41,6 @@ const Navbar = ({ data }) => {
         window.open("http://localhost:3000/auth/google/logout", "_self")
     }
     // console.log(googleUser)
-
     const handleSearch = async () => {
         if(search===''){
             return
