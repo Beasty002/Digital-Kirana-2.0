@@ -6,11 +6,13 @@ import Layout from '../components/layout/Layout'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Product from './components/product/Product'
+import { increaseCart } from '../store/cartSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const ProductSinglePage = () => {
     const { id } = useParams()
-
+    const cart = useSelector(state=>state.cart)
     const [product, setProduct] = useState({})
     const { frontView, backView, sideView, topView, productName, salesPrice, stocks, description,category,Brand } = product;
     const [similarProducts, setSimilarProducts] = useState([])
@@ -26,6 +28,9 @@ const ProductSinglePage = () => {
     const handleEvent = (data) =>{
         setProduct(data)
     }  
+    const increaseCartItem = product =>{
+        useDispatch(increaseCart(product))
+    }
 
 
     return (
@@ -75,7 +80,7 @@ const ProductSinglePage = () => {
                                             <i className='bx bxs-plus-circle qty-increase'></i>
                                         </div>
                                     </div>
-                                    <button className="product-add-to-cart-btn"><i className='bx bx-cart'></i> Add to Cart</button>
+                                    <button className="product-add-to-cart-btn" onClick={increaseCartItem(product)}><i className='bx bx-cart'></i> Add to Cart</button>
                                 </div>
                                 <hr className="divider-product-detail" />
                                 <div className="product-details" />

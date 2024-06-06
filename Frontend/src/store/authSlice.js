@@ -53,9 +53,10 @@ export const register = data =>{
                 dispatch(setStatus(STATUS.SUCCESS))
                 dispatch(setUser(data))
                 dispatch(setToken(response.data.userToken))
-                const {username,email,_id} = data
-                localStorage.setItem('user', JSON.stringify({username,email,_id}));
+                const {username,email,_id,phoneNumber} = data
+                localStorage.setItem('user', JSON.stringify({username,email,_id,phoneNumber}));
                 Cookies.set('userToken',response.data.userToken,{expires : 7})
+                location.href = 'http://localhost:5173/'
             }else{
                 dispatch(setStatus(STATUS.ERROR))
             }

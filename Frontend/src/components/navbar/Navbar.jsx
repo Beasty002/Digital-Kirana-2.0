@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
-import {useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 // import Cart from '../cart/Cart'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,6 +12,8 @@ import { handleSuccessLogin } from '../../store/authSlice'
 
 const Navbar = ({ data }) => {
 
+    const [isDrop, setIsDrop] = useState(false)
+
     const auth = useSelector(state => state.auth)
     const { isOpen } = useSelector(state => state.cart)
     const userToken = Cookies.get('userToken')
@@ -20,6 +22,14 @@ const Navbar = ({ data }) => {
     const [search, setSearch] = useState('')
 
     const dispatch = useDispatch()
+
+    const handleDropDown = () =>{
+        setIsDrop(!isDrop)
+    }
+
+    const handleLogout = () =>{
+        
+    }
 
     const facebookUser = false
     const { cartTotalQuantity } = useSelector(state => state.cart)
@@ -30,7 +40,7 @@ const Navbar = ({ data }) => {
     }
 
     const getLogoutGoogle = async () => {
-        Cookies.remove("googleToken","connect.sid")
+        Cookies.remove("googleToken", "connect.sid")
         window.open("http://localhost:3000/auth/google/logout", "_self")
     }
     return (
@@ -46,18 +56,28 @@ const Navbar = ({ data }) => {
                     <div className="menu-slider"> <box-icon name='menu-alt-left' ></box-icon>
                     </div>
                     <div className="search-bar">
+                        {/* <i> */}
+                        {/* <box-icon name='search-alt-2'></box-icon> */}
                         <input type="text" name="search" onChange={e => setSearch(e.target.value)} placeholder="Enter the product name...." />
+                        {/* </i> */}
                     </div>
                     <ul className="nav-items">
-                        <li>
+                        <li className='dropdown-container' onClick={handleDropDown}>
+
                             <>
                                 {
+
                                     userToken ? (
                                         <>
-                                            <box-icon name='user' ></box-icon>{auth.user.username}
+                                            <box-icon name='user' className="bi-clr"></box-icon>{auth.user.username}
+                                            <ul className={!isDrop ? 'dropdown' : 'dropdownvisible'}>
+                                                <li><Link to='/customerProfile'>My Profile</Link></li>
+                                                <li onClick={handleLogout}>Logout</li>
+                                            </ul>
+
                                             {/* <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link> */}
                                         </>
-                                    )  :
+                                    ) :
                                         (
 
                                             <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link>
@@ -88,6 +108,11 @@ const Navbar = ({ data }) => {
                     <li><Link to="/category"><box-icon name='category' ></box-icon> Category</Link></li>
                     <li><Link to="/cart"><box-icon name='cart' ></box-icon> Cart</Link></li>
                     <li><Link to="/account"><box-icon name='user' ></box-icon>Account</Link></li>
+                </ul>
+                <ul className="drop-down-container">
+                    <li>My Profile</li>
+                    <li>Logout</li>
+
                 </ul>
             </nav>
         </>

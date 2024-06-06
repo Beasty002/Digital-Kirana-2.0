@@ -4,6 +4,7 @@ import '../components/css/checkout.css'
 import Layout from '../components/layout/Layout'
 import { useSelector } from 'react-redux'
 import PaymentForm from './PaymentForm'
+import MapComponent from './components/map/MapComponent'
 
 const Checkout = () => {
     const cart = useSelector(state => state.cart)
@@ -25,7 +26,8 @@ const Checkout = () => {
                                     <div className="order-form-group">
                                         <label htmlFor="">Deliver Address :</label>
                                         <input type="text" />
-                                        <span className="change-btn">Change</span>
+                                        <MapComponent />
+                                        {/* <span className="change-btn">Change</span> */}
                                     </div>
                                     <div className="order-form-group">
                                         <label htmlFor="">Phone Number :</label>

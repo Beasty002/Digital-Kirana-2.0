@@ -9,6 +9,19 @@
     --content-width: 1250px;
 }
 
+
+
+.category-page {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+.category-page #productShowcase .featured-products .product-card-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr) !important;
+}
+
 @media (width <=1300px) {
     :root {
         --content-width: 1050px;
@@ -168,7 +181,9 @@
 }
 
 #categoryItems {
+    background-color: red;
     display: flex;
+
     justify-content: center;
 }
 
