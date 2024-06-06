@@ -6,6 +6,7 @@ import Register from './pages/auth/Register'
 import './App.css'
 import ProductSinglePage from './pages/ProductSinglePage'
 import ProductCategory from './pages/ProductCategory'
+import SearchProduct from './pages/searchProductPage'
 import 'boxicons'
 import { Provider } from 'react-redux'
 import store from './store/store'
@@ -42,6 +43,7 @@ const App = () => {
           <Route path='/verify-user/:id' element={<VerifyUser />} />
           <Route path="/singlePage/:id" element={<ProductSinglePage />} />
           <Route path="/productCategory/:id" element={<ProductCategory />} />
+          <Route path="/searchproduct/:query" element={<SearchProduct />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/customerProfile" element={<CustomerProfile />} />
 

@@ -54,18 +54,18 @@ const Navbar = ({ data }) => {
         if(search===''){
             return
         }
-        try {
-            const response = await axios.get(`http://localhost:3000/api/search/${search}`)
-            const productIds = await response.data.productIds;
-            console.log(productIds)
-            // renderSearchResults(productIds);
-        } catch (error) {
-            console.error('Error fetching search results:', error);
-        }
+        location.href=`/searchProduct/${search}`
+        // try {
+        //     const response = await axios.get(`http://localhost:3000/api/search/${search}`)
+        //     const productIds = await response.data.productIds;
+        //     console.log(productIds)
+        //     // renderSearchResults(productIds);
+        // } catch (error) {
+        //     console.error('Error fetching search results:', error);
+        // }
     };
     const handleChange=(e)=>{
         setSearch(e.target.value)
-        handleSearch()
     }
     return (
         <>
@@ -81,6 +81,7 @@ const Navbar = ({ data }) => {
                     </div>
                     <div className="search-bar">
                         <input type="text" name="search" onChange={handleChange} placeholder="Enter the product name...." />
+                        <button onClick={handleSearch}>search</button>
                     </div>
                     <ul className="nav-items">
                         <li className='dropdown-container' onClick={handleDropDown}>

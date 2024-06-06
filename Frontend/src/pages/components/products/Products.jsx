@@ -5,6 +5,7 @@
 import Product from '../product/Product'
 
 const Products = ({data,type}) => {
+  console.log(data);
   return (
     <>
       <section id="productShowcase">
@@ -22,6 +23,7 @@ const Products = ({data,type}) => {
           <div className="product-card-container">
             {
               data.map((product,index) => {
+                console.log(product);
                 return (
                   <Product data={product} key={index}/>
                 )
