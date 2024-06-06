@@ -26,8 +26,8 @@ const Checkout = () => {
                                     <div className="order-form-group">
                                         <label htmlFor="">Deliver Address :</label>
                                         <input type="text" />
-                                        {/* <MapComponent /> */}
-                                        <span className="change-btn">Change</span>
+                                        <MapComponent />
+                                        {/* <span className="change-btn">Change</span> */}
                                     </div>
                                     <div className="order-form-group">
                                         <label htmlFor="">Phone Number :</label>

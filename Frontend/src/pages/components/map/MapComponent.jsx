@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -56,7 +56,8 @@ function Map() {
     return (
         <div>
             {/* <h1>Map user location</h1> */}
-            <div id="map" style={{ height: '350px' }}></div>
+            {/* <h1>Works</h1> */}
+            <div id="map" style={{ height: '350px',width:'400px' }}></div>
             <p id="info"></p>
         </div>
     );

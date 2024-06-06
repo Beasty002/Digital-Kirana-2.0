@@ -1,13 +1,13 @@
-import React from 'react'
+// import React from 'react'
 
-const Map = () => {
-  return (
-    <>
-      <h1>Map User Location</h1>
-      <MapComponent />
+// const Map = () => {
+//   return (
+//     <>
+//       <h1>Map User Location</h1>
+//       <MapComponent />
 
-    </>
-  )
-}
+//     </>
+//   )
+// }
 
-export default Map
+// export default Map
