@@ -1,4 +1,3 @@
-
 import Layout from '../components/layout/Layout'
 import '../components/css/productCategory.css'
 import Products from './components/products/Products'
@@ -7,17 +6,24 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 const SearchProductPage = () => {
-  const { query } = useParams()
+  const { query } = useParams();
   const [products, setProducts] = useState([]);
-//   useEffect(() => {
+
+  useEffect(() => {
     const handleAPI = async () => {
-        const response = await axios.get(`http://localhost:3000/api/search/${query}`)
-      setProducts(response.data.productIds);
-      console.log(query)
-      console.log(products)
-    }
-    handleAPI()
-//   })
+      try {
+        const response = await axios.get(`http://localhost:3000/api/search/${query}`);
+        setProducts(response.data); // Assuming response.data is the list of products
+        console.log('Query:', query);
+        console.log('Products:', response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    handleAPI();
+  }, [query]); // Dependency array to re-run effect when query changes
+
   return (
     <>
       <Layout>
@@ -26,8 +32,7 @@ const SearchProductPage = () => {
         </section>
       </Layout>
     </>
-  )
+  );
 }
 
-export default SearchProductPage
-
+export default SearchProductPage;
