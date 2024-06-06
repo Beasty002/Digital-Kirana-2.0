@@ -9,7 +9,6 @@ import { toggleCart } from '../../store/cartSlice'
 import Cookies from 'js-cookie'
 import { handleSuccessLogin } from '../../store/authSlice'
 
-
 const Navbar = ({ data }) => {
 
     const [isDrop, setIsDrop] = useState(false)
@@ -32,7 +31,6 @@ const Navbar = ({ data }) => {
     }
 
     const facebookUser = false
-    // const [overlay, setOverlay] = useState('false')
     const { cartTotalQuantity } = useSelector(state => state.cart)
 
 
@@ -40,27 +38,16 @@ const Navbar = ({ data }) => {
         dispatch(handleSuccessLogin())
     }
 
-    // const overLay = () =>{
-    //     setOverlay(!overlay)
-    // }
-
     const getLogoutGoogle = async () => {
         Cookies.remove("googleToken", "connect.sid")
         window.open("http://localhost:3000/auth/google/logout", "_self")
     }
+    // console.log(googleUser)
     const handleSearch = async () => {
         if(search===''){
             return
         }
         location.href=`/searchProduct/${search}`
-        // try {
-        //     const response = await axios.get(`http://localhost:3000/api/search/${search}`)
-        //     const productIds = await response.data.productIds;
-        //     console.log(productIds)
-        //     // renderSearchResults(productIds);
-        // } catch (error) {
-        //     console.error('Error fetching search results:', error);
-        // }
     };
     const handleChange=(e)=>{
         setSearch(e.target.value)
