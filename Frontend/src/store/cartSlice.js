@@ -16,9 +16,9 @@ const cartSlice = createSlice({
             const itemIndex = state.cartItems.findIndex(item => item._id === action.payload._id) //cartItem ko data ko id rw payload data ko id check gareko aani position of that item is returned it no product value = -1
             if(itemIndex >= 0){
                     state.cartItems[itemIndex].cartQuantity +=1
-                    toast.info('Increased product quantity',{
-                        position : 'bottom-right'
-                    })
+                    // toast.info('Increased product quantity',{
+                    //     position : 'bottom-right'
+                    // })
             }else{
                 console.log(action.payload)
                 const tempProduct = {...action.payload, cartQuantity : 1 }
@@ -66,9 +66,9 @@ const cartSlice = createSlice({
             )
             if(state.cartItems[itemIndex].cartQuantity >= 1){
                 state.cartItems[itemIndex].cartQuantity += 1
-                toast.info(`Increased Card Quantity`,{
-                    position : 'bottom-right'
-                })
+                // toast.info(`Increased Card Quantity`,{
+                //     position : 'bottom-right'
+                // })
             }
             localStorage.setItem('cartItems',JSON.stringify(state.cartItems))
         },
