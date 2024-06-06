@@ -55,17 +55,9 @@ const Navbar = ({ data }) => {
                                     userToken ? (
                                         <>
                                             <box-icon name='user' ></box-icon>{auth.user.username}
+                                            {/* <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link> */}
                                         </>
-                                    ) : googleToken ? (
-                                        <>
-                                            <box-icon name='user'onClick={getLogoutGoogle} ></box-icon>
-                                            {/* {auth.user.userName} */}
-                                        </>
-                                    ) : facebookUser ? (
-                                        <>
-                                            <box-icon name='user' ></box-icon>{facebookUser}
-                                        </>
-                                    ) :
+                                    )  :
                                         (
 
                                             <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link>

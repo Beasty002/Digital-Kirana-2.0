@@ -98,13 +98,13 @@ const createSignature = (message) => {
 };
 
 exports.handleEsewaSuccess = async (req, res, next) => {
-  console.log("handling esewa success")
+  // console.log("handling esewa success")
   try {
     const { data } = req.query;
     const decodedData = JSON.parse(
       Buffer.from(data, "base64").toString("utf-8")
     );
-    console.log(decodedData);
+    // console.log(decodedData);
 
     if (decodedData.status !== "COMPLETE") {
       return res.status(400).json({ messgae: "errror" });
@@ -113,7 +113,7 @@ exports.handleEsewaSuccess = async (req, res, next) => {
       .split(",")
       .map((field) => `${field}=${decodedData[field] || ""}`)
       .join(",");
-    console.log(message);
+    // console.log(message);
     const signature = createSignature(message);
 
     if (signature !== decodedData.signature) {
@@ -136,7 +136,7 @@ exports.createOrder = async (req, res) => {
     const signature = createSignature(
       `total_amount=${order.amount},transaction_uuid=${order._id},product_code=EPAYTEST`
     );
-    console.log(signature)
+    // console.log(signature)
     if (order.payment_method === "esewa") {
       const formData = {
         amount: order.amount,
@@ -164,7 +164,7 @@ exports.createOrder = async (req, res) => {
 };
 
 exports.updateOrderAfterPayment = async (req, res, next) => {
-  console.log("updating esewa payInfo")
+  // console.log("updating esewa payInfo")
   try {
     const order = await orderService.findById(req.transaction_uuid);
     order.status = "paid";

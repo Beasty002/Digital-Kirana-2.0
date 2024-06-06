@@ -1,19 +1,20 @@
-/* eslint-disable no-unused-vars */
-
+/* eslint-disable react/jsx-key */
+import { useEffect, useState } from 'react'
 import Layout from '../layout/Layout'
 import '../components/css/allcustomer.css'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+
 const AdminCustomerTable = () => {
-    const {allCustomers, setAllCustomers} = useState([])
-    const handleAPI = async() =>{
-        const response = await axios.get("http://localhost:3000/admin/dashboard/allCustomers");
-        setAllCustomers(response.data.allCustomers)
+    const [localCustomers, setLocalCustomers] = useState([])
+    const [googleCustomers, setGoogleCustomers] = useState([])
+    const handleAPI = async () => {
+        const response = await axios.get('http://localhost:3000/admin/dashboard/allCustomers')
+        setLocalCustomers(response.data.allLocalCustomers)
+        setGoogleCustomers(response.data.allGoogleCustomers)
     }
     useEffect(() => {
         handleAPI()
-    },[])
-    const {allLocalCustomers,allGoogleCustomers} = allCustomers;
+    }, [])
     return (
         <>
             <Layout>
@@ -31,8 +32,7 @@ const AdminCustomerTable = () => {
                         <table className="admin-cus-table">
                             <tr className="table-heading">
                                 <th className="cus-id">S.N</th>
-                                <th className="cus-list-joindate">Joindate</th>
-                                <th className="cus-list-name">Customer Name</th>
+                                <th className="cus-list-name">cus Name</th>
                                 <th className="cus-list-email">Email</th>
                                 <th className="cus-list-number">Number</th>
 
@@ -40,25 +40,38 @@ const AdminCustomerTable = () => {
                                 <th className="cus-list-actions">Actions</th>
                             </tr>
                             {
-                                allLocalCustomers.map((localCustomer,index) => {
-                                    <tr className="cus-data">
-                                        <td className="cus-data-id">{index+1}</td>
-                                        <td className="cus-data-joindate">{localCustomer.createdAt}</td>
-                                        <td className="cus-data-name">{localCustomer.fullName}</td>
-                                        <td className="cus-data-email">{localCustomer.email}</td>
-                                        <td className="cus-data-number">{localCustomer.phoneNumber}</td>
-                                        <td className="cus-data-view"><i className='bx bx-search-alt-2 view-cus-btn'></i></td>
-                                        <td className="cus-data-actions"><i className='bx bx-trash-alt delete-cus-btn'></i></td>
-                                    </tr>
+                                localCustomers.map((customer, index) => {
+                                    return (
+                                        <tr className="cus-data">
+                                            <td className="cus-data-id">{index + 1}</td>
+                                            <td className="cus-data-name">{customer.userName}</td>
+                                            <td className="cus-data-email">{customer.email}</td>
+                                            <td className="cus-data-number">{customer.phoneNumber}</td>
+                                            <td className="cus-data-view"><i className='bx bx-search-alt-2 view-cus-btn'></i></td>
+                                            <td className="cus-data-actions"><i className='bx bx-trash-alt delete-cus-btn'></i></td>
+                                        </tr>
+
+                                    )
+
                                 })
                             }
-                            
+                            {
+                                googleCustomers.map((customer, index) => {
+                                    return (
+                                        <tr className="cus-data">
+                                            <td className="cus-data-id">{index + 1}</td>
+                                            <td className="cus-data-name">{customer.userName}</td>
+                                            <td className="cus-data-email">{customer.email}</td>
+                                            <td className="cus-data-number">{customer.phoneNumber}</td>
+                                            <td className="cus-data-view"><i className='bx bx-search-alt-2 view-cus-btn'></i></td>
+                                            <td className="cus-data-actions"><i className='bx bx-trash-alt delete-cus-btn'></i></td>
+                                        </tr>
+                                    )
+                                })
+                            }
                         </table>
                     </section>
-
-
                 </main>
-
             </Layout>
         </>
     )

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 
 import '../components/css/checkout.css'
 import Layout from '../components/layout/Layout'
@@ -6,32 +7,33 @@ import PaymentForm from './PaymentForm'
 
 const Checkout = () => {
     const cart = useSelector(state => state.cart)
+    // console.log(cart.cartItems)
     const auth = useSelector(state => state.auth)
-    const { username, email } = auth.user
+    const {username,email} = auth.user
     return (
         <>
             <Layout>
                 <main id="orderPage">
-                    <seection className="full-order-page">
+                    <section className="full-order-page">
                         <section className="order-left-container">
                             <section className="order-user-info">
                                 <form action="">
                                     <div className="order-form-group">
-                                        <label for="">Deliver to :</label>
+                                        <label htmlFor="">Deliver to :</label>
                                         <input type="text" readOnly placeholder={username} />
                                     </div>
                                     <div className="order-form-group">
-                                        <label for="">Deliver Address :</label>
+                                        <label htmlFor="">Deliver Address :</label>
                                         <input type="text" />
                                         <span className="change-btn">Change</span>
                                     </div>
                                     <div className="order-form-group">
-                                        <label for="">Phone Number :</label>
+                                        <label htmlFor="">Phone Number :</label>
                                         <input type="text" />
                                         <span className="change-btn">Change</span>
                                     </div>
                                     <div className="order-form-group">
-                                        <label for="">Email :</label>
+                                        <label htmlFor="">Email :</label>
                                         <input type="text" readOnly placeholder={email} />
                                     </div>
                                 </form>
@@ -39,7 +41,8 @@ const Checkout = () => {
                             </section>
                             <section className="order-items-list">
                                 {
-                                    cart.cartItems.map((cartItem) => {
+                                    cart.cartItems.map((cartItem) => (
+
                                         <div className="order-item-container">
                                             {/* {console.log(cartItem)} */}
                                             <i className='bx bx-x prod-del-btn'></i>
@@ -61,7 +64,7 @@ const Checkout = () => {
                                             </div>
 
                                         </div>
-                                    })
+                                    ))
                                 }
                             </section>
                         </section>
@@ -69,8 +72,8 @@ const Checkout = () => {
                             <div className="payment-option-container">
                                 <h3>Payment Options :</h3>
                                 <figure className="payment-option-container">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShwWa20Ba7lNTbbVITqfiPY_662rA1zN2cSA&s"
-                                        alt="Khalti" />
+                                    <img src="https://cdn.esewa.com.np/ui/images/esewa_og.png?111"
+                                        alt="Esewa" />
                                 </figure>
                             </div>
                             <hr />
@@ -97,13 +100,13 @@ const Checkout = () => {
                                 <p className="tax">All tax included</p>
                                 <form action="">
                                     {/* <input type="submit" value="Place Order" /> */}
-                                    <PaymentForm cartData={cart} authData={auth} />
+                                    <PaymentForm  address="Zero K.M" authData={auth} cartData={cart}/>
                                 </form>
 
                             </div>
 
                         </section>
-                    </seection>
+                    </section>
 
                 </main>
 
