@@ -6,9 +6,11 @@ import axios from 'axios'
 
 const AdminCategory = () => {
   const [categories, setCategories] = useState([])
+  
   const handleAPI = async () => {
-    const response = await axios.get('http://localhost:3000/api/homepage')
-    setCategories(response.data.category)
+    const response = await axios.get('http://localhost:3000/admin/dashboard/allCategories')
+    console.log(response.data)
+    setCategories(response.data.allCategories)
   }
 
   useEffect(() => {

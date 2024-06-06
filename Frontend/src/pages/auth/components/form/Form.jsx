@@ -42,7 +42,6 @@ const Form = ({ type, onSubmit }) => {
             {
               type === 'Register' && (
                 <>
-
                   <div className="form-group">
                     <label htmlFor="fullName">Full Name</label>
                     <input type="text" id="fullName" name="fullname" onChange={handleChange}required />
@@ -84,8 +83,6 @@ const Form = ({ type, onSubmit }) => {
 
                   <p className="already-acc">Don&apost Have an Account? <Link to='/register' style={{ color: 'blue' }} >Create Now</Link></p>
                 </>
-
-
               )
             }
           </form>

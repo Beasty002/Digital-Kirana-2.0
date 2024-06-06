@@ -21,9 +21,9 @@ const Products = ({data,type}) => {
           }
           <div className="product-card-container">
             {
-              data.map((product) => {
+              data.map((product,index) => {
                 return (
-                  <Product data={product} />
+                  <Product data={product} key={index}/>
                 )
               })
             }

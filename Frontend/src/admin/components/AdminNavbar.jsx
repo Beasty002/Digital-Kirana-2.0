@@ -1,18 +1,26 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
 const AdminNavbar = () => {
+    const [admin,setAdmin] = useState()
+    const handleAPI = async () =>{
+        const response = await axios.get('http://localhost:3000/admin/dashboard/index')
+    }
+    useEffect(()=>{
+        handleAPI()
+    },[])
     return (
         <>
             <nav id="adminNavBar">
-                <ul class="nav-contents">
-                    <li><i class='bx bx-bell admin-notification'><span class="notification-count">12</span></i></li>
-                    <li class="admin-profile">
-                        <i class='bx bxs-user-circle'></i>
-                        <p class="admin-info">
-                            <span class="admin-name">
+                <ul className="nav-contents">
+                    <li><i className='bx bx-bell admin-notification'><span className="notification-count">12</span></i></li>
+                    <li className="admin-profile">
+                        <i className='bx bxs-user-circle'></i>
+                        <p className="admin-info">
+                            <span className="admin-name">
                                 John Doe
                             </span>
-                            <span class="admin-role">
+                            <span className="admin-role">
                                 Admin
                             </span>
                         </p>

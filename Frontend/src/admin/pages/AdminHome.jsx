@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../layout/Layout'
 import '../components/css/dashboard.css'
+import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
 
 const AdminHome = () => {
+    const navigate = useNavigate()
+    // const checkUser = () =>{
+    //     const adminToken = Cookies.get('adminToken')
+    //     !adminToken && navigate('/login')
+    // }
+    // useEffect(()=>{
+    //     checkUser()
+    // },[])
   return (
     <>
     <Layout>

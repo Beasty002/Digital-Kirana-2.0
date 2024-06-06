@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const PaymentForm = ({cartData,authData}) => {
+  const cart= useSelector(cart=>cart.cartItems)
   // console.log(cartData,authData)
 
   const [loading, setLoading] = useState(false);
@@ -14,7 +16,7 @@ const PaymentForm = ({cartData,authData}) => {
     const data = {
       amount: 1,
       products: [
-        { product: null, quantity: 12}
+        { product: cart, quantity: 12}
       ],
       payment_method,
       costumer: "665606745e163fe47b91f066",

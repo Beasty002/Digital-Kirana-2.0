@@ -8,12 +8,12 @@ const GoogleCustomer = require("../../model/googleLogin.js")
 const Order = require("../../model/orderModel")
 // works
 exports.getDashboard = async (req, res) => {
-  if (!req.admin) {
-    return res.status(401).json({
-      login: false,
-      message: "Admin is not logged in"
-    })
-  }
+  // if (!req.admin) {
+  //   return res.status(401).json({
+  //     login: false,
+  //     message: "Admin is not logged in"
+  //   })
+  // }
   try {
     res.status(200).json({
       login: true,
@@ -30,12 +30,12 @@ exports.getDashboard = async (req, res) => {
 }
 //works
 exports.getAllProducts = async (req, res) => {
-  if (!req.admin) {
-    return res.status(401).json({
-      login: false,
-      message: "Admin is not logged in"
-    })
-  }
+  // if (!req.admin) {
+  //   return res.status(401).json({
+  //     login: false,
+  //     message: "Admin is not logged in"
+  //   })
+  // }
   try {
     const products = await Product.find();
     res.status(200).json({
@@ -71,17 +71,17 @@ exports.postAdminLogin = async (req, res) => {
   const { email, password } = req.body;
 
   const admin = await Admin.findOne({ adminEmail : email });
-  if (!admin) {
-    return res.status(404).json({
-      message: "No Admin With That Email Exists",
-    })
-  }
-  const isMatch = await bcrypt.compare(password, admin.adminPassword);
-  if (!isMatch) {
-    return res.status(401).json({
-      message: "Password is Incorrect"
-    })
-  }
+  // if (!admin) {
+  //   return res.status(404).json({
+  //     message: "No Admin With That Email Exists",
+  //   })
+  // }
+  // const isMatch = await bcrypt.compare(password, admin.adminPassword);
+  // if (!isMatch) {
+  //   return res.status(401).json({
+  //     message: "Password is Incorrect"
+  //   })
+  // }
   const adminToken = jwt.sign({ id: admin._id }, process.env.ADMIN_SECRET_KEY, {
     expiresIn: "24h"
   })
