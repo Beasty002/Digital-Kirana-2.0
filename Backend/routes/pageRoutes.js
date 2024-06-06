@@ -31,9 +31,18 @@ router.route("/esewa-success")
 
 
 // @desc Create Payment Order
-// @route GET /api/create
+// @route GET /api/create/
 router.route("/create")
     .post(authMiddleware,pageControllers.createOrder); 
 
+// @desc promotionImg
+// @route GET /api/promotionImage/
+router.route("/promotionImage")
+    .post(authMiddleware,pageControllers.getPromotionImage); 
+
+// @desc getSelectedPromotion
+// @route GET /api/selectPromotion/
+router.route("/selectPromotion")
+    .get(authMiddleware,pageControllers.getSelectedPromotion); 
 
 module.exports = router;

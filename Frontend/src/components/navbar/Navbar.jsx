@@ -32,7 +32,6 @@ const Navbar = ({ data }) => {
     }
 
     const facebookUser = false
-    // const [overlay, setOverlay] = useState('false')
     const { cartTotalQuantity } = useSelector(state => state.cart)
 
 
@@ -40,15 +39,10 @@ const Navbar = ({ data }) => {
         dispatch(handleSuccessLogin())
     }
 
-    // const overLay = () =>{
-    //     setOverlay(!overlay)
-    // }
-
     const getLogoutGoogle = async () => {
         Cookies.remove("googleToken", "connect.sid")
         window.open("http://localhost:3000/auth/google/logout", "_self")
     }
-    // console.log(googleUser)
     return (
         <>
             <div className={isOpen ? 'overlayv' : 'overlay'}></div>
@@ -83,7 +77,16 @@ const Navbar = ({ data }) => {
 
                                             {/* <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link> */}
                                         </>
-                                    ) :
+                                    ) : googleToken ?
+                                    <>
+                                            <box-icon name='user' className="bi-clr"></box-icon>
+                                            <ul className={!isDrop ? 'dropdown' : 'dropdownvisible'}>
+                                                <li><Link to='/customerProfile'>My Profile</Link></li>
+                                                <li onClick={getLogoutGoogle}>Logout</li>
+                                            </ul>
+
+                                            {/* <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link> */}
+                                        </> :
                                         (
 
                                             <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link>

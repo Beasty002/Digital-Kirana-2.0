@@ -3,6 +3,7 @@ const crypto = require("crypto");
 const Product = require("../../model/productModel");
 const Category = require("../../model/categoryModel")
 const orderService = require("../../services/orderServices");
+const Promotion = require("../../model/promotionModel")
 
 
 exports.getIndex = async (req, res) => {
@@ -97,13 +98,13 @@ const createSignature = (message) => {
 };
 
 exports.handleEsewaSuccess = async (req, res, next) => {
-  console.log("handling esewa success")
+  // console.log("handling esewa success")
   try {
     const { data } = req.query;
     const decodedData = JSON.parse(
       Buffer.from(data, "base64").toString("utf-8")
     );
-    console.log(decodedData);
+    // console.log(decodedData);
 
     if (decodedData.status !== "COMPLETE") {
       return res.status(400).json({ messgae: "errror" });
@@ -112,7 +113,7 @@ exports.handleEsewaSuccess = async (req, res, next) => {
       .split(",")
       .map((field) => `${field}=${decodedData[field] || ""}`)
       .join(",");
-    console.log(message);
+    // console.log(message);
     const signature = createSignature(message);
 
     if (signature !== decodedData.signature) {
@@ -135,7 +136,7 @@ exports.createOrder = async (req, res) => {
     const signature = createSignature(
       `total_amount=${order.amount},transaction_uuid=${order._id},product_code=EPAYTEST`
     );
-    console.log(signature)
+    // console.log(signature)
     if (order.payment_method === "esewa") {
       const formData = {
         amount: order.amount,
@@ -163,15 +164,44 @@ exports.createOrder = async (req, res) => {
 };
 
 exports.updateOrderAfterPayment = async (req, res, next) => {
-  console.log("updating esewa payInfo")
+  // console.log("updating esewa payInfo")
   try {
     const order = await orderService.findById(req.transaction_uuid);
     order.status = "paid";
     order.transaction_code = req.transaction_code;
 
     await orderService.save(order);
-    res.redirect("http://localhost:5173");
+    return res.redirect("http://localhost:5173");
   } catch (err) {
     return res.status(400).json({ error: err?.message || "No Orders found" });
+  }
+};
+
+exports.getPromotionImage = async (req, res) => {
+  try {
+    console.log(req.body)
+    const newPromotion = new Promotion(req.body);
+    await newPromotion.save();
+    res.status(201).json({ message: 'Promotion stored successfully!' });
+  } catch (err) {
+    // console.error('Error:', err);
+    res.status(500).json({ message: 'Error storing promotion' });
+  }
+};
+
+exports.getSelectedPromotion = async (req, res) => {
+  console.log(req.query)
+  const { bannerId, adId } = req.query;
+  try {
+    //remove previous banner & advertisement
+    await Promotion.updateMany({ selected: true }, { $set: { selected: false } });
+    //add new banner & advertisement
+    await Promotion.updateMany(
+      { _id: { $in: [bannerId, adId] } },
+      { $set: { selected: true } }
+    );
+    res.status(200).send('Banner and Advertisement selected successfully.');
+  } catch (error) {
+    res.status(500).send('An error occurred.');
   }
 };

@@ -20,6 +20,10 @@ const orderSchema = new Schema({
         ref: "Products",
         required: true,
       },
+      frontView:{
+        type:String,
+        required:true,
+      },
       quantity: {
         type: Number,
         required: true,
@@ -33,9 +37,8 @@ const orderSchema = new Schema({
     enum: ["failed", "paid", "shipping", "delivered","pending"],
     default: "pending",
   },
-  costumer: {
-    type: Schema.Types.ObjectId,
-    ref: "Costumer",
+  costumerEmail: {
+    type: String,
     required: true,
   },
   address: {
