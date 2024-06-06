@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toggleCart } from '../../store/cartSlice'
 import Cookies from 'js-cookie'
 import { handleSuccessLogin } from '../../store/authSlice'
-import axios from 'axios'
 
 
 const Navbar = ({ data }) => {
@@ -49,7 +48,6 @@ const Navbar = ({ data }) => {
         Cookies.remove("googleToken", "connect.sid")
         window.open("http://localhost:3000/auth/google/logout", "_self")
     }
-    // console.log(googleUser)
     const handleSearch = async () => {
         if(search===''){
             return
@@ -99,7 +97,16 @@ const Navbar = ({ data }) => {
 
                                             {/* <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link> */}
                                         </>
-                                    ) :
+                                    ) : googleToken ?
+                                    <>
+                                            <box-icon name='user' className="bi-clr"></box-icon>
+                                            <ul className={!isDrop ? 'dropdown' : 'dropdownvisible'}>
+                                                <li><Link to='/customerProfile'>My Profile</Link></li>
+                                                <li onClick={getLogoutGoogle}>Logout</li>
+                                            </ul>
+
+                                            {/* <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link> */}
+                                        </> :
                                         (
 
                                             <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link>

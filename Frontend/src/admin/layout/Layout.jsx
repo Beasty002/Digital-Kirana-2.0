@@ -9,11 +9,9 @@ import "../components/css/sidebar.css"
 const Layout = ({ children }) => {
   return (
     <>
-   
       <div className='flex'>
         <AdminSideBar />
         <div className='flexd'>
-
           <AdminNavbar />
           {children}
         </div>

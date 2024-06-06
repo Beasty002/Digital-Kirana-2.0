@@ -1,25 +1,31 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 
-const PaymentForm = ({cartData,authData}) => {
-  const cart= useSelector(cart=>cart.cartItems)
-  // console.log(cartData,authData)
+const PaymentForm = ({ address, cartData, authData }) => {
+  const cart = cartData.cartItems;
 
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const generateCartItems = (carts) => {
+    return carts.map((cart) => ({
+      product:cart._id,
+      quantity:cart.cartQuantity,
+      frontView:cart.frontView,
+    }));
+  }
   const handlePayment = async (payment_method) => {
-    
+    console.log('esewa')
     const url = "http://localhost:3000/api/create";
     const data = {
-      amount: 1,
-      products: [
-        { product: cart, quantity: 12}
-      ],
+      amount: cartData.cartTotalAmount,
+      products: generateCartItems(cart),
       payment_method,
-      costumer: "665606745e163fe47b91f066",
+      costumerEmail: authData.user.email,
+      address: address,
     };
 
     setLoading(true);
@@ -66,6 +72,9 @@ const PaymentForm = ({cartData,authData}) => {
 
     document.body.appendChild(form);
     form.submit();
+    const clearCartItem = () => {
+        dispatch()
+    }
   };
 
   return (
@@ -75,7 +84,7 @@ const PaymentForm = ({cartData,authData}) => {
         <p>Loading...</p>
       ) : (
         <button
-          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 mx-2"
+          style={{ padding: "16px 16px", backgroundColor: "white", color: "black", borderRadius: "12px", cursor:"pointer", border:"1px solid green"}}
           onClick={() => handlePayment("esewa")}
         >
           Pay Through Esewa

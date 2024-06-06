@@ -25,8 +25,6 @@ const AdminNavbar = () => {
                             </span>
                         </p>
                     </li>
-
-
                 </ul>
             </nav>
         </>
