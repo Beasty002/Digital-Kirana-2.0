@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 // import Cart from '../cart/Cart'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleCart } from '../../store/cartSlice'
@@ -23,6 +23,7 @@ const Navbar = ({ data }) => {
     const [search, setSearch] = useState('')
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleDropDown = () =>{
         setIsDrop(!isDrop)
@@ -42,6 +43,23 @@ const Navbar = ({ data }) => {
     const handleGoogleLogout= () => {
         dispatch(getLogoutGoogle())
     }
+    // console.log(googleUser)
+    const handleSearch = async () => {
+        if(search===''){
+            return
+        }
+        // location.href=`/searchProduct/${search}`
+        navigate(`/searchProduct/${search}`)
+    };
+    const handleChange=(e)=>{
+        setSearch(e.target.value)
+    }
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+          handleSearch();
+        }
+      }
    
     return (
         <>
@@ -55,11 +73,11 @@ const Navbar = ({ data }) => {
                     </div>
                     <div className="menu-slider"> <box-icon name='menu-alt-left' ></box-icon>
                     </div>
-                    <div className="search-bar">
-                        {/* <i> */}
-                        {/* <box-icon name='search-alt-2'></box-icon> */}
-                        <input type="text" name="search" onChange={e => setSearch(e.target.value)} placeholder="Enter the product name...." />
-                        {/* </i> */}
+                    <div className="search-bar" style={{position:'relative'}}>
+                        <input type="text" name="search" onChange={handleChange} onKeyDown={handleKeyDown} placeholder="Enter the product name...." />
+                        <button onClick={handleSearch} style={{position:'absolute', right:'20px',top:'5px',backgroundColor:'transparent',border:'none', height:'100%',cursor:'pointer'}}>
+                            <box-icon name='search'></box-icon>
+                        </button>
                     </div>
                     <ul className="nav-items">
                         <li className='dropdown-container' onClick={handleDropDown}>

@@ -1,17 +1,24 @@
 /* eslint-disable react/prop-types */
 
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { addToCart} from '../../../store/cartSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { addToCart} from '../../../store/cartSlice'
+import {toggleCart} from "../../../store/cartSlice"
 const Product = ({data,change}) => {
+  const cart = useSelector(state => state.cart)
+  let isOpen = cart.isOpen
   const dispatch = useDispatch()
   const handleData = () => {
     change(data)
   }
-
+  const changeCart = () =>{
+    isOpen = !isOpen
+    dispatch(toggleCart(isOpen))
+}
   const handleAddToCart = product =>{
-      dispatch(addToCart(product))
+    changeCart()
+    dispatch(addToCart(product))
   }
 
   

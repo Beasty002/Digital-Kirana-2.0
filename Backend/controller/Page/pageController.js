@@ -171,7 +171,7 @@ exports.updateOrderAfterPayment = async (req, res, next) => {
     order.transaction_code = req.transaction_code;
 
     await orderService.save(order);
-    res.redirect("http://localhost:5173");
+    return res.redirect("http://localhost:5173");
   } catch (err) {
     return res.status(400).json({ error: err?.message || "No Orders found" });
   }
@@ -203,5 +203,25 @@ exports.getSelectedPromotion = async (req, res) => {
     res.status(200).send('Banner and Advertisement selected successfully.');
   } catch (error) {
     res.status(500).send('An error occurred.');
+  }
+};
+
+
+exports.getSearchData = async (req, res) => {
+  try {
+      const query = req.params.query;
+      if (!query) {
+          return res.status(400).json({ message: 'Search query is required' });
+      }
+
+      // Filtering products 
+      const products = await Product.find({
+          productName: { $regex: query, $options: 'i' }
+      });
+
+      res.status(200).json(products);
+  } catch (error) {
+      console.error('Error fetching search data:', error.message, error.stack); // More detailed logging
+      res.status(500).json({ message: 'Server error' });
   }
 };

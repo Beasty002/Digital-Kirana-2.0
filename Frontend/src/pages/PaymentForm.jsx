@@ -2,10 +2,11 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import axios from "axios";
-// import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 
 const PaymentForm = ({ address, cartData, authData }) => {
   const cart = cartData.cartItems;
+
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -71,6 +72,9 @@ const PaymentForm = ({ address, cartData, authData }) => {
 
     document.body.appendChild(form);
     form.submit();
+    const clearCartItem = () => {
+        dispatch()
+    }
   };
 
   return (
@@ -80,7 +84,7 @@ const PaymentForm = ({ address, cartData, authData }) => {
         <p>Loading...</p>
       ) : (
         <button
-          style={{ padding: "16px 16px", backgroundColor: "green !important", color: "black", border: "none", borderRadius: "12px" }}
+          style={{ padding: "16px 16px", backgroundColor: "white", color: "black", borderRadius: "12px", cursor:"pointer", border:"1px solid green"}}
           onClick={() => handlePayment("esewa")}
         >
           Pay Through Esewa

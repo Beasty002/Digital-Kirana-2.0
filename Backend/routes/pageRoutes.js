@@ -45,4 +45,9 @@ router.route("/promotionImage")
 router.route("/selectPromotion")
     .get(authMiddleware,pageControllers.getSelectedPromotion); 
 
+// @desc getSearchData
+// @route GET /api/search/query
+router.route("/search/:query")
+    .get(authMiddleware,pageControllers.getSearchData); 
+
 module.exports = router;
