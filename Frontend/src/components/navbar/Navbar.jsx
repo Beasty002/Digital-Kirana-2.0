@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleCart } from '../../store/cartSlice'
 import Cookies from 'js-cookie'
-import { handleSuccessLogin } from '../../store/authSlice'
+import { handleSuccessLogin,getLogoutGoogle } from '../../store/authSlice'
+
 
 
 const Navbar = ({ data }) => {
@@ -38,11 +39,10 @@ const Navbar = ({ data }) => {
     if (!googleToken && !userToken && !facebookToken) {
         dispatch(handleSuccessLogin())
     }
-
-    const getLogoutGoogle = async () => {
-        Cookies.remove("googleToken", "connect.sid")
-        window.open("http://localhost:3000/auth/google/logout", "_self")
+    const handleGoogleLogout= () => {
+        dispatch(getLogoutGoogle())
     }
+   
     return (
         <>
             <div className={isOpen ? 'overlayv' : 'overlay'}></div>
@@ -66,20 +66,26 @@ const Navbar = ({ data }) => {
 
                             <>
                                 {
-
                                     userToken ? (
                                         <>
-                                            <box-icon name='user' className="bi-clr"></box-icon>{auth.user.username}
+                                            <box-icon name='user' className="bi-clr"></box-icon>
                                             <ul className={!isDrop ? 'dropdown' : 'dropdownvisible'}>
                                                 <li><Link to='/customerProfile'>My Profile</Link></li>
                                                 <li onClick={handleLogout}>Logout</li>
                                             </ul>
 
-                                            {/* <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link> */}
+                                            
                                         </>
-                                    ) :
+                                    ) : googleToken ? (
+                                        <>
+                                           <box-icon name='user' className="bi-clr"></box-icon>
+                                            <ul className={!isDrop ? 'dropdown' : 'dropdownvisible'}>
+                                                <li><Link to='/customerProfile'>My Profile</Link></li>
+                                                <li onClick={handleGoogleLogout}>Logout</li>
+                                            </ul> 
+                                        </>
+                                        ) :
                                         (
-
                                             <Link to='/login' ><box-icon name='user' ></box-icon> Login</Link>
                                         )
                                 }

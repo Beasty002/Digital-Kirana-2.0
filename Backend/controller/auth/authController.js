@@ -363,13 +363,13 @@ exports.getSuccessLogin = async(req,res) => {
             const userToken = jwt.sign({id:req.user._id.toString()},process.env.USER_SECRET_KEY,{
                 expiresIn:"24h"
             })
-            const {username,email} = req.user
+            const {userName,email} = req.user
             res.status(200).json({
                 success: true,
                 message: "Successfully logged in",
                 cookies: req.cookies,
                 googleToken: userToken,
-                user:{username,email}
+                user:{userName,email}
             });
         } else {
             res.status(401).json({

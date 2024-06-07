@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../components/css/customerprofile.css'
 import Layout from '../components/layout/Layout'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
-
+import Cookies from "js-cookie"
 const CustomerProfile = () => {
+    const googleToken = Cookies.get('googleToken')
     const auth = useSelector(state=>state.auth)
-    const {email,username} = auth.user
+    let email,username;
+    if(googleToken){
+        username = auth.user.userName
+    } else {
+        username = auth.user.username;
+    }
+    email = auth.user.email;
+    
     // console.log(auth)
     const [allOrders,setOrders] = useState([])
-    const [failedOrder,setFailedOrder] = useState([])
+    // const [failedOrder,setFailedOrder] = useState([])
     const handleAPI = async () =>{
         const response = await axios.get('http://localhost:3000/admin/dashboard/allOrders')
-        // console.log(response.data.allOrders)
+        console.log(response.data.allOrders)
         setOrders(response.data.allOrders)
     }
     useEffect(()=>{
@@ -30,11 +38,11 @@ const CustomerProfile = () => {
                         <section className="customer-left-container">
                             <div className="customer-detail">
                                 <span className="label">Username: </span>
-                                <span className="value">{email}</span>
+                                <span className="value">{username}</span>
                             </div>
                             <div className="customer-detail">
                                 <span className="label">Email: </span>
-                                <span className="value">{username}</span>
+                                <span className="value">{email}</span>
                             </div>
                         </section>
                         <section className="customer-right-container">

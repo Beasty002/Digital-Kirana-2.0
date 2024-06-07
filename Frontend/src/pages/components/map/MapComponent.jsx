@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 
 function Map() {
     useEffect(() => {
-        const map = L.map('map').setView([51.505, -0.09], 13);
+        const map = L.map('map').setView([28.2096, 83.9856], 13);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -39,7 +39,7 @@ function Map() {
             }
         }
 
-        navigator.geolocation.watchPosition(success, error);
+        // navigator.geolocation.watchPosition(success, error);
 
         map.on('click', function (e) {
             var lat = e.latlng.lat;

@@ -72,12 +72,23 @@ export const handleSuccessLogin = () => {
         if (response.status === 200) {
             dispatch(setStatus(STATUS.SUCCESS))
             dispatch(setUser(response.data.user))
-            dispatch(setToken(response.data.userToken))
-            const {username,email} = response.data.user;
-            localStorage.setItem('user', JSON.stringify({username,email}));
+            dispatch(setToken(response.data.googleToken))
+            const {userName,email} = response.data.user;
+            localStorage.setItem('user', JSON.stringify({userName,email}));
             Cookies.set("googleToken", response.data.googleToken)
         } else{
             dispatch(setStatus(STATUS.ERROR))
         }
+    }
+}
+
+export const getLogoutGoogle =  () => {
+    return async (dispatch) => {
+        dispatch(setStatus(null))
+        dispatch(setUser(null))
+        dispatch(setToken(null))
+        localStorage.removeItem('user')
+        Cookies.remove("googleToken", "connect.sid")
+        window.open("http://localhost:3000/auth/google/logout", "_self")
     }
 }
